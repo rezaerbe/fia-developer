@@ -6,4 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".ui.DetailConsultantActivity">
 
+    <ImageView
+        android:id="@+id/consultantImageDetail"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/consultantNameDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Name"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consultantImageDetail" />
+
+    <TextView
+        android:id="@+id/consultantTopicDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Topic"
+        android:textAppearance="?attr/textAppearanceOverline"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consultantNameDetail" />
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/consultantRatingDetail"
+        style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
+
+    <TextView
+        android:id="@+id/consultantNumRatingDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="(10)"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toEndOf="@id/consultantRatingDetail"
+        app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
+
+    <TextView
+        android:id="@+id/consultantDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Description"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consultantRatingDetail" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

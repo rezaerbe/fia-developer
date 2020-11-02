@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/coachImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/coachName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/coachImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Name" />
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/coachRating"
+        style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/coachImage"
+        app:layout_constraintTop_toBottomOf="@+id/coachName" />
+
+    <TextView
+        android:id="@+id/coachNumRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="(10)"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/coachRating"
+        app:layout_constraintTop_toBottomOf="@+id/coachName" />
+
+    <TextView
+        android:id="@+id/coachTopic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Topic"
+        android:textAppearance="?attr/textAppearanceOverline"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/coachImage"
+        app:layout_constraintTop_toBottomOf="@+id/coachRating" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

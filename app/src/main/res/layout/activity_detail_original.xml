@@ -6,4 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.DetailOriginalActivity">
 
+    <ImageView
+        android:id="@+id/originalImageDetail"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/originalTitleDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Title"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/originalImageDetail" />
+
+    <TextView
+        android:id="@+id/originalSourceDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Source"
+        android:textAppearance="?attr/textAppearanceOverline"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/originalTitleDetail" />
+
+    <TextView
+        android:id="@+id/originalDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Description"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/originalSourceDetail" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
