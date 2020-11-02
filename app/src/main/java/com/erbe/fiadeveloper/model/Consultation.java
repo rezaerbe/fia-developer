@@ -1,0 +1,74 @@
+package com.erbe.fiadeveloper.model;
+
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
+public class Consultation {
+
+    private String userId;
+    private String userName;
+    private String consultantId;
+    private String consultantName;
+    private String status;
+    private Date timestamp;
+
+    public Consultation() {
+    }
+
+    public Consultation(String userId, String userName, String consultantId, String consultantName, String status) {
+        this.userId = userId;
+        this.userName = userName;
+        this.consultantId = consultantId;
+        this.consultantName = consultantName;
+        this.status = status;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getConsultantId() {
+        return consultantId;
+    }
+
+    public void setConsultantId(String consultantId) {
+        this.consultantId = consultantId;
+    }
+
+    public String getConsultantName() {
+        return consultantName;
+    }
+
+    public void setConsultantName(String consultantName) {
+        this.consultantName = consultantName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+}
