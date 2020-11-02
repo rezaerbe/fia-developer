@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "136036120231",
+    "firebase_url": "https://fia-developer.firebaseio.com",
+    "project_id": "fia-developer",
+    "storage_bucket": "fia-developer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136036120231:android:c12507521f45d13570cd82",
+        "android_client_info": {
+          "package_name": "com.erbe.fiadeveloper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136036120231-878sl84pklh9ilep6aqunt5r1e7kqjfi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.erbe.fiadeveloper",
+            "certificate_hash": "6a0ae460ac96c7cb41458a47c7a99296fcd196fb"
+          }
+        },
+        {
+          "client_id": "136036120231-48na3nl6f8k6ao3itn1qrd894vavcnje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGJ-Y8xIDoLHtyuBtvUD63R2hTPyWjAL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136036120231-48na3nl6f8k6ao3itn1qrd894vavcnje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
