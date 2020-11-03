@@ -8,29 +8,33 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.erbe.fiadeveloper.databinding.ItemArticleBinding;
-import com.erbe.fiadeveloper.model.Article;
+import com.erbe.fiadeveloper.R;
+import com.erbe.fiadeveloper.databinding.ItemCoachingBinding;
+import com.erbe.fiadeveloper.model.Coaching;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder> {
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-    public interface OnArticleSelectedListener {
+public class CoachingAdapter extends  FirestoreAdapter<CoachingAdapter.ViewHolder> {
 
-        void onArticleSelected(DocumentSnapshot article);
+    public interface OnCoachingSelectedListener {
+
+        void onCoachingSelected(DocumentSnapshot coaching);
 
     }
 
-    private OnArticleSelectedListener mListener;
+    private OnCoachingSelectedListener mListener;
 
-    public ArticleAdapter(Query query, OnArticleSelectedListener listener) {
+    public CoachingAdapter(Query query, OnCoachingSelectedListener listener) {
         super(query);
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemArticleBinding.inflate(
+        return new ViewHolder(ItemCoachingBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false));
     }
 
@@ -41,9 +45,9 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemArticleBinding binding;
+        private ItemCoachingBinding binding;
 
-        public ViewHolder(ItemArticleBinding binding) {
+        public ViewHolder(ItemCoachingBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -53,25 +57,25 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
         }
 
         public void bind(final DocumentSnapshot snapshot,
-                         final OnArticleSelectedListener listener) {
+                         final OnCoachingSelectedListener listener) {
 
-            Article article = snapshot.toObject(Article.class);
+            Coaching coaching = snapshot.toObject(Coaching.class);
             Resources resources = itemView.getResources();
 
-            // Load image
-            Glide.with(binding.articleImage.getContext())
-                    .load(article.getImage())
-                    .into(binding.articleImage);
+            final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+                    "MM/dd/yyyy", Locale.US);
 
-            binding.articleTitle.setText(article.getTitle());
-            binding.articleSource.setText(article.getSource());
+            binding.coachingName.setText(coaching.getCoachName());
+            binding.userName.setText(coaching.getUserName());
+            binding.coachingStatus.setText(coaching.getStatus());
+            binding.coachingDate.setText(FORMAT.format(coaching.getTimestamp()));
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onArticleSelected(snapshot);
+                        listener.onCoachingSelected(snapshot);
                     }
                 }
             });

@@ -7,30 +7,32 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.erbe.fiadeveloper.databinding.ItemArticleBinding;
-import com.erbe.fiadeveloper.model.Article;
+import com.erbe.fiadeveloper.databinding.ItemConsultationBinding;
+import com.erbe.fiadeveloper.model.Consultation;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder> {
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-    public interface OnArticleSelectedListener {
+public class ConsultationAdapter extends  FirestoreAdapter<ConsultationAdapter.ViewHolder> {
 
-        void onArticleSelected(DocumentSnapshot article);
+    public interface OnConsultationSelectedListener {
+
+        void onConsultationSelected(DocumentSnapshot consultation);
 
     }
 
-    private OnArticleSelectedListener mListener;
+    private OnConsultationSelectedListener mListener;
 
-    public ArticleAdapter(Query query, OnArticleSelectedListener listener) {
+    public ConsultationAdapter(Query query, OnConsultationSelectedListener listener) {
         super(query);
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemArticleBinding.inflate(
+        return new ViewHolder(ItemConsultationBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false));
     }
 
@@ -41,9 +43,9 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemArticleBinding binding;
+        private ItemConsultationBinding binding;
 
-        public ViewHolder(ItemArticleBinding binding) {
+        public ViewHolder(ItemConsultationBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -53,25 +55,25 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
         }
 
         public void bind(final DocumentSnapshot snapshot,
-                         final OnArticleSelectedListener listener) {
+                         final OnConsultationSelectedListener listener) {
 
-            Article article = snapshot.toObject(Article.class);
+            Consultation consultation = snapshot.toObject(Consultation.class);
             Resources resources = itemView.getResources();
 
-            // Load image
-            Glide.with(binding.articleImage.getContext())
-                    .load(article.getImage())
-                    .into(binding.articleImage);
+            final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+                    "MM/dd/yyyy", Locale.US);
 
-            binding.articleTitle.setText(article.getTitle());
-            binding.articleSource.setText(article.getSource());
+            binding.consultationName.setText(consultation.getConsultantName());
+            binding.userName.setText(consultation.getUserName());
+            binding.consultationStatus.setText(consultation.getStatus());
+            binding.consultationDate.setText(FORMAT.format(consultation.getTimestamp()));
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onArticleSelected(snapshot);
+                        listener.onConsultationSelected(snapshot);
                     }
                 }
             });

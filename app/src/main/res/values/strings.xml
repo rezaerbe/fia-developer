@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FIADeveloper</string>
+
+    <string name="fmt_num_ratings" translatable="false">(%d)</string>
 </resources>
