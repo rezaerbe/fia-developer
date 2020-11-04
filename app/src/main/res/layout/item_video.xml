@@ -11,7 +11,7 @@
         android:id="@+id/videoImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        tools:src="@drawable/ic_launcher_background"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

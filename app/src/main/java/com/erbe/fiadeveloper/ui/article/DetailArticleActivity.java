@@ -2,9 +2,12 @@ package com.erbe.fiadeveloper.ui.article;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
@@ -93,10 +96,23 @@ public class DetailArticleActivity extends AppCompatActivity implements EventLis
         onArticleLoaded(snapshot.toObject(Article.class));
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void onArticleLoaded(Article article) {
 
-        WebView articleWebView = (WebView) mBinding.articleWeb;
-        articleWebView.loadUrl(article.getLink());
+        WebView webView = findViewById(R.id.articleWeb);
+        webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+
+        // Tiga baris di bawah ini agar laman yang dimuat dapat
+        // melakukan zoom.
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
+        // Baris di bawah untuk menambahkan scrollbar di dalam WebView-nya
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl(article.getLink());
     }
 
 }

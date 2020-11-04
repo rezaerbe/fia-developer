@@ -2,4 +2,17 @@
     <string name="app_name">FIADeveloper</string>
 
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
+
+    <string name="sign_out">Sign Out</string>
+
+    <string name="title_sign_in_error">Sign In Error</string>
+    <string name="message_no_network">No network connection.</string>
+    <string name="message_unknown">Unknown error.</string>
+    <string name="option_retry">Retry</string>
+    <string name="option_exit">Exit</string>
+
+    <string name="start_chatting">No messages. Start chatting at the bottom!</string>
+    <string name="hint_message">Say something…</string>
+    <string name="send">Send</string>
+
 </resources>
