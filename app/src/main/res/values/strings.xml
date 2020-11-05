@@ -15,4 +15,5 @@
     <string name="hint_message">Say something…</string>
     <string name="send">Send</string>
 
+    <string name="rational_image_perm">This apps will read an image from local storage to upload to Cloud Storage.</string>
 </resources>

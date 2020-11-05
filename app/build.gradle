@@ -75,4 +75,6 @@ dependencies {
     implementation "androidx.paging:paging-runtime:2.1.2"
     implementation 'pub.devrel:easypermissions:3.0.0'
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

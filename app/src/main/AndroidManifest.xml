@@ -3,6 +3,7 @@
     package="com.erbe.fiadeveloper">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FIADeveloper">
-        <activity android:name=".ui.consultation.ListConsultationActivity"/>
+        <activity android:name=".ui.ProfileActivity" />
+        <activity android:name=".ui.consultation.ListConsultationActivity" />
         <activity android:name=".ui.coaching.ListCoachingActivity" />
         <activity android:name=".ui.original.DetailOriginalActivity" />
         <activity android:name=".ui.original.ListOriginalActivity" />

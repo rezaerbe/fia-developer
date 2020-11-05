@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -109,10 +110,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Map<String, Object> userNew = new HashMap<>();
                 userNew.put("userId", user.getUid());
                 userNew.put("userName", user.getDisplayName());
-                userNew.put("photo", "");
 
                 db.collection("user").document(user.getUid())
-                        .set(userNew)
+                        .set(userNew, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         });
             }
+
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
 
             if (resultCode != RESULT_OK) {
                 if (response == null) {
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                startActivity(new Intent(MainActivity.this, ReportActivity.class));
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 break;
             case R.id.button2:
                 startActivity(new Intent(MainActivity.this, CategoryArticleActivity.class));
