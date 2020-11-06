@@ -55,7 +55,6 @@ public class CategoryArticleAdapter extends  FirestoreAdapter<CategoryArticleAda
                          final OnCategoryArticleSelectedListener listener) {
 
             Category category = snapshot.toObject(Category.class);
-            Resources resources = itemView.getResources();
 
             binding.categoryArticle.setText(category.getCatName());
 

@@ -16,6 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class DetailConsultantActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
     private static final String TAG = "DetailConsultant";
@@ -83,12 +86,18 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
     }
 
     private void onConsultantLoaded(Consultant consultant) {
+
+        final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+                "MM/dd/yyyy", Locale.US);
+
         mBinding.consultantNameDetail.setText(consultant.getConsultantName());
         mBinding.consultantTopicDetail.setText(consultant.getTopic());
         mBinding.consultantDescription.setText(consultant.getDescription());
 
         mBinding.consultantRatingDetail.setRating((float) consultant.getAvgRating());
         mBinding.consultantNumRatingDetail.setText(getString(R.string.fmt_num_ratings, consultant.getNumRatings()));
+
+        mBinding.consultantAvailable.setText(FORMAT.format(consultant.getAvailable()));
 
         // Background image
         Glide.with(mBinding.consultantImageDetail.getContext())

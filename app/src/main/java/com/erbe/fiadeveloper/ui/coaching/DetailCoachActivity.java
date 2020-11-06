@@ -17,6 +17,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class DetailCoachActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
     private static final String TAG = "DetailCoach";
@@ -84,12 +87,18 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
     }
 
     private void onCoachLoaded(Coach coach) {
+
+        final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+                "MM/dd/yyyy", Locale.US);
+
         mBinding.coachNameDetail.setText(coach.getCoachName());
         mBinding.coachTopicDetail.setText(coach.getTopic());
         mBinding.coachDescription.setText(coach.getDescription());
 
         mBinding.coachRatingDetail.setRating((float) coach.getAvgRating());
         mBinding.coachNumRatingDetail.setText(getString(R.string.fmt_num_ratings, coach.getNumRatings()));
+
+        mBinding.coachAvailable.setText(FORMAT.format(coach.getAvailable()));
 
         // Background image
         Glide.with(mBinding.coachImageDetail.getContext())

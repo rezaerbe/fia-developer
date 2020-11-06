@@ -58,7 +58,6 @@ public class ConsultationAdapter extends  FirestoreAdapter<ConsultationAdapter.V
                          final OnConsultationSelectedListener listener) {
 
             Consultation consultation = snapshot.toObject(Consultation.class);
-            Resources resources = itemView.getResources();
 
             final SimpleDateFormat FORMAT  = new SimpleDateFormat(
                     "MM/dd/yyyy", Locale.US);

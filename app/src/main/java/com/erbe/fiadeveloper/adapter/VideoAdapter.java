@@ -56,11 +56,11 @@ public class VideoAdapter extends  FirestoreAdapter<VideoAdapter.ViewHolder> {
                          final OnVideoSelectedListener listener) {
 
             Video video = snapshot.toObject(Video.class);
-            Resources resources = itemView.getResources();
 
             // Load image
             Glide.with(binding.videoImage.getContext())
                     .load(video.getImage())
+                    .centerCrop()
                     .into(binding.videoImage);
 
             binding.videoTitle.setText(video.getTitle());

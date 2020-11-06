@@ -56,11 +56,11 @@ public class OriginalAdapter extends  FirestoreAdapter<OriginalAdapter.ViewHolde
                          final OnOriginalSelectedListener listener) {
 
             Original original = snapshot.toObject(Original.class);
-            Resources resources = itemView.getResources();
 
             // Load image
             Glide.with(binding.originalImage.getContext())
                     .load(original.getImage())
+                    .centerCrop()
                     .into(binding.originalImage);
 
             binding.originalTitle.setText(original.getTitle());

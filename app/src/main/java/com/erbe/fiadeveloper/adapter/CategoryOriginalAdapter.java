@@ -55,7 +55,6 @@ public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalA
                          final OnCategoryOriginalSelectedListener listener) {
 
             Category category = snapshot.toObject(Category.class);
-            Resources resources = itemView.getResources();
 
             binding.categoryOriginal.setText(category.getCatName());
 

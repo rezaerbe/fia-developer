@@ -60,14 +60,34 @@
         app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
 
     <TextView
+        android:id="@+id/available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AVAILABLE   |"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consultantRatingDetail" />
+
+    <TextView
+        android:id="@+id/consultantAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="01/01/2020"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toEndOf="@id/available"
+        app:layout_constraintTop_toBottomOf="@id/consultantRatingDetail" />
+
+    <TextView
         android:id="@+id/consultantDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Description"
-        android:textAppearance="?attr/textAppearanceBody1"
+        android:textAppearance="?attr/textAppearanceBody2"
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consultantRatingDetail" />
+        app:layout_constraintTop_toBottomOf="@id/available" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

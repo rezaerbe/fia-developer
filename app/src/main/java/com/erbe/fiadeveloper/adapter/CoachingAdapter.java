@@ -60,7 +60,6 @@ public class CoachingAdapter extends  FirestoreAdapter<CoachingAdapter.ViewHolde
                          final OnCoachingSelectedListener listener) {
 
             Coaching coaching = snapshot.toObject(Coaching.class);
-            Resources resources = itemView.getResources();
 
             final SimpleDateFormat FORMAT  = new SimpleDateFormat(
                     "MM/dd/yyyy", Locale.US);

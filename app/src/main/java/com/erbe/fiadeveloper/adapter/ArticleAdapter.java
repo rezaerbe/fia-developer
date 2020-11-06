@@ -57,12 +57,11 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
                          final OnArticleSelectedListener listener) {
 
             Article article = snapshot.toObject(Article.class);
-            Resources resources = itemView.getResources();
 
             // Load image
             Glide.with(binding.articleImage.getContext())
                     .load(article.getImage())
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .centerCrop()
                     .into(binding.articleImage);
 
             binding.articleTitle.setText(article.getTitle());
