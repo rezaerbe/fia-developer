@@ -34,10 +34,12 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
         mBinding = ActivityListVideoBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get ${LIMIT} restaurants
+        // Get video
         mQuery = mFirestore.collection("video");
 
         // RecyclerView
@@ -48,9 +50,11 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
                 if (getItemCount() == 0) {
                     mBinding.recyclerVideo.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerVideo.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -59,11 +63,13 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerVideo.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerVideo.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

@@ -33,10 +33,12 @@ public class ListConsultantActivity extends AppCompatActivity implements Consult
         mBinding = ActivityListConsultantBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get ${LIMIT} restaurants
+        // Get consultant
         mQuery = mFirestore.collection("consultant");
 
         // RecyclerView
@@ -47,9 +49,11 @@ public class ListConsultantActivity extends AppCompatActivity implements Consult
                 if (getItemCount() == 0) {
                     mBinding.recyclerConsultant.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerConsultant.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -58,11 +62,13 @@ public class ListConsultantActivity extends AppCompatActivity implements Consult
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerConsultant.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerConsultant.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

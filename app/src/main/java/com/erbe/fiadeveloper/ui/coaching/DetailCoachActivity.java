@@ -38,7 +38,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         mBinding = ActivityDetailCoachBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // Get restaurant ID from extras
+        // Get coach ID from extras
         String coachId = getIntent().getExtras().getString(KEY_COACH_ID);
         if (coachId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_COACH_ID);
@@ -47,7 +47,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get reference to the restaurant
+        // Get reference to the coach
         mCoachRef = mFirestore.collection("coach").document(coachId);
     }
 

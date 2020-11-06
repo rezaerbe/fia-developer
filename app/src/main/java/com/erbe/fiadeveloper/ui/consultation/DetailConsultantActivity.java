@@ -37,7 +37,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         mBinding = ActivityDetailConsultantBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // Get restaurant ID from extras
+        // Get consultant ID from extras
         String consultantId = getIntent().getExtras().getString(KEY_CONSULTANT_ID);
         if (consultantId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_CONSULTANT_ID);

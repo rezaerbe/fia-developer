@@ -33,10 +33,12 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
         mBinding = ActivityCategoryArticleBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get ${LIMIT} restaurants
+        // Get article
         mQuery = mFirestore.collection("article");
 
         // RecyclerView
@@ -47,9 +49,11 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
                 if (getItemCount() == 0) {
                     mBinding.recyclerCategoryArticle.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerCategoryArticle.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -58,11 +62,13 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerCategoryArticle.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerCategoryArticle.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

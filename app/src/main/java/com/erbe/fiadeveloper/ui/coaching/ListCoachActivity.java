@@ -33,10 +33,12 @@ public class ListCoachActivity extends AppCompatActivity implements CoachAdapter
         mBinding = ActivityListCoachBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get ${LIMIT} restaurants
+        // Get coach
         mQuery = mFirestore.collection("coach");
 
         // RecyclerView
@@ -47,9 +49,11 @@ public class ListCoachActivity extends AppCompatActivity implements CoachAdapter
                 if (getItemCount() == 0) {
                     mBinding.recyclerCoach.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerCoach.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -58,11 +62,13 @@ public class ListCoachActivity extends AppCompatActivity implements CoachAdapter
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerCoach.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerCoach.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

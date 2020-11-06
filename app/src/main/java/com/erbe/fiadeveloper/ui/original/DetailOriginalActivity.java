@@ -36,13 +36,13 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
         mBinding = ActivityDetailOriginalBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // Get restaurant ID from extras
+        // Get category ID from extras
         String categoryId = getIntent().getExtras().getString(ORIGINAL_CATEGORY_ID);
         if (categoryId == null) {
             throw new IllegalArgumentException("Must pass extra " + ORIGINAL_CATEGORY_ID);
         }
 
-        // Get restaurant ID from extras
+        // Get original ID from extras
         String originalId = getIntent().getExtras().getString(KEY_ORIGINAL_ID);
         if (originalId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_ORIGINAL_ID);
@@ -51,7 +51,7 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get reference to the restaurant
+        // Get reference to the original
         mOriginalRef = mFirestore.collection("original").document(categoryId);
         mListOriginalRef = mOriginalRef.collection("listoriginal").document(originalId);
 
@@ -94,6 +94,7 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
     }
 
     private void onOriginalLoaded(Original original) {
+
         mBinding.originalTitleDetail.setText(original.getTitle());
         mBinding.originalSourceDetail.setText(original.getSource());
         mBinding.originalDescription.setText(original.getDescription());

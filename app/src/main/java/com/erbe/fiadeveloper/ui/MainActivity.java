@@ -19,7 +19,9 @@ import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityMainBinding;
 import com.erbe.fiadeveloper.ui.article.CategoryArticleActivity;
 import com.erbe.fiadeveloper.ui.coaching.ListCoachActivity;
+import com.erbe.fiadeveloper.ui.coaching.ListCoachingActivity;
 import com.erbe.fiadeveloper.ui.consultation.ListConsultantActivity;
+import com.erbe.fiadeveloper.ui.consultation.ListConsultationActivity;
 import com.erbe.fiadeveloper.ui.original.CategoryOriginalActivity;
 import com.erbe.fiadeveloper.ui.video.ListVideoActivity;
 import com.erbe.fiadeveloper.viewmodel.MainActivityViewModel;
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBinding.button4.setOnClickListener(this);
         mBinding.button5.setOnClickListener(this);
         mBinding.button6.setOnClickListener(this);
+        mBinding.button7.setOnClickListener(this);
+        mBinding.button8.setOnClickListener(this);
 
     }
 
@@ -200,6 +204,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button6:
                 startActivity(new Intent(MainActivity.this, ListConsultantActivity.class));
+                break;
+            case R.id.button7:
+                startActivity(new Intent(MainActivity.this, ListCoachingActivity.class));
+                break;
+            case R.id.button8:
+                startActivity(new Intent(MainActivity.this, ListConsultationActivity.class));
                 break;
         }
     }

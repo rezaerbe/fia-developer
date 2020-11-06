@@ -1,11 +1,11 @@
 package com.erbe.fiadeveloper.ui.article;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.ArticleAdapter;
@@ -39,7 +39,9 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
         mBinding = ActivityListArticleBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // Get restaurant ID from extras
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
+        // Get category ID from extras
         categoryId = getIntent().getExtras().getString(ARTICLE_CATEGORY_ID);
         if (categoryId == null) {
             throw new IllegalArgumentException("Must pass extra " + ARTICLE_CATEGORY_ID);
@@ -60,9 +62,11 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
                 if (getItemCount() == 0) {
                     mBinding.recyclerArticle.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerArticle.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -71,11 +75,13 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerArticle.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerArticle.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

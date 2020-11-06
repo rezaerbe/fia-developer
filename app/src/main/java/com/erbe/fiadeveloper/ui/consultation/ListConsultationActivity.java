@@ -33,6 +33,8 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         mBinding = ActivityListConsultationBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -47,9 +49,11 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                 if (getItemCount() == 0) {
                     mBinding.recyclerConsultation.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerConsultation.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -58,11 +62,13 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerConsultation.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerConsultation.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

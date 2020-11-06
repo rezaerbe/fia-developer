@@ -7,14 +7,13 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.FIADeveloper">
-
+        android:theme="@style/Theme.FIADeveloper"
+        android:usesCleartextTraffic="true">
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.consultation.ListConsultationActivity" />
         <activity android:name=".ui.coaching.ListCoachingActivity" />

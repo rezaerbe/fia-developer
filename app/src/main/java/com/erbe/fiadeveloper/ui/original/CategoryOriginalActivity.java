@@ -32,10 +32,12 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
         mBinding = com.erbe.fiadeveloper.databinding.ActivityCategoryOriginalBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get ${LIMIT} restaurants
+        // Get original
         mQuery = mFirestore.collection("original");
 
         // RecyclerView
@@ -46,9 +48,11 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
                 if (getItemCount() == 0) {
                     mBinding.recyclerCategoryOriginal.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerCategoryOriginal.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -57,11 +61,13 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerCategoryOriginal.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerCategoryOriginal.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

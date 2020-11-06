@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
     private ActivityProfileBinding mBinding;
 
-    private static final String TAG = "ImageDemo";
+    private static final String TAG = "Image";
     private static final int RC_CHOOSE_PHOTO = 101;
     private static final int RC_IMAGE_PERMS = 102;
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;

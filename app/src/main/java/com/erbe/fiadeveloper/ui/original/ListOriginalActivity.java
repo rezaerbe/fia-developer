@@ -28,7 +28,6 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
 
     private FirebaseFirestore mFirestore;
     private DocumentReference mOriginalRef;
-    private Query mQuery;
 
     String categoryId;
 
@@ -41,7 +40,9 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
         mBinding = ActivityListOriginalBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // Get restaurant ID from extras
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
+        // Get category ID from extras
         categoryId = getIntent().getExtras().getString(ORIGINAL_CATEGORY_ID);
         if (categoryId == null) {
             throw new IllegalArgumentException("Must pass extra " + ORIGINAL_CATEGORY_ID);
@@ -49,8 +50,6 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
 
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
-
-        mQuery = mFirestore.collection("original");
 
         mOriginalRef = mFirestore.collection("original").document(categoryId);
 
@@ -64,9 +63,11 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
                 if (getItemCount() == 0) {
                     mBinding.recyclerOriginal.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerOriginal.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -75,11 +76,13 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerOriginal.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerOriginal.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override

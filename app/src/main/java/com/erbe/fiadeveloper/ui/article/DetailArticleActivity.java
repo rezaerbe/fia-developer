@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -39,13 +40,15 @@ public class DetailArticleActivity extends AppCompatActivity implements EventLis
         mBinding = ActivityDetailArticleBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // Get restaurant ID from extras
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
+        // Get category ID from extras
         String categoryId = getIntent().getExtras().getString(ARTICLE_CATEGORY_ID);
         if (categoryId == null) {
             throw new IllegalArgumentException("Must pass extra " + ARTICLE_CATEGORY_ID);
         }
 
-        // Get restaurant ID from extras
+        // Get article ID from extras
         String articleId = getIntent().getExtras().getString(KEY_ARTICLE_ID);
         if (articleId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_ARTICLE_ID);
@@ -54,7 +57,7 @@ public class DetailArticleActivity extends AppCompatActivity implements EventLis
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get reference to the restaurant
+        // Get reference to the article
         mArticleRef = mFirestore.collection("article").document(categoryId);
         mListArticleRef = mArticleRef.collection("listarticle").document(articleId);
 
@@ -109,9 +112,17 @@ public class DetailArticleActivity extends AppCompatActivity implements EventLis
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+
         // Baris di bawah untuk menambahkan scrollbar di dalam WebView-nya
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                mBinding.progressLoading.setVisibility(View.GONE);
+            }
+        });
+
         webView.loadUrl(article.getLink());
     }
 

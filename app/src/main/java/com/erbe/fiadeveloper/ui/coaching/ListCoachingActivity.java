@@ -33,6 +33,8 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
         mBinding = ActivityListCoachingBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -47,9 +49,11 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
                 if (getItemCount() == 0) {
                     mBinding.recyclerCoaching.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerCoaching.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
 
@@ -58,11 +62,13 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
         mBinding.recyclerCoaching.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerCoaching.setAdapter(mAdapter);
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
     @Override
