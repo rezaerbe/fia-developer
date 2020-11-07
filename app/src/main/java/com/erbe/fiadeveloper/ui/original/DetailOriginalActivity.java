@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
-import com.erbe.fiadeveloper.adapter.OriginalAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityDetailOriginalBinding;
 import com.erbe.fiadeveloper.model.Original;
 import com.google.firebase.firestore.DocumentReference;

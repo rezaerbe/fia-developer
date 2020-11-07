@@ -1,6 +1,5 @@
 package com.erbe.fiadeveloper.adapter;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-public class ConsultationAdapter extends  FirestoreAdapter<ConsultationAdapter.ViewHolder> {
+public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.ViewHolder> {
 
     public interface OnConsultationSelectedListener {
 
-        void onConsultationSelected(DocumentSnapshot consultation);
+        void onConsultationSelected(DocumentSnapshot consultation, Consultation model);
 
     }
 
@@ -62,6 +63,20 @@ public class ConsultationAdapter extends  FirestoreAdapter<ConsultationAdapter.V
             final SimpleDateFormat FORMAT  = new SimpleDateFormat(
                     "MM/dd/yyyy", Locale.US);
 
+            Date current = Calendar.getInstance().getTime();
+
+            if (consultation.getStatus().equals("accepted")) {
+                if (FORMAT.format(current).equals(FORMAT.format(consultation.getTimestamp()))) {
+                    consultation.setStatus("chat");
+                } else if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getTimestamp())) < 0) {
+                    consultation.setStatus("pending");
+                } else if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getTimestamp())) > 0) {
+                    consultation.setStatus("rate");
+                }
+            } else {
+                consultation.setStatus("finished");
+            }
+
             binding.consultationName.setText(consultation.getConsultantName());
             binding.userName.setText(consultation.getUserName());
             binding.consultationStatus.setText(consultation.getStatus());
@@ -72,7 +87,7 @@ public class ConsultationAdapter extends  FirestoreAdapter<ConsultationAdapter.V
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onConsultationSelected(snapshot);
+                        listener.onConsultationSelected(snapshot, consultation);
                     }
                 }
             });

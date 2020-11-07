@@ -9,20 +9,18 @@ public class Consultant {
     private String topic;
     private String description;
     private String photo;
-    private Date available;
     private int numRatings;
     private double avgRating;
 
     public Consultant() {
     }
 
-    public Consultant(String consultantId, String consultantName, String topic, String description, String photo, Date available, int numRatings, double avgRating) {
+    public Consultant(String consultantId, String consultantName, String topic, String description, String photo, int numRatings, double avgRating) {
         this.consultantId = consultantId;
         this.consultantName = consultantName;
         this.topic = topic;
         this.description = description;
         this.photo = photo;
-        this.available = available;
         this.numRatings = numRatings;
         this.avgRating = avgRating;
     }
@@ -65,14 +63,6 @@ public class Consultant {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    public Date getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Date available) {
-        this.available = available;
     }
 
     public int getNumRatings() {

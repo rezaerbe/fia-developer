@@ -6,11 +6,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityDetailArticleBinding;
 import com.erbe.fiadeveloper.model.Article;

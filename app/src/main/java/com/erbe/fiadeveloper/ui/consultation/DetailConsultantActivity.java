@@ -1,25 +1,43 @@
 package com.erbe.fiadeveloper.ui.consultation;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
+import com.erbe.fiadeveloper.adapter.AvailableAdapter;
+import com.erbe.fiadeveloper.adapter.RatingAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityDetailConsultantBinding;
+import com.erbe.fiadeveloper.model.Available;
 import com.erbe.fiadeveloper.model.Consultant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
-public class DetailConsultantActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
+public class DetailConsultantActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, AvailableAdapter.OnAvailableSelectedListener {
 
     private static final String TAG = "DetailConsultant";
 
@@ -30,6 +48,17 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
     private FirebaseFirestore mFirestore;
     private DocumentReference mConsultantRef;
     private ListenerRegistration mConsultantRegistration;
+
+    private RatingAdapter mRatingAdapter;
+    private AvailableAdapter mAvailableAdapter;
+
+    String consultantId;
+
+    private Consultant consultantModel;
+
+    private Date current;
+
+    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +72,70 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
             throw new IllegalArgumentException("Must pass extra " + KEY_CONSULTANT_ID);
         }
 
+        current = Calendar.getInstance().getTime();
+
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get reference to the restaurant
+        // Get reference to the consultant
         mConsultantRef = mFirestore.collection("consultant").document(consultantId);
+
+        // Get ratings
+        Query ratingsQuery = mConsultantRef
+                .collection("ratings")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(50);
+
+        // Get available
+        Query availableQuery = mConsultantRef
+                .collection("available")
+                .orderBy("available", Query.Direction.DESCENDING)
+                .limit(50);
+
+        // RecyclerView
+        mAvailableAdapter = new AvailableAdapter(availableQuery, this) {
+            @Override
+            protected void onDataChanged() {
+                // Show/hide content if the query returns empty.
+                if (getItemCount() == 0) {
+                    mBinding.recyclerAvailable.setVisibility(View.GONE);
+                } else {
+                    mBinding.recyclerAvailable.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        mBinding.recyclerAvailable.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerAvailable.setAdapter(mAvailableAdapter);
+
+        // RecyclerView
+        mRatingAdapter = new RatingAdapter(ratingsQuery) {
+            @Override
+            protected void onDataChanged() {
+                if (getItemCount() == 0) {
+                    mBinding.recyclerRatings.setVisibility(View.GONE);
+                } else {
+                    mBinding.recyclerRatings.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        mBinding.recyclerRatings.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerRatings.setAdapter(mRatingAdapter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        mRatingAdapter.startListening();
+        mAvailableAdapter.startListening();
         mConsultantRegistration = mConsultantRef.addSnapshotListener(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+
+        mRatingAdapter.stopListening();
+        mAvailableAdapter.stopListening();
 
         if (mConsultantRegistration != null) {
             mConsultantRegistration.remove();
@@ -85,10 +162,78 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         onConsultantLoaded(snapshot.toObject(Consultant.class));
     }
 
+    @Override
+    public void onAvailableSelected(DocumentSnapshot available, Available model) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DocumentReference docRef = mFirestore.collection("consultant").document(consultantId).collection("available").document(available.getId()).collection("user").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Toast.makeText(DetailConsultantActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getAvailable())) < 0) {
+                            Map<String, Object> userId = new HashMap<>();
+                            userId.put("userId", user.getUid());
+
+                            mFirestore.collection("consultant").document(consultantId).collection("available").document(available.getId()).collection("user").document(user.getUid())
+                                    .set(userId)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+//                                        Toast.makeText(DetailConsultantActivity.this, "This request is already sent", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+
+                            Map<String, Object> consultation = new HashMap<>();
+                            consultation.put("consultantId", consultantModel.getConsultantId());
+                            consultation.put("consultantName", consultantModel.getConsultantName());
+                            consultation.put("userId", user.getUid());
+                            consultation.put("userName", user.getDisplayName());
+                            consultation.put("status", "accepted");
+                            consultation.put("timestamp", model.getAvailable());
+
+                            mFirestore.collection("consultation")
+                                    .add(consultation)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Toast.makeText(DetailConsultantActivity.this, "Submit success", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error adding document", e);
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(DetailConsultantActivity.this, "This request is not available", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
     private void onConsultantLoaded(Consultant consultant) {
 
-        final SimpleDateFormat FORMAT  = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.US);
+        consultantId = consultant.getConsultantId();
+
+        consultantModel = consultant;
 
         mBinding.consultantNameDetail.setText(consultant.getConsultantName());
         mBinding.consultantTopicDetail.setText(consultant.getTopic());
@@ -96,8 +241,6 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
 
         mBinding.consultantRatingDetail.setRating((float) consultant.getAvgRating());
         mBinding.consultantNumRatingDetail.setText(getString(R.string.fmt_num_ratings, consultant.getNumRatings()));
-
-        mBinding.consultantAvailable.setText(FORMAT.format(consultant.getAvailable()));
 
         // Background image
         Glide.with(mBinding.consultantImageDetail.getContext())

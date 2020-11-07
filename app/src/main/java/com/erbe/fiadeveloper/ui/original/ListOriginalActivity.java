@@ -10,7 +10,6 @@ import android.view.View;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.OriginalAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityListOriginalBinding;
-import com.erbe.fiadeveloper.ui.article.DetailArticleActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

@@ -16,89 +16,126 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_launcher_background" />
 
-    <TextView
-        android:id="@+id/consultantNameDetail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="Name"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consultantImageDetail" />
-
-    <TextView
-        android:id="@+id/consultantTopicDetail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="Topic"
-        android:textAppearance="?attr/textAppearanceOverline"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consultantNameDetail" />
-
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/consultantRatingDetail"
-        style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
-
-    <TextView
-        android:id="@+id/consultantNumRatingDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="(10)"
-        android:textAppearance="?attr/textAppearanceCaption"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toEndOf="@id/consultantRatingDetail"
-        app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
-
-    <TextView
-        android:id="@+id/available"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AVAILABLE   |"
-        android:textAppearance="?attr/textAppearanceCaption"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consultantRatingDetail" />
-
-    <TextView
-        android:id="@+id/consultantAvailable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="01/01/2020"
-        android:textAppearance="?attr/textAppearanceCaption"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@id/available"
-        app:layout_constraintTop_toBottomOf="@id/consultantRatingDetail" />
-
-    <TextView
-        android:id="@+id/consultantDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="Description"
-        android:textAppearance="?attr/textAppearanceBody2"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/available" />
-
-    <Button
-        android:id="@+id/request"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        android:text="Request"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consultantImageDetail">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/consultantNameDetail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Name"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/consultantTopicDetail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Topic"
+                android:textAppearance="?attr/textAppearanceOverline"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consultantNameDetail" />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/consultantRatingDetail"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
+
+            <TextView
+                android:id="@+id/consultantNumRatingDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="(10)"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toEndOf="@id/consultantRatingDetail"
+                app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
+
+            <TextView
+                android:id="@+id/consultantDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Description"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consultantNumRatingDetail" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#5d5d5d"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consultantDescription" />
+
+            <!-- Ratings -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerAvailable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1"
+                tools:listitem="@layout/item_available" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#5d5d5d"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerAvailable" />
+
+            <!-- Ratings -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerRatings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2"
+                tools:listitem="@layout/item_rating" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

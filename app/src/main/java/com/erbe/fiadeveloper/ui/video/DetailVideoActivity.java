@@ -1,29 +1,15 @@
 package com.erbe.fiadeveloper.ui.video;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.renderscript.RenderScript;
 import android.util.Log;
-import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityDetailVideoBinding;
-import com.erbe.fiadeveloper.databinding.ActivityDetailVideoBinding;
-import com.erbe.fiadeveloper.model.Article;
 import com.erbe.fiadeveloper.model.Video;
-import com.erbe.fiadeveloper.model.Video;
-import com.erbe.fiadeveloper.ui.ProfileActivity;
-import com.erbe.fiadeveloper.util.GlideApp;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -36,7 +22,6 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
     private static final String TAG = "DetailVideo";
 
     public static final String KEY_VIDEO_ID = "key_video_id";
-    public static final String VIDEO_CATEGORY_ID = "video_category_id";
 
     private ActivityDetailVideoBinding mBinding;
 

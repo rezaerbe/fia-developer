@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/ratingItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:maxWidth="120dp"
+        android:layout_alignParentStart="true"
+        tools:text="John Doe" />
+
+    <TextView
+        android:id="@+id/ratingItemDivider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_toEndOf="@+id/ratingItemName"
+        android:text="  |  " />
+
+    <TextView
+        android:id="@+id/ratingItemDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_toStartOf="@+id/ratingItemRating"
+        android:layout_toEndOf="@+id/ratingItemDivider"
+        tools:text="9/27/2017" />
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/ratingItemRating"
+        style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/ratingItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:layout_below="@+id/ratingItemName"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        tools:text="I thought it was pretty great! And I really have a ton to say wow." />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/ratingItemText"
+        android:background="#5d5d5d"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+</RelativeLayout>

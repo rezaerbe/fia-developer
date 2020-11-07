@@ -6,29 +6,32 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.erbe.fiadeveloper.databinding.ItemCategoryOriginalBinding;
-import com.erbe.fiadeveloper.model.Category;
+import com.erbe.fiadeveloper.databinding.ItemAvailableBinding;
+import com.erbe.fiadeveloper.model.Available;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalAdapter.ViewHolder> {
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-    public interface OnCategoryOriginalSelectedListener {
+public class AvailableAdapter extends  FirestoreAdapter<AvailableAdapter.ViewHolder> {
 
-        void onCategoryOriginalSelected(DocumentSnapshot category);
+    public interface OnAvailableSelectedListener {
+
+        void onAvailableSelected(DocumentSnapshot available, Available model);
 
     }
 
-    private OnCategoryOriginalSelectedListener mListener;
+    private OnAvailableSelectedListener mListener;
 
-    public CategoryOriginalAdapter(Query query, OnCategoryOriginalSelectedListener listener) {
+    public AvailableAdapter(Query query, OnAvailableSelectedListener listener) {
         super(query);
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemCategoryOriginalBinding.inflate(
+        return new ViewHolder(ItemAvailableBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false));
     }
 
@@ -39,9 +42,9 @@ public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalA
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemCategoryOriginalBinding binding;
+        private ItemAvailableBinding binding;
 
-        public ViewHolder(ItemCategoryOriginalBinding binding) {
+        public ViewHolder(ItemAvailableBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -51,18 +54,21 @@ public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalA
         }
 
         public void bind(final DocumentSnapshot snapshot,
-                         final OnCategoryOriginalSelectedListener listener) {
+                         final OnAvailableSelectedListener listener) {
 
-            Category category = snapshot.toObject(Category.class);
+            final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+                    "MM/dd/yyyy", Locale.US);
 
-            binding.categoryOriginal.setText(category.getCatName());
+            Available available = snapshot.toObject(Available.class);
+
+            binding.dateAvailable.setText(FORMAT.format(available.getAvailable()));
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onCategoryOriginalSelected(snapshot);
+                        listener.onAvailableSelected(snapshot, available);
                     }
                 }
             });
@@ -70,3 +76,4 @@ public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalA
 
     }
 }
+
