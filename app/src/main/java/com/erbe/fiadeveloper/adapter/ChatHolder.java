@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ChatHolder extends RecyclerView.ViewHolder {
-
     private final TextView mNameField;
     private final TextView mTextField;
     private final FrameLayout mLeftArrow;
@@ -44,11 +43,11 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(@NonNull Chat chat) {
-        setName(chat.getmName());
-        setMessage(chat.getmMessage());
+        setName(chat.getName());
+        setMessage(chat.getMessage());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        setIsSender(currentUser != null && chat.getmUid().equals(currentUser.getUid()));
+        setIsSender(currentUser != null && chat.getUid().equals(currentUser.getUid()));
     }
 
     private void setName(@Nullable String name) {

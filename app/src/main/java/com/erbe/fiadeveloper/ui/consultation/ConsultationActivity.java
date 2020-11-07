@@ -1,6 +1,7 @@
 package com.erbe.fiadeveloper.ui.consultation;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.ChatHolder;
+import com.erbe.fiadeveloper.databinding.ActivityCoachingBinding;
 import com.erbe.fiadeveloper.databinding.ActivityConsultationBinding;
 import com.erbe.fiadeveloper.model.Chat;
 import com.firebase.ui.auth.util.ui.ImeHelper;
@@ -26,26 +28,46 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+/**
+ * Class demonstrating how to setup a {@link RecyclerView} with an adapter while taking sign-in
+ * states into consideration. Also demonstrates adding data to a ref and then reading it back using
+ * the {@link FirestoreRecyclerAdapter} to build a simple chat app.
+ * <p>
+ * For a general intro to the RecyclerView, see <a href="https://developer.android.com/training/material/lists-cards.html">Creating
+ * Lists</a>.
+ */
 @SuppressLint("RestrictedApi")
-public class ConsultationActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
-
-    public static final String KEY_CONSULTATION_ID = "key_consultation_id";
-
-    private static final String TAG = "ConsultationActivity";
+public class ConsultationActivity extends AppCompatActivity
+        implements FirebaseAuth.AuthStateListener {
+    private static final String TAG = "FirestoreChatActivity";
 
     private ActivityConsultationBinding mBinding;
 
-    private static final CollectionReference sChatCollection =
-            FirebaseFirestore.getInstance().collection("consultation").document(KEY_CONSULTATION_ID).collection("chats");
+    private CollectionReference sChatCollection;
     /** Get the last 50 chat messages ordered by timestamp . */
-    private static final Query sChatQuery =
-            sChatCollection.orderBy("timestamp", Query.Direction.DESCENDING).limit(50);
+    private Query sChatQuery;
+
+    public static final String KEY_CONSULTATION_ID = "key_consultation_id";
+
+    static {
+        FirebaseFirestore.setLoggingEnabled(true);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityConsultationBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        // Get category ID from extras
+        String consultationId = getIntent().getExtras().getString(KEY_CONSULTATION_ID);
+        if (consultationId == null) {
+            throw new IllegalArgumentException("Must pass extra " + KEY_CONSULTATION_ID);
+        }
+
+        sChatCollection = FirebaseFirestore.getInstance().collection("consultation").document(consultationId).collection("chats");
+
+        sChatQuery = sChatCollection.orderBy("timestamp", Query.Direction.DESCENDING).limit(50);
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setReverseLayout(true);
@@ -107,7 +129,7 @@ public class ConsultationActivity extends AppCompatActivity implements FirebaseA
         if (isSignedIn()) {
             attachRecyclerViewAdapter();
         } else {
-            Toast.makeText(this, "Error: maaf terjadi kesalahan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error: maaf terjadi kesalahan", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -131,7 +153,7 @@ public class ConsultationActivity extends AppCompatActivity implements FirebaseA
 
     public void onSendClick() {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String name = "User " + uid.substring(0, 6);
+        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
         onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
 

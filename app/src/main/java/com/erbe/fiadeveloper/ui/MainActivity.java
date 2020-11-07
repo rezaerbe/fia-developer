@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AuthUI.getInstance().signOut(this);
                 startSignIn();
                 break;
+            case R.id.menu_profile:
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -188,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, ReportActivity.class));
                 break;
             case R.id.button2:
                 startActivity(new Intent(MainActivity.this, CategoryArticleActivity.class));

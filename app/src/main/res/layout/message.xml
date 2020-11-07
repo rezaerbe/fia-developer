@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             tools:text="Hey this is a message, look!" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             tools:text="Some User" />
 
     </LinearLayout>

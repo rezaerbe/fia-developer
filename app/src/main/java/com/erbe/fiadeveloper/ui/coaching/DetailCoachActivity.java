@@ -1,15 +1,25 @@
 package com.erbe.fiadeveloper.ui.coaching;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityDetailCoachBinding;
 import com.erbe.fiadeveloper.model.Coach;
+import com.erbe.fiadeveloper.ui.MainActivity;
+import com.erbe.fiadeveloper.ui.ReportActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -18,7 +28,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class DetailCoachActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
@@ -89,7 +103,9 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
     private void onCoachLoaded(Coach coach) {
 
         final SimpleDateFormat FORMAT  = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.US);
+                "MM/dd/yyyy", Locale.getDefault());
+
+        Date current = Calendar.getInstance().getTime();
 
         mBinding.coachNameDetail.setText(coach.getCoachName());
         mBinding.coachTopicDetail.setText(coach.getTopic());
@@ -99,6 +115,47 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         mBinding.coachNumRatingDetail.setText(getString(R.string.fmt_num_ratings, coach.getNumRatings()));
 
         mBinding.coachAvailable.setText(FORMAT.format(coach.getAvailable()));
+
+        if (FORMAT.format(current).compareTo(FORMAT.format(coach.getAvailable())) < 0) {
+            mBinding.request.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Firestore
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        Map<String, Object> coaching = new HashMap<>();
+                        coaching.put("coachId", coach.getCoachId());
+                        coaching.put("coachName", coach.getCoachName());
+                        coaching.put("userId", user.getUid());
+                        coaching.put("userName", user.getDisplayName());
+                        coaching.put("status", "pending");
+                        coaching.put("timestamp", coach.getAvailable());
+
+                        mFirestore.collection("coaching")
+                                .add(coaching)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(DetailCoachActivity.this, "Submit success", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
+                    }
+                }
+            });
+        } else {
+            mBinding.request.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(DetailCoachActivity.this, "Coach not available", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         // Background image
         Glide.with(mBinding.coachImageDetail.getContext())

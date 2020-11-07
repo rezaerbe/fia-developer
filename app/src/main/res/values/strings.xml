@@ -4,6 +4,7 @@
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
 
     <string name="sign_out">Sign Out</string>
+    <string name="profile">Profile</string>
 
     <string name="title_sign_in_error">Sign In Error</string>
     <string name="message_no_network">No network connection.</string>

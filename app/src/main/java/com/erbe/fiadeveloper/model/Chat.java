@@ -3,59 +3,66 @@ package com.erbe.fiadeveloper.model;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
+@IgnoreExtraProperties
 public class Chat {
-
     private String mName;
     private String mMessage;
     private String mUid;
     private Date mTimestamp;
 
     public Chat() {
+        // Needed for Firebase
     }
 
-    public Chat(String mName, String mMessage, String mUid) {
-        this.mName = mName;
-        this.mMessage = mMessage;
-        this.mUid = mUid;
+    public Chat(@Nullable String name, @Nullable String message, @NonNull String uid) {
+        mName = name;
+        mMessage = message;
+        mUid = uid;
     }
 
-    public String getmName() {
+    @Nullable
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(@Nullable String name) {
+        mName = name;
     }
 
-    public String getmMessage() {
+    @Nullable
+    public String getMessage() {
         return mMessage;
     }
 
-    public void setmMessage(String mMessage) {
-        this.mMessage = mMessage;
+    public void setMessage(@Nullable String message) {
+        mMessage = message;
     }
 
-    public String getmUid() {
+    @NonNull
+    public String getUid() {
         return mUid;
     }
 
-    public void setmUid(String mUid) {
-        this.mUid = mUid;
+    public void setUid(@NonNull String uid) {
+        mUid = uid;
     }
 
     @ServerTimestamp
-    public Date getmTimestamp() {
+    @Nullable
+    public Date getTimestamp() {
         return mTimestamp;
     }
 
-    public void setmTimestamp(Date mTimestamp) {
-        this.mTimestamp = mTimestamp;
+    public void setTimestamp(@Nullable Date timestamp) {
+        mTimestamp = timestamp;
     }
 
+    @Override
     public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -68,6 +75,7 @@ public class Chat {
                 && (mMessage == null ? chat.mMessage == null : mMessage.equals(chat.mMessage));
     }
 
+    @Override
     public int hashCode() {
         int result = mName == null ? 0 : mName.hashCode();
         result = 31 * result + (mMessage == null ? 0 : mMessage.hashCode());
@@ -77,6 +85,7 @@ public class Chat {
     }
 
     @NonNull
+    @Override
     public String toString() {
         return "Chat{" +
                 "mName='" + mName + '\'' +
