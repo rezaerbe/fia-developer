@@ -12,26 +12,41 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FIADeveloper"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".ui.ProfileActivity" />
-        <activity android:name=".ui.consultation.ListConsultationActivity" />
-        <activity android:name=".ui.coaching.ListCoachingActivity" />
-        <activity android:name=".ui.original.DetailOriginalActivity" />
-        <activity android:name=".ui.original.ListOriginalActivity" />
+        android:theme="@style/Theme.FIADeveloper" >
+
+
         <activity android:name=".ui.original.CategoryOriginalActivity" />
-        <activity android:name=".ui.video.DetailVideoActivity" />
+        <activity android:name=".ui.original.ListOriginalActivity" />
+        <activity android:name=".ui.original.DetailOriginalActivity"
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+
         <activity android:name=".ui.video.ListVideoActivity" />
-        <activity android:name=".ui.article.DetailArticleActivity" />
-        <activity android:name=".ui.article.ListArticleActivity" />
+        <activity android:name=".ui.video.DetailVideoActivity"
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+
         <activity android:name=".ui.article.CategoryArticleActivity" />
+        <activity android:name=".ui.article.ListArticleActivity" />
+        <activity android:name=".ui.article.DetailArticleActivity"
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+
+        <activity android:name=".ui.coaching.ListCoachingActivity" />
         <activity android:name=".ui.coaching.CoachingActivity" />
-        <activity android:name=".ui.coaching.DetailCoachActivity" />
+
         <activity android:name=".ui.coaching.ListCoachActivity" />
+        <activity android:name=".ui.coaching.DetailCoachActivity"
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+
+        <activity android:name=".ui.consultation.ListConsultationActivity" />
         <activity android:name=".ui.consultation.ConsultationActivity" />
-        <activity android:name=".ui.consultation.DetailConsultantActivity" />
+
         <activity android:name=".ui.consultation.ListConsultantActivity" />
-        <activity android:name=".ui.ReportActivity" />
+        <activity android:name=".ui.consultation.DetailConsultantActivity"
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+
+        <activity android:name=".ui.ProfileActivity"
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+        <activity android:name=".ui.ReportActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

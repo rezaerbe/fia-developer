@@ -9,12 +9,13 @@
     <ImageView
         android:id="@+id/consultantImageDetail"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        tools:src="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,6 +77,18 @@
                 app:layout_constraintTop_toBottomOf="@id/consultantTopicDetail" />
 
             <TextView
+                android:id="@+id/about"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/about"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consultantNumRatingDetail" />
+
+            <TextView
                 android:id="@+id/consultantDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -84,7 +97,7 @@
                 android:layout_margin="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/consultantNumRatingDetail" />
+                app:layout_constraintTop_toBottomOf="@id/about" />
 
             <View
                 android:id="@+id/divider1"
@@ -96,18 +109,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/consultantDescription" />
 
+            <TextView
+                android:id="@+id/available"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/available"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1" />
+
             <!-- Ratings -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerAvailable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
+                android:paddingTop="8dp"
                 android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider1"
+                app:layout_constraintTop_toBottomOf="@id/available"
                 tools:listitem="@layout/item_available" />
 
             <View
@@ -120,18 +146,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerAvailable" />
 
+            <TextView
+                android:id="@+id/review"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/review"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
             <!-- Ratings -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerRatings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingTop="16dp"
+                android:paddingTop="8dp"
                 android:paddingBottom="16dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/review"
                 tools:listitem="@layout/item_rating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,8 @@ import com.erbe.fiadeveloper.databinding.ItemRatingBinding;
 import com.erbe.fiadeveloper.model.Rating;
 import com.google.firebase.firestore.Query;
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -20,6 +22,7 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
     public RatingAdapter(Query query) {
         super(query);
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,7 +40,7 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
         private static final SimpleDateFormat FORMAT  = new SimpleDateFormat(
                 "MM/dd/yyyy", Locale.US);
 
-        private ItemRatingBinding binding;
+        private final ItemRatingBinding binding;
 
         public ViewHolder(ItemRatingBinding binding) {
             super(binding.getRoot());

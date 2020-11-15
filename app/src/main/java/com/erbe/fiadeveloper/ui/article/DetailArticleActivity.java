@@ -21,7 +21,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 
 public class DetailArticleActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
-    private static final String TAG = "DetailArticle";
+    private static final String TAG = "DetailArticleActivity";
 
     public static final String KEY_ARTICLE_ID = "key_article_id";
     public static final String ARTICLE_CATEGORY_ID = "article_category_id";

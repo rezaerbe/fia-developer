@@ -21,10 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ChatHolder extends RecyclerView.ViewHolder {
-    private final TextView mNameField;
+
+//    private final TextView mNameField;
     private final TextView mTextField;
-    private final FrameLayout mLeftArrow;
-    private final FrameLayout mRightArrow;
+//    private final FrameLayout mLeftArrow;
+//    private final FrameLayout mRightArrow;
     private final RelativeLayout mMessageContainer;
     private final LinearLayout mMessage;
     private final int mPurple200;
@@ -32,10 +33,10 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 
     public ChatHolder(@NonNull View itemView) {
         super(itemView);
-        mNameField = itemView.findViewById(R.id.name_text);
+//        mNameField = itemView.findViewById(R.id.name_text);
         mTextField = itemView.findViewById(R.id.message_text);
-        mLeftArrow = itemView.findViewById(R.id.left_arrow);
-        mRightArrow = itemView.findViewById(R.id.right_arrow);
+//        mLeftArrow = itemView.findViewById(R.id.left_arrow);
+//        mRightArrow = itemView.findViewById(R.id.right_arrow);
         mMessageContainer = itemView.findViewById(R.id.message_container);
         mMessage = itemView.findViewById(R.id.message);
         mPurple200 = ContextCompat.getColor(itemView.getContext(), R.color.purple_200);
@@ -43,16 +44,16 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(@NonNull Chat chat) {
-        setName(chat.getName());
+//        setName(chat.getName());
         setMessage(chat.getMessage());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         setIsSender(currentUser != null && chat.getUid().equals(currentUser.getUid()));
     }
 
-    private void setName(@Nullable String name) {
-        mNameField.setText(name);
-    }
+//    private void setName(@Nullable String name) {
+//        mNameField.setText(name);
+//    }
 
     private void setMessage(@Nullable String text) {
         mTextField.setText(text);
@@ -62,20 +63,20 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         final int color;
         if (isSender) {
             color = mPurple200;
-            mLeftArrow.setVisibility(View.GONE);
-            mRightArrow.setVisibility(View.VISIBLE);
+//            mLeftArrow.setVisibility(View.GONE);
+//            mRightArrow.setVisibility(View.VISIBLE);
             mMessageContainer.setGravity(Gravity.END);
         } else {
             color = mTeal200;
-            mLeftArrow.setVisibility(View.VISIBLE);
-            mRightArrow.setVisibility(View.GONE);
+//            mLeftArrow.setVisibility(View.VISIBLE);
+//            mRightArrow.setVisibility(View.GONE);
             mMessageContainer.setGravity(Gravity.START);
         }
 
         ((GradientDrawable) mMessage.getBackground()).setColor(color);
-        ((RotateDrawable) mLeftArrow.getBackground()).getDrawable()
-                .setColorFilter(color, PorterDuff.Mode.SRC);
-        ((RotateDrawable) mRightArrow.getBackground()).getDrawable()
-                .setColorFilter(color, PorterDuff.Mode.SRC);
+//        ((RotateDrawable) mLeftArrow.getBackground()).getDrawable()
+//                .setColorFilter(color, PorterDuff.Mode.SRC);
+//        ((RotateDrawable) mRightArrow.getBackground()).getDrawable()
+//                .setColorFilter(color, PorterDuff.Mode.SRC);
     }
 }

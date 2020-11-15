@@ -1,5 +1,6 @@
 package com.erbe.fiadeveloper.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.DialogRatingBinding;
 import com.erbe.fiadeveloper.model.Rating;
 import com.google.firebase.auth.FirebaseAuth;
+
+
 
 /**
  * Dialog Fragment containing rating form.
@@ -85,6 +88,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         dismiss();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

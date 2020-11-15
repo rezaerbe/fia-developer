@@ -14,6 +14,8 @@ import com.erbe.fiadeveloper.model.Consultant;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 public class ConsultantAdapter extends  FirestoreAdapter<ConsultantAdapter.ViewHolder> {
 
     public interface OnConsultantSelectedListener {
@@ -22,12 +24,13 @@ public class ConsultantAdapter extends  FirestoreAdapter<ConsultantAdapter.ViewH
 
     }
 
-    private OnConsultantSelectedListener mListener;
+    private final OnConsultantSelectedListener mListener;
 
     public ConsultantAdapter(Query query, OnConsultantSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

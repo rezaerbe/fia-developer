@@ -49,12 +49,11 @@ public class ListConsultantActivity extends AppCompatActivity implements Consult
                 if (getItemCount() == 0) {
                     mBinding.recyclerConsultant.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerConsultant.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override

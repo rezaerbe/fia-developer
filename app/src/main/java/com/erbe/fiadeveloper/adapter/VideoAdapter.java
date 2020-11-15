@@ -12,6 +12,8 @@ import com.erbe.fiadeveloper.model.Video;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 public class VideoAdapter extends  FirestoreAdapter<VideoAdapter.ViewHolder> {
 
     public interface OnVideoSelectedListener {
@@ -20,12 +22,13 @@ public class VideoAdapter extends  FirestoreAdapter<VideoAdapter.ViewHolder> {
 
     }
 
-    private OnVideoSelectedListener mListener;
+    private final OnVideoSelectedListener mListener;
 
     public VideoAdapter(Query query, OnVideoSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

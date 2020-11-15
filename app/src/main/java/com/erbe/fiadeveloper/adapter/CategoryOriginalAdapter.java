@@ -11,6 +11,8 @@ import com.erbe.fiadeveloper.model.Category;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalAdapter.ViewHolder> {
 
     public interface OnCategoryOriginalSelectedListener {
@@ -19,12 +21,13 @@ public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalA
 
     }
 
-    private OnCategoryOriginalSelectedListener mListener;
+    private final OnCategoryOriginalSelectedListener mListener;
 
     public CategoryOriginalAdapter(Query query, OnCategoryOriginalSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

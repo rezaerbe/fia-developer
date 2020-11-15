@@ -15,7 +15,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/coachingName"
@@ -62,7 +63,7 @@
         android:id="@+id/separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="|"
+        android:text="@string/divide"
         android:textAppearance="?attr/textAppearanceOverline"
         android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"

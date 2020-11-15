@@ -62,7 +62,7 @@
         android:id="@+id/separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="|"
+        android:text="@string/divide"
         android:textAppearance="?attr/textAppearanceOverline"
         android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"

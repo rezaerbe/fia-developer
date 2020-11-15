@@ -50,12 +50,11 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
                 if (getItemCount() == 0) {
                     mBinding.recyclerVideo.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerVideo.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override

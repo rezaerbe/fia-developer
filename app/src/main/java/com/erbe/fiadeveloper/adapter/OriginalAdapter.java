@@ -1,6 +1,5 @@
 package com.erbe.fiadeveloper.adapter;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import com.erbe.fiadeveloper.model.Original;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 public class OriginalAdapter extends  FirestoreAdapter<OriginalAdapter.ViewHolder> {
 
     public interface OnOriginalSelectedListener {
@@ -21,12 +22,13 @@ public class OriginalAdapter extends  FirestoreAdapter<OriginalAdapter.ViewHolde
 
     }
 
-    private OnOriginalSelectedListener mListener;
+    private final OnOriginalSelectedListener mListener;
 
     public OriginalAdapter(Query query, OnOriginalSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

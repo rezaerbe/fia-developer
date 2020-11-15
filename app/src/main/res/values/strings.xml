@@ -17,4 +17,19 @@
     <string name="send">Send</string>
 
     <string name="rational_image_perm">This apps will read an image from local storage to upload to Cloud Storage.</string>
+    <string name="empty">Empty</string>
+    <string name="about">About</string>
+    <string name="available">Available</string>
+    <string name="review">Review</string>
+    <string name="date">01/01/2020</string>
+    <string name="welcome">Welcome</string>
+    <string name="finish">Finish</string>
+    <string name="status_pernikahan">Status Pernikahan</string>
+    <string name="jenis_kasus">Jenis Kasus</string>
+    <string name="kronologi">Kronologi</string>
+    <string name="submit">Submit</string>
+    <string name="add_review">Add Review</string>
+    <string name="add_your_review_here">Add your review here</string>
+    <string name="cancel">CANCEL</string>
+    <string name="divide">|</string>
 </resources>

@@ -2,6 +2,7 @@ package com.erbe.fiadeveloper.ui.coaching;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
@@ -104,7 +105,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
                 }
             }
         };
-        mBinding.recyclerAvailable.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerAvailable.setLayoutManager(new GridLayoutManager(this, 3));
         mBinding.recyclerAvailable.setAdapter(mAvailableAdapter);
 
         // RecyclerView

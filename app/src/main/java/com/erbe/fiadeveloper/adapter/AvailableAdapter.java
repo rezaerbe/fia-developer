@@ -11,6 +11,8 @@ import com.erbe.fiadeveloper.model.Available;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -22,12 +24,13 @@ public class AvailableAdapter extends  FirestoreAdapter<AvailableAdapter.ViewHol
 
     }
 
-    private OnAvailableSelectedListener mListener;
+    private final OnAvailableSelectedListener mListener;
 
     public AvailableAdapter(Query query, OnAvailableSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -76,4 +79,3 @@ public class AvailableAdapter extends  FirestoreAdapter<AvailableAdapter.ViewHol
 
     }
 }
-

@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    // Peach Colored
+    <color name="colorPrimary">#F47983</color>
+    <color name="colorPrimaryDark">#be4957</color>
+    <color name="colorPrimaryAccent">#ffaab2</color>
+
+    <color name="colorSecondary">#2196f3</color>
+    <color name="colorSecondaryDark">#1769aa</color>
+    <color name="colorSecondaryAccent">#4dabf5</color>
 </resources>

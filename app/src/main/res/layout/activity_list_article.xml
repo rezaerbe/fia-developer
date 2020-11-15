@@ -23,19 +23,22 @@
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/empty" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Empty" />
+            android:textColor="@color/colorPrimary"
+            android:text="@string/empty"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
 
     </LinearLayout>
 

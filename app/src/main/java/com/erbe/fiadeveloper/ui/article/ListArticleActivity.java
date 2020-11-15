@@ -62,12 +62,11 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
                 if (getItemCount() == 0) {
                     mBinding.recyclerArticle.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerArticle.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override

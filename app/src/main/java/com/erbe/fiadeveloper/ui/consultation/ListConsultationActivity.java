@@ -30,6 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,12 +76,11 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                 if (getItemCount() == 0) {
                     mBinding.recyclerConsultation.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerConsultation.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override

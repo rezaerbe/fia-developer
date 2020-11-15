@@ -1,11 +1,6 @@
 package com.erbe.fiadeveloper.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +8,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityMainBinding;
@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -63,14 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Firestore
         db = FirebaseFirestore.getInstance();
 
-        mBinding.button1.setOnClickListener(this);
-        mBinding.button2.setOnClickListener(this);
-        mBinding.button3.setOnClickListener(this);
-        mBinding.button4.setOnClickListener(this);
-        mBinding.button5.setOnClickListener(this);
-        mBinding.button6.setOnClickListener(this);
-        mBinding.button7.setOnClickListener(this);
-        mBinding.button8.setOnClickListener(this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            mBinding.user.setText(user.getDisplayName());
+        }
+
+        mBinding.report.setOnClickListener(this);
+        mBinding.coach.setOnClickListener(this);
+        mBinding.consultant.setOnClickListener(this);
+        mBinding.coaching.setOnClickListener(this);
+        mBinding.consultation.setOnClickListener(this);
+        mBinding.article.setOnClickListener(this);
+        mBinding.video.setOnClickListener(this);
+        mBinding.original.setOnClickListener(this);
 
     }
 
@@ -81,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Start sign in if necessary
         if (shouldStartSignIn()) {
             startSignIn();
-            return;
         }
     }
 
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -187,31 +191,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button1:
+            case R.id.report:
                 startActivity(new Intent(MainActivity.this, ReportActivity.class));
                 break;
-            case R.id.button2:
+            case R.id.article:
                 startActivity(new Intent(MainActivity.this, CategoryArticleActivity.class));
                 break;
-            case R.id.button3:
+            case R.id.video:
                 startActivity(new Intent(MainActivity.this, ListVideoActivity.class));
                 break;
-            case R.id.button4:
+            case R.id.original:
                 startActivity(new Intent(MainActivity.this, CategoryOriginalActivity.class));
                 break;
-            case R.id.button5:
+            case R.id.coach:
                 startActivity(new Intent(MainActivity.this, ListCoachActivity.class));
                 break;
-            case R.id.button6:
+            case R.id.consultant:
                 startActivity(new Intent(MainActivity.this, ListConsultantActivity.class));
                 break;
-            case R.id.button7:
+            case R.id.coaching:
                 startActivity(new Intent(MainActivity.this, ListCoachingActivity.class));
                 break;
-            case R.id.button8:
+            case R.id.consultation:
                 startActivity(new Intent(MainActivity.this, ListConsultationActivity.class));
                 break;
         }

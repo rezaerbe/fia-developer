@@ -62,12 +62,11 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
                 if (getItemCount() == 0) {
                     mBinding.recyclerOriginal.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerOriginal.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override

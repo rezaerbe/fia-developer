@@ -91,12 +91,12 @@ public class ConsultationActivity extends AppCompatActivity
             }
         });
 
-        ImeHelper.setImeOnDoneListener(mBinding.messageEdit, new ImeHelper.DonePressedListener() {
-            @Override
-            public void onDonePressed() {
-                onSendClick();
-            }
-        });
+//        ImeHelper.setImeOnDoneListener(mBinding.messageEdit, new ImeHelper.DonePressedListener() {
+//            @Override
+//            public void onDonePressed() {
+//                onSendClick();
+//            }
+//        });
 
         mBinding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -90,12 +90,12 @@ public class CoachingActivity extends AppCompatActivity
             }
         });
 
-        ImeHelper.setImeOnDoneListener(mBinding.messageEdit, new ImeHelper.DonePressedListener() {
-            @Override
-            public void onDonePressed() {
-                onSendClick();
-            }
-        });
+//        ImeHelper.setImeOnDoneListener(mBinding.messageEdit, new ImeHelper.DonePressedListener() {
+//            @Override
+//            public void onDonePressed() {
+//                onSendClick();
+//            }
+//        });
 
         mBinding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,8 +153,13 @@ public class CoachingActivity extends AppCompatActivity
     public void onSendClick() {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String message = mBinding.messageEdit.getText().toString();
 
-        onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
+        if (message != null && !message.equals("")) {
+            onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
+        } else {
+            Toast.makeText(this, "Please insert your message", Toast.LENGTH_SHORT).show();
+        }
 
         mBinding.messageEdit.setText("");
     }

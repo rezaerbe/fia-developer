@@ -48,12 +48,11 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
                 if (getItemCount() == 0) {
                     mBinding.recyclerCategoryOriginal.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 } else {
                     mBinding.recyclerCategoryOriginal.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
-                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
+                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override

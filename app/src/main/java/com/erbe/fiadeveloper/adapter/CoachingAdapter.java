@@ -11,6 +11,8 @@ import com.erbe.fiadeveloper.model.Coaching;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,12 +26,13 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
 
     }
 
-    private OnCoachingSelectedListener mListener;
+    private final OnCoachingSelectedListener mListener;
 
     public CoachingAdapter(Query query, OnCoachingSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

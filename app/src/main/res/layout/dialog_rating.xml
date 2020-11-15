@@ -9,8 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_marginBottom="8dp"
-        android:text="Add Review" />
+        android:text="@string/add_review" />
 
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
         android:id="@+id/userFormRating"
@@ -27,8 +26,13 @@
         android:id="@+id/userFormText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:padding="12dp"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:scrollbars="vertical"
         android:layout_gravity="center_horizontal"
-        android:hint="Add your review here" />
+        android:hint="@string/add_your_review_here" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,6 +43,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="4dp"
             android:layout_weight="1" />
 
         <Button
@@ -47,7 +52,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CANCEL"
+            android:layout_margin="4dp"
+            android:text="@string/cancel"
             android:textColor="#3d3d3d" />
 
 
@@ -56,7 +62,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SUBMIT" />
+            android:layout_margin="4dp"
+            android:text="@string/submit" />
 
     </LinearLayout>
 

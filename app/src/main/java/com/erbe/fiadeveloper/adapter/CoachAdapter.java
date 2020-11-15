@@ -14,6 +14,8 @@ import com.erbe.fiadeveloper.model.Coach;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 public class CoachAdapter extends  FirestoreAdapter<CoachAdapter.ViewHolder> {
 
     public interface OnCoachSelectedListener {
@@ -22,12 +24,13 @@ public class CoachAdapter extends  FirestoreAdapter<CoachAdapter.ViewHolder> {
 
     }
 
-    private OnCoachSelectedListener mListener;
+    private final OnCoachSelectedListener mListener;
 
     public CoachAdapter(Query query, OnCoachSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

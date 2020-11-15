@@ -11,6 +11,8 @@ import com.erbe.fiadeveloper.model.Consultation;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,12 +26,13 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
 
     }
 
-    private OnConsultationSelectedListener mListener;
+    private final OnConsultationSelectedListener mListener;
 
     public ConsultationAdapter(Query query, OnConsultationSelectedListener listener) {
         super(query);
         mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

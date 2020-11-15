@@ -22,9 +22,11 @@
         android:id="@+id/ratingItemDivider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:textAppearance="?attr/textAppearanceCaption"
         android:layout_toEndOf="@+id/ratingItemName"
-        android:text="  |  " />
+        android:text="@string/divide" />
 
     <TextView
         android:id="@+id/ratingItemDate"
