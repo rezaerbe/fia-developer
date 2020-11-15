@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 
 import com.erbe.fiadeveloper.R;
@@ -29,11 +30,15 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
     private DocumentReference mVideoRef;
     private ListenerRegistration mVideoRegistration;
 
+    private WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityDetailVideoBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        webView = findViewById(R.id.videoWeb);
 
         // Get video ID from extras
         String videoId = getIntent().getExtras().getString(KEY_VIDEO_ID);
@@ -88,9 +93,18 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
     @SuppressLint("SetJavaScriptEnabled")
     private void onVideoLoaded(Video video) {
 
-        WebView webView = findViewById(R.id.videoWeb);
         webView.loadUrl(video.getLink());
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Check if the key event was the Back button and if there's history
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack();
+            return true;
+        }
+        // If it wasn't the Back key or there's no web page history, bubble up to the default
+        // system behavior (probably exit the activity)
+        return super.onKeyDown(keyCode, event);
+    }
 }

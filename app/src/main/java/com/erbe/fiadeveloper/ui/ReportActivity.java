@@ -51,14 +51,17 @@ public class ReportActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(status))
                 {
                     Toast.makeText(ReportActivity.this, "Please enter status...", Toast.LENGTH_SHORT).show();
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
                 if (TextUtils.isEmpty(type))
                 {
                     Toast.makeText(ReportActivity.this, "Please enter type...", Toast.LENGTH_SHORT).show();
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
                 if (TextUtils.isEmpty(chronology))
                 {
                     Toast.makeText(ReportActivity.this, "Please enter chronology...", Toast.LENGTH_SHORT).show();
+                    mBinding.progressLoading.setVisibility(View.GONE);
                 }
                 else {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -84,6 +87,7 @@ public class ReportActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.w(TAG, "Error adding document", e);
+                                        mBinding.progressLoading.setVisibility(View.GONE);
                                     }
                                 });
                     }
