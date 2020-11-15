@@ -44,7 +44,8 @@
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
         <activity android:name=".ui.ProfileActivity"
-            android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
+            android:theme="@style/Theme.FIADeveloper.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.ReportActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.MainActivity">

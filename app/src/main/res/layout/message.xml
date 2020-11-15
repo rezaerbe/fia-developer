@@ -37,14 +37,15 @@
             android:textColor="@android:color/white"
             tools:text="Hey this is a message, look!" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/name_text"-->
-<!--            style="@style/TextAppearance.AppCompat.Small"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textIsSelectable="true"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            tools:text="Some User" />-->
+        <TextView
+            android:id="@+id/date_text"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textIsSelectable="true"
+            android:textColor="@android:color/white"
+            tools:text="01:01  |  01/01/2020" />
 
     </LinearLayout>
 

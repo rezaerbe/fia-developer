@@ -67,6 +67,8 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         mBinding = ActivityDetailConsultantBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
+
         // Get consultant ID from extras
         String consultantId = getIntent().getExtras().getString(KEY_CONSULTANT_ID);
         if (consultantId == null) {
@@ -247,5 +249,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         Glide.with(mBinding.consultantImageDetail.getContext())
                 .load(consultant.getPhoto())
                 .into(mBinding.consultantImageDetail);
+
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 }

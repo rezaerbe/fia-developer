@@ -66,7 +66,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
         mFirestore = FirebaseFirestore.getInstance();
 
         // Get coaching
-        mQuery = mFirestore.collection("coaching");
+        mQuery = mFirestore.collection("coaching").whereEqualTo("status", "accepted");
 
         // RecyclerView
         mAdapter = new CoachingAdapter(mQuery, this) {

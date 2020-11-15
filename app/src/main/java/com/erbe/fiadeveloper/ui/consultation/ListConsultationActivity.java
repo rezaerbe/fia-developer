@@ -66,7 +66,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         mFirestore = FirebaseFirestore.getInstance();
 
         // Get consultation
-        mQuery = mFirestore.collection("consultation");
+        mQuery = mFirestore.collection("consultation").whereEqualTo("status", "accepted");
 
         // RecyclerView
         mAdapter = new ConsultationAdapter(mQuery, this) {

@@ -32,4 +32,7 @@
     <string name="add_your_review_here">Add your review here</string>
     <string name="cancel">CANCEL</string>
     <string name="divide">|</string>
+    <string name="topic">Topic</string>
+    <string name="description">Description</string>
+    <string name="detail">Detail</string>
 </resources>

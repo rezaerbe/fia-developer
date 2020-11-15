@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
@@ -34,6 +35,8 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
         super.onCreate(savedInstanceState);
         mBinding = ActivityDetailOriginalBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
 
         // Get category ID from extras
         String categoryId = getIntent().getExtras().getString(ORIGINAL_CATEGORY_ID);
@@ -102,6 +105,8 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
         Glide.with(mBinding.originalImageDetail.getContext())
                 .load(original.getImage())
                 .into(mBinding.originalImageDetail);
+
+        mBinding.progressLoading.setVisibility(View.GONE);
     }
 
 }

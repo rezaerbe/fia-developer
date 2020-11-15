@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityProfileBinding;
+import com.erbe.fiadeveloper.ui.coaching.DetailCoachActivity;
 import com.erbe.fiadeveloper.util.GlideApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -59,11 +61,15 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
     private CircleImageView cek;
 
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
 
         cek = findViewById(R.id.profileImage);
 
@@ -72,11 +78,12 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
         mBinding.profileImage.setOnClickListener(this);
         mBinding.finish.setOnClickListener(this);
+        mBinding.detail.setOnClickListener(this);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
-            DocumentReference docRef = db.collection("user").document(user.getUid());
+            DocumentReference docRef = db.collection("coach").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -88,8 +95,16 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                     .centerCrop()
                                     .into(cek);
                         }
+                        if (document.getString("topic") != null) {
+                            mBinding.topic.setText(document.getString("topic"));
+                        }
+                        if (document.getString("description") != null) {
+                            mBinding.description.setText(document.getString("description"));
+                        }
+                        mBinding.progressLoading.setVisibility(View.GONE);
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
+                        mBinding.progressLoading.setVisibility(View.GONE);
                     }
                 }
             });
@@ -154,7 +169,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (user != null) {
 
-                                    db.collection("user").document(user.getUid())
+                                    db.collection("coach").document(user.getUid())
                                             .set(profile, SetOptions.merge());
                                 }
 
@@ -174,6 +189,44 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void setProfile() {
+
+        String topic = mBinding.topic.getText().toString();
+        String description = mBinding.description.getText().toString();
+
+        if (TextUtils.isEmpty(topic))
+        {
+            Toast.makeText(ProfileActivity.this, "Please enter topic...", Toast.LENGTH_SHORT).show();
+        }
+        if (TextUtils.isEmpty(description))
+        {
+            Toast.makeText(ProfileActivity.this, "Please enter description...", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Map<String, Object> userNew = new HashMap<>();
+                userNew.put("topic", topic);
+                userNew.put("description", description);
+
+                db.collection("coach").document(user.getUid())
+                        .set(userNew, SetOptions.merge())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+            }
+        }
     }
 
     @Override
@@ -205,9 +258,17 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 choosePhoto();
                 break;
             case R.id.finish:
+                setProfile();
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+            case R.id.detail:
+                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
+                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());
+
+                startActivity(detailIntent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 break;
         }
     }
