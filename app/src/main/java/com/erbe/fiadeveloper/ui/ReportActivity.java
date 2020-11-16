@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.databinding.ActivityReportBinding;
+import com.erbe.fiadeveloper.ui.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +47,7 @@ public class ReportActivity extends AppCompatActivity {
 
                 String status = mBinding.status.getText().toString();
                 String type = mBinding.type.getText().toString();
+                String phone = mBinding.phone.getText().toString();
                 String chronology = mBinding.chronology.getText().toString();
 
                 if (TextUtils.isEmpty(status))
@@ -56,6 +58,11 @@ public class ReportActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(type))
                 {
                     Toast.makeText(ReportActivity.this, "Please enter type...", Toast.LENGTH_SHORT).show();
+                    mBinding.progressLoading.setVisibility(View.GONE);
+                }
+                if (TextUtils.isEmpty(phone))
+                {
+                    Toast.makeText(ReportActivity.this, "Please enter phone number...", Toast.LENGTH_SHORT).show();
                     mBinding.progressLoading.setVisibility(View.GONE);
                 }
                 if (TextUtils.isEmpty(chronology))
@@ -71,6 +78,7 @@ public class ReportActivity extends AppCompatActivity {
                         report.put("userName", user.getDisplayName());
                         report.put("status", status);
                         report.put("type", type);
+                        report.put("phone", phone);
                         report.put("chronology", chronology);
 
                         db.collection("report")

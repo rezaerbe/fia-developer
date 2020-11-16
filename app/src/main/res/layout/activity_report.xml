@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".ui.ReportActivity">
+    tools:context=".ui.report.ReportActivity">
 
     <EditText
         android:id="@+id/status"
@@ -15,6 +15,7 @@
         android:maxLines="1"
         android:background="@drawable/round_rect"
         android:padding="12dp"
+        android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,10 +30,26 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/round_rect"
         android:padding="12dp"
+        android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/no_hp"
+        android:maxLines="1"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_rect"
+        android:padding="12dp"
+        android:inputType="phone"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type" />
 
     <EditText
         android:id="@+id/chronology"
@@ -50,7 +67,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
         tools:ignore="RtlHardcoded" />
 
     <Button

@@ -8,16 +8,18 @@ public class Report {
     private String userName;
     private String status;
     private String type;
+    private String phone;
     private String chronology;
 
     public Report() {
     }
 
-    public Report(FirebaseUser user, String status, String type, String chronology) {
-        this.userId = user.getUid();
-        this.userName = user.getDisplayName();
+    public Report(String userId, String userName, String status, String type, String phone, String chronology) {
+        this.userId = userId;
+        this.userName = userName;
         this.status = status;
         this.type = type;
+        this.phone = phone;
         this.chronology = chronology;
     }
 
@@ -51,6 +53,14 @@ public class Report {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getChronology() {
