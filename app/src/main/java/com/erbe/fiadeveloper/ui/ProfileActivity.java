@@ -3,6 +3,7 @@ package com.erbe.fiadeveloper.ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,6 +34,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +96,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                             GlideApp.with(ProfileActivity.this)
                                     .load(document.getString("photo"))
                                     .centerCrop()
+                                    .placeholder(R.drawable.ic_launcher_background)
                                     .into(cek);
                         }
                         if (document.getString("topic") != null) {
@@ -144,9 +148,19 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
         Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show();
 
         // Upload to Cloud Storage
-        String uuid = UUID.randomUUID().toString();
-        mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-        mImageRef.putFile(uri)
+        Bitmap bmp = null;
+        try {
+            bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        byte[] data = baos.toByteArray();
+
+        mImageRef = FirebaseStorage.getInstance().getReference(user.getUid());
+        mImageRef.putBytes(data)
                 .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

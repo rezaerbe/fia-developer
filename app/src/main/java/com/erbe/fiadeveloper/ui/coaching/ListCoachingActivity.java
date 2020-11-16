@@ -18,7 +18,7 @@ import com.erbe.fiadeveloper.databinding.ActivityListCoachingBinding;
 import com.erbe.fiadeveloper.model.Coach;
 import com.erbe.fiadeveloper.model.Coaching;
 import com.erbe.fiadeveloper.model.Rating;
-import com.erbe.fiadeveloper.ui.RatingDialogFragment;
+import com.erbe.fiadeveloper.ui.fragment.RatingDialogFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

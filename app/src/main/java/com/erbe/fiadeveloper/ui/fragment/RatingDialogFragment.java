@@ -1,4 +1,4 @@
-package com.erbe.fiadeveloper.ui;
+package com.erbe.fiadeveloper.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,8 +14,6 @@ import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.DialogRatingBinding;
 import com.erbe.fiadeveloper.model.Rating;
 import com.google.firebase.auth.FirebaseAuth;
-
-
 
 /**
  * Dialog Fragment containing rating form.
