@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ItemVideoBinding;
 import com.erbe.fiadeveloper.model.Video;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -63,6 +64,7 @@ public class VideoAdapter extends  FirestoreAdapter<VideoAdapter.ViewHolder> {
             Glide.with(binding.videoImage.getContext())
                     .load(video.getImage())
                     .centerCrop()
+                    .placeholder(R.drawable.empty)
                     .into(binding.videoImage);
 
             binding.videoTitle.setText(video.getTitle());

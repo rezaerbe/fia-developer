@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ItemCoachingBinding;
 import com.erbe.fiadeveloper.model.Coaching;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -90,6 +91,7 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
             Glide.with(binding.userImage.getContext())
                     .load(coaching.getUserImage())
                     .centerCrop()
+                    .placeholder(R.drawable.empty)
                     .into(binding.userImage);
 
             // Click listener

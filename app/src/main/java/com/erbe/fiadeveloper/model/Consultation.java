@@ -10,17 +10,21 @@ public class Consultation {
     private String userName;
     private String consultantId;
     private String consultantName;
+    private String consultantImage;
+    private String userImage;
     private String status;
     private Date timestamp;
 
     public Consultation() {
     }
 
-    public Consultation(String userId, String userName, String consultantId, String consultantName, String status) {
+    public Consultation(String userId, String userName, String consultantId, String consultantName, String consultantImage, String userImage, String status) {
         this.userId = userId;
         this.userName = userName;
         this.consultantId = consultantId;
         this.consultantName = consultantName;
+        this.consultantImage = consultantImage;
+        this.userImage = userImage;
         this.status = status;
     }
 
@@ -54,6 +58,22 @@ public class Consultation {
 
     public void setConsultantName(String consultantName) {
         this.consultantName = consultantName;
+    }
+
+    public String getConsultantImage() {
+        return consultantImage;
+    }
+
+    public void setConsultantImage(String consultantImage) {
+        this.consultantImage = consultantImage;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public String getStatus() {

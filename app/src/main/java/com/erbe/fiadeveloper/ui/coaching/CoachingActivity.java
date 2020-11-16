@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -155,10 +156,12 @@ public class CoachingActivity extends AppCompatActivity
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         String message = mBinding.messageEdit.getText().toString();
 
-        if (message != null && !message.equals("")) {
-            onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
-        } else {
+        if (TextUtils.isEmpty(message)) {
             Toast.makeText(this, "Please insert your message", Toast.LENGTH_SHORT).show();
+        } else if (message.replaceAll("\\s+", "").equals("")) {
+            Toast.makeText(this, "Please insert your message", Toast.LENGTH_SHORT).show();
+        } else {
+            onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
         }
 
         mBinding.messageEdit.setText("");

@@ -104,6 +104,8 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
         // Background image
         Glide.with(mBinding.originalImageDetail.getContext())
                 .load(original.getImage())
+                .centerCrop()
+                .placeholder(R.drawable.empty)
                 .into(mBinding.originalImageDetail);
 
         mBinding.progressLoading.setVisibility(View.GONE);

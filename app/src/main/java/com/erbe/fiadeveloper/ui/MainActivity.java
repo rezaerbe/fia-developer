@@ -119,10 +119,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 Map<String, Object> userNew = new HashMap<>();
-                userNew.put("coachId", user.getUid());
-                userNew.put("coachName", user.getDisplayName());
+                userNew.put("consultantId", user.getUid());
+                userNew.put("consultantName", user.getDisplayName());
 
-                db.collection("coach").document(user.getUid())
+                db.collection("consultant").document(user.getUid())
                         .set(userNew, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

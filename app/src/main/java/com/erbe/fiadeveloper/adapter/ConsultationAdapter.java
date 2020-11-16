@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ItemConsultationBinding;
 import com.erbe.fiadeveloper.model.Consultation;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,10 +82,17 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
                 consultation.setStatus("finished");
             }
 
-            binding.consultationName.setText(consultation.getConsultantName());
-            binding.userName.setText(consultation.getUserName());
+            binding.consultationName.setText(consultation.getUserName());
+            binding.userName.setText(consultation.getConsultantName());
             binding.consultationStatus.setText(consultation.getStatus());
             binding.consultationDate.setText(FORMAT.format(consultation.getTimestamp()));
+
+            // Load image
+            Glide.with(binding.userImage.getContext())
+                    .load(consultation.getUserImage())
+                    .centerCrop()
+                    .placeholder(R.drawable.empty)
+                    .into(binding.userImage);
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

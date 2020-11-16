@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,8 +155,15 @@ public class ConsultationActivity extends AppCompatActivity
     public void onSendClick() {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String message = mBinding.messageEdit.getText().toString();
 
-        onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
+        if (TextUtils.isEmpty(message)) {
+            Toast.makeText(this, "Please insert your message", Toast.LENGTH_SHORT).show();
+        } else if (message.replaceAll("\\s+", "").equals("")) {
+            Toast.makeText(this, "Please insert your message", Toast.LENGTH_SHORT).show();
+        } else {
+            onAddMessage(new Chat(name, mBinding.messageEdit.getText().toString(), uid));
+        }
 
         mBinding.messageEdit.setText("");
     }

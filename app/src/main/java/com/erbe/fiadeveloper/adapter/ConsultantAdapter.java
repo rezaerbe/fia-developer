@@ -66,6 +66,7 @@ public class ConsultantAdapter extends  FirestoreAdapter<ConsultantAdapter.ViewH
             Glide.with(binding.consultantImage.getContext())
                     .load(consultant.getPhoto())
                     .centerCrop()
+                    .placeholder(R.drawable.empty)
                     .into(binding.consultantImage);
 
             binding.consultantName.setText(consultant.getConsultantName());

@@ -66,6 +66,7 @@ public class CoachAdapter extends  FirestoreAdapter<CoachAdapter.ViewHolder> {
             Glide.with(binding.coachImage.getContext())
                     .load(coach.getPhoto())
                     .centerCrop()
+                    .placeholder(R.drawable.empty)
                     .into(binding.coachImage);
 
             binding.coachName.setText(coach.getCoachName());

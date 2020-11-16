@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityProfileBinding;
 import com.erbe.fiadeveloper.ui.coaching.DetailCoachActivity;
+import com.erbe.fiadeveloper.ui.consultation.DetailConsultantActivity;
 import com.erbe.fiadeveloper.util.GlideApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -86,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
-            DocumentReference docRef = db.collection("coach").document(user.getUid());
+            DocumentReference docRef = db.collection("consultant").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -96,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                             GlideApp.with(ProfileActivity.this)
                                     .load(document.getString("photo"))
                                     .centerCrop()
-                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .placeholder(R.drawable.empty)
                                     .into(cek);
                         }
                         if (document.getString("topic") != null) {
@@ -183,13 +184,14 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (user != null) {
 
-                                    db.collection("coach").document(user.getUid())
+                                    db.collection("consultant").document(user.getUid())
                                             .set(profile, SetOptions.merge());
                                 }
 
                                 GlideApp.with(ProfileActivity.this)
                                         .load(imageUri)
                                         .centerCrop()
+                                        .placeholder(R.drawable.empty)
                                         .into(cek);
                             }
                         });
@@ -225,7 +227,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 userNew.put("topic", topic);
                 userNew.put("description", description);
 
-                db.collection("coach").document(user.getUid())
+                db.collection("consultant").document(user.getUid())
                         .set(userNew, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -278,8 +280,8 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 finish();
                 break;
             case R.id.detail:
-                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
-                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());
+                Intent detailIntent = new Intent(ProfileActivity.this, DetailConsultantActivity.class);
+                detailIntent.putExtra(DetailConsultantActivity.KEY_CONSULTANT_ID, user.getUid());
 
                 startActivity(detailIntent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);

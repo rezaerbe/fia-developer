@@ -42,7 +42,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class DetailCoachActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, AvailableAdapter.OnAvailableSelectedListener, AvailableDialogFragment.AvailableListener {
+public class DetailCoachActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>,
+        AvailableAdapter.OnAvailableSelectedListener, AvailableDialogFragment.AvailableListener {
 
     private static final String TAG = "DetailCoach";
 
@@ -101,8 +102,6 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
                 .collection("ratings")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(50);
-
-        Date current = Calendar.getInstance().getTime();
 
         // Get available
         Query availableQuery = mCoachRef
@@ -266,6 +265,8 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         // Background image
         Glide.with(mBinding.coachImageDetail.getContext())
                 .load(coach.getPhoto())
+                .centerCrop()
+                .placeholder(R.drawable.empty)
                 .into(mBinding.coachImageDetail);
 
         mBinding.progressLoading.setVisibility(View.GONE);

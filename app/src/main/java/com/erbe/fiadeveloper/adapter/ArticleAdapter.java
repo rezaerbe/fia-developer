@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ItemArticleBinding;
 import com.erbe.fiadeveloper.model.Article;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -63,6 +64,7 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
             Glide.with(binding.articleImage.getContext())
                     .load(article.getImage())
                     .centerCrop()
+                    .placeholder(R.drawable.empty)
                     .into(binding.articleImage);
 
             binding.articleTitle.setText(article.getTitle());

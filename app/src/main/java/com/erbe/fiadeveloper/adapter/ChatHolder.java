@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RotateDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -80,11 +81,15 @@ public class ChatHolder extends RecyclerView.ViewHolder {
             color = mPurple200;
 //            mLeftArrow.setVisibility(View.GONE);
 //            mRightArrow.setVisibility(View.VISIBLE);
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) mMessage.getLayoutParams();
+            marginParams.setMargins(84,8,0,8);
             mMessageContainer.setGravity(Gravity.END);
         } else {
             color = mTeal200;
 //            mLeftArrow.setVisibility(View.VISIBLE);
 //            mRightArrow.setVisibility(View.GONE);
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) mMessage.getLayoutParams();
+            marginParams.setMargins(0,8,84,8);
             mMessageContainer.setGravity(Gravity.START);
         }
 
