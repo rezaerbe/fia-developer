@@ -20,6 +20,7 @@ import com.erbe.fiadeveloper.databinding.DialogAvailableBinding;
 import com.erbe.fiadeveloper.model.Available;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -81,12 +82,22 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
     }
 
     private void onSubmitClicked(View view) {
-        Available available = new Available(
-                (Date) mBinding.userFormText.getText());
 
-        if (mAvailableListener != null) {
-            mAvailableListener.onAvailable(available);
+        String date = mBinding.userFormText.getText().toString();
+        SimpleDateFormat firstFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        Date d;
+
+        try {
+            d = firstFormatter.parse(date);
+            Available available = new Available(d);
+
+            if (mAvailableListener != null) {
+                mAvailableListener.onAvailable(available);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
 
         dismiss();
     }
@@ -101,7 +112,7 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mBinding.userFormText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        mBinding.userFormText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
                     }
                 }, year, month, day);
         picker.show();

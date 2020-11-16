@@ -9,7 +9,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/coachingImage"
+        android:id="@+id/userImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:scaleType="centerCrop"
@@ -28,7 +28,7 @@
         android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/coachingImage"
+        app:layout_constraintStart_toEndOf="@+id/userImage"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
 
@@ -42,7 +42,7 @@
         android:textAppearance="?attr/textAppearanceBody2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/coachingImage"
+        app:layout_constraintStart_toEndOf="@+id/userImage"
         app:layout_constraintTop_toBottomOf="@+id/coachingName"
         tools:text="Name" />
 
@@ -56,7 +56,7 @@
         android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/coachingImage"
+        app:layout_constraintStart_toEndOf="@+id/userImage"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView

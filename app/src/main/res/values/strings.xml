@@ -36,4 +36,6 @@
     <string name="description">Description</string>
     <string name="detail">Detail</string>
     <string name="add_available">Add Available</string>
+    <string name="choose_date">Choose Date</string>
+    <string name="update">Update</string>
 </resources>

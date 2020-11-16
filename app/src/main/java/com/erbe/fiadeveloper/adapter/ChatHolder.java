@@ -28,7 +28,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 
 //    private final TextView mNameField;
     private final TextView mTextField;
-    private final TextView mDateField;
+//    private final TextView mDateField;
     //    private final FrameLayout mLeftArrow;
 //    private final FrameLayout mRightArrow;
     private final RelativeLayout mMessageContainer;
@@ -40,7 +40,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         super(itemView);
 //        mNameField = itemView.findViewById(R.id.name_text);
         mTextField = itemView.findViewById(R.id.message_text);
-        mDateField = itemView.findViewById(R.id.date_text);
+//        mDateField = itemView.findViewById(R.id.date_text);
 //        mLeftArrow = itemView.findViewById(R.id.left_arrow);
 //        mRightArrow = itemView.findViewById(R.id.right_arrow);
         mMessageContainer = itemView.findViewById(R.id.message_container);
@@ -52,7 +52,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     public void bind(@NonNull Chat chat) {
 //        setName(chat.getName());
         setMessage(chat.getMessage());
-        setDate(chat.getTimestamp());
+//        setDate(chat.getTimestamp());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         setIsSender(currentUser != null && chat.getUid().equals(currentUser.getUid()));
@@ -62,13 +62,13 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 //        mNameField.setText(name);
 //    }
 
-    private void setDate(@Nullable Date date) {
-
-        final SimpleDateFormat FORMAT  = new SimpleDateFormat(
-                "HH:mm  |  MM/dd/yyyy", Locale.US);
-
-        mDateField.setText(FORMAT.format(date));
-    }
+//    private void setDate(Date date) {
+//
+//        final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+//                "HH:mm  |  MM/dd/yyyy", Locale.US);
+//
+//        mDateField.setText(FORMAT.format(date));
+//    }
 
     private void setMessage(@Nullable String text) {
         mTextField.setText(text);

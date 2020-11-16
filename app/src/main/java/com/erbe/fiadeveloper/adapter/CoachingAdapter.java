@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.databinding.ItemCoachingBinding;
 import com.erbe.fiadeveloper.model.Coaching;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,10 +81,16 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
                 coaching.setStatus("finished");
             }
 
-            binding.coachingName.setText(coaching.getCoachName());
-            binding.userName.setText(coaching.getUserName());
+            binding.coachingName.setText(coaching.getUserName());
+            binding.userName.setText(coaching.getCoachName());
             binding.coachingStatus.setText(coaching.getStatus());
             binding.coachingDate.setText(FORMAT.format(coaching.getTimestamp()));
+
+            // Load image
+            Glide.with(binding.userImage.getContext())
+                    .load(coaching.getUserImage())
+                    .centerCrop()
+                    .into(binding.userImage);
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
