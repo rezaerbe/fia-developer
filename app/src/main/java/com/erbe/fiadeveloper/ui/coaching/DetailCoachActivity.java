@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class DetailCoachActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>,
-        AvailableAdapter.OnAvailableSelectedListener, AvailableDialogFragment.AvailableListener {
+        AvailableAdapter.OnAvailableSelectedListener {
 
     private static final String TAG = "DetailCoach";
 
@@ -82,12 +82,12 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
             throw new IllegalArgumentException("Must pass extra " + KEY_COACH_ID);
         }
 
-        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAvailableDialog.show(getSupportFragmentManager(), AvailableDialogFragment.TAG);
-            }
-        });
+//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mAvailableDialog.show(getSupportFragmentManager(), AvailableDialogFragment.TAG);
+//            }
+//        });
 
         current = Calendar.getInstance().getTime();
 
@@ -139,7 +139,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         mBinding.recyclerRatings.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerRatings.setAdapter(mRatingAdapter);
 
-        mAvailableDialog = new AvailableDialogFragment();
+//        mAvailableDialog = new AvailableDialogFragment();
     }
 
     @Override
@@ -185,68 +185,69 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
     @Override
     public void onAvailableSelected(DocumentSnapshot available, Available model) {
 
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        DocumentReference docRef = mFirestore.collection("coach").document(coachId).collection("available").document(available.getId()).collection("user").document(user.getUid());
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Toast.makeText(DetailCoachActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
-//                    } else {
-//
-//                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getAvailable())) < 0) {
-//                            Map<String, Object> userId = new HashMap<>();
-//                            userId.put("userId", user.getUid());
-//
-//                            mFirestore.collection("coach").document(coachId).collection("available").document(available.getId()).collection("user").document(user.getUid())
-//                                    .set(userId)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-////                                        Toast.makeText(DetailCoachActivity.this, "This request is already sent", Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Log.w(TAG, "Error writing document", e);
-//                                        }
-//                                    });
-//
-//                            Map<String, Object> coaching = new HashMap<>();
-//                            coaching.put("coachId", coachModel.getCoachId());
-//                            coaching.put("coachName", coachModel.getCoachName());
-//                            coaching.put("userId", user.getUid());
-//                            coaching.put("userName", user.getDisplayName());
-//                            coaching.put("status", "accepted");
-//                            coaching.put("timestamp", model.getAvailable());
-//
-//                            mFirestore.collection("coaching")
-//                                    .add(coaching)
-//                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                        @Override
-//                                        public void onSuccess(DocumentReference documentReference) {
-//                                            Toast.makeText(DetailCoachActivity.this, "Submit success", Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Log.w(TAG, "Error adding document", e);
-//                                        }
-//                                    });
-//                        } else {
-//                            Toast.makeText(DetailCoachActivity.this, "This request is not available", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DocumentReference docRef = mFirestore.collection("coach").document(coachId).collection("available").document(available.getId()).collection("user").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Toast.makeText(DetailCoachActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getAvailable())) < 0) {
+                            Map<String, Object> userId = new HashMap<>();
+                            userId.put("userId", user.getUid());
+
+                            mFirestore.collection("coach").document(coachId).collection("available").document(available.getId()).collection("user").document(user.getUid())
+                                    .set(userId)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+//                                        Toast.makeText(DetailCoachActivity.this, "This request is already sent", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+
+                            Map<String, Object> coaching = new HashMap<>();
+                            coaching.put("coachId", coachModel.getCoachId());
+                            coaching.put("coachName", coachModel.getCoachName());
+                            coaching.put("userId", user.getUid());
+                            coaching.put("userName", user.getDisplayName());
+                            coaching.put("coachImage", coachModel.getPhoto());
+                            coaching.put("status", "accepted");
+                            coaching.put("timestamp", model.getAvailable());
+
+                            mFirestore.collection("coaching")
+                                    .add(coaching)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Toast.makeText(DetailCoachActivity.this, "Submit success", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error adding document", e);
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(DetailCoachActivity.this, "This request is not available", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     private void onCoachLoaded(Coach coach) {
@@ -272,28 +273,28 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         mBinding.progressLoading.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onAvailable(Available available) {
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        CollectionReference docRef = mFirestore.collection("coach").document(coachId).collection("available");
-        Map<String, Object> data = new HashMap<>();
-        data.put("available", available.getAvailable());
-
-        docRef
-            .add(data)
-            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error adding document", e);
-                }
-            });
-    }
+//    @Override
+//    public void onAvailable(Available available) {
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        CollectionReference docRef = mFirestore.collection("coach").document(coachId).collection("available");
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("available", available.getAvailable());
+//
+//        docRef
+//            .add(data)
+//            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                @Override
+//                public void onSuccess(DocumentReference documentReference) {
+//                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+//                }
+//            })
+//            .addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.w(TAG, "Error adding document", e);
+//                }
+//            });
+//    }
 }

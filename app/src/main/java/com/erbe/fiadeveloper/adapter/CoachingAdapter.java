@@ -82,14 +82,14 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
                 coaching.setStatus("finished");
             }
 
-            binding.coachingName.setText(coaching.getUserName());
-            binding.userName.setText(coaching.getCoachName());
+            binding.coachingName.setText(coaching.getCoachName());
+            binding.userName.setText(coaching.getUserName());
             binding.coachingStatus.setText(coaching.getStatus());
             binding.coachingDate.setText(FORMAT.format(coaching.getTimestamp()));
 
             // Load image
             Glide.with(binding.userImage.getContext())
-                    .load(coaching.getUserImage())
+                    .load(coaching.getCoachImage())
                     .centerCrop()
                     .placeholder(R.drawable.empty)
                     .into(binding.userImage);

@@ -82,12 +82,12 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
         mBinding.profileImage.setOnClickListener(this);
         mBinding.finish.setOnClickListener(this);
-        mBinding.detail.setOnClickListener(this);
+//        mBinding.detail.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
-            DocumentReference docRef = db.collection("coach").document(user.getUid());
+            DocumentReference docRef = db.collection("user").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -100,12 +100,12 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                     .placeholder(R.drawable.empty)
                                     .into(cek);
                         }
-                        if (document.getString("topic") != null) {
-                            mBinding.topic.setText(document.getString("topic"));
-                        }
-                        if (document.getString("description") != null) {
-                            mBinding.description.setText(document.getString("description"));
-                        }
+//                        if (document.getString("topic") != null) {
+//                            mBinding.topic.setText(document.getString("topic"));
+//                        }
+//                        if (document.getString("description") != null) {
+//                            mBinding.description.setText(document.getString("description"));
+//                        }
                         mBinding.progressLoading.setVisibility(View.GONE);
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
@@ -184,7 +184,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (user != null) {
 
-                                    db.collection("coach").document(user.getUid())
+                                    db.collection("user").document(user.getUid())
                                             .set(profile, SetOptions.merge());
                                 }
 
@@ -207,43 +207,43 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 });
     }
 
-    private void setProfile() {
-
-        String topic = mBinding.topic.getText().toString();
-        String description = mBinding.description.getText().toString();
-
-        if (TextUtils.isEmpty(topic))
-        {
-            Toast.makeText(ProfileActivity.this, "Please enter topic...", Toast.LENGTH_SHORT).show();
-        }
-        if (TextUtils.isEmpty(description))
-        {
-            Toast.makeText(ProfileActivity.this, "Please enter description...", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                Map<String, Object> userNew = new HashMap<>();
-                userNew.put("topic", topic);
-                userNew.put("description", description);
-
-                db.collection("coach").document(user.getUid())
-                        .set(userNew, SetOptions.merge())
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
-            }
-        }
-    }
+//    private void setProfile() {
+//
+//        String topic = mBinding.topic.getText().toString();
+//        String description = mBinding.description.getText().toString();
+//
+//        if (TextUtils.isEmpty(topic))
+//        {
+//            Toast.makeText(ProfileActivity.this, "Please enter topic...", Toast.LENGTH_SHORT).show();
+//        }
+//        if (TextUtils.isEmpty(description))
+//        {
+//            Toast.makeText(ProfileActivity.this, "Please enter description...", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            if (user != null) {
+//                Map<String, Object> userNew = new HashMap<>();
+//                userNew.put("topic", topic);
+//                userNew.put("description", description);
+//
+//                db.collection("user").document(user.getUid())
+//                        .set(userNew, SetOptions.merge())
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Log.d(TAG, "DocumentSnapshot successfully written!");
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.w(TAG, "Error writing document", e);
+//                            }
+//                        });
+//            }
+//        }
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -274,18 +274,18 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 choosePhoto();
                 break;
             case R.id.finish:
-                setProfile();
+//                setProfile();
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.detail:
-                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
-                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());
-
-                startActivity(detailIntent);
-                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-                break;
+//            case R.id.detail:
+//                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
+//                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());
+//
+//                startActivity(detailIntent);
+//                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+//                break;
         }
     }
 }

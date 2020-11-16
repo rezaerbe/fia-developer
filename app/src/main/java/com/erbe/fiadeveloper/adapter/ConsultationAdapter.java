@@ -82,14 +82,14 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
                 consultation.setStatus("finished");
             }
 
-            binding.consultationName.setText(consultation.getUserName());
-            binding.userName.setText(consultation.getConsultantName());
+            binding.consultationName.setText(consultation.getConsultantName());
+            binding.userName.setText(consultation.getUserName());
             binding.consultationStatus.setText(consultation.getStatus());
             binding.consultationDate.setText(FORMAT.format(consultation.getTimestamp()));
 
             // Load image
             Glide.with(binding.userImage.getContext())
-                    .load(consultation.getUserImage())
+                    .load(consultation.getConsultantImage())
                     .centerCrop()
                     .placeholder(R.drawable.empty)
                     .into(binding.userImage);

@@ -11,20 +11,18 @@ public class Coaching {
     private String coachId;
     private String coachName;
     private String coachImage;
-    private String userImage;
     private String status;
     private Date timestamp;
 
     public Coaching() {
     }
 
-    public Coaching(String userId, String userName, String coachId, String coachName, String coachImage, String userImage, String status) {
+    public Coaching(String userId, String userName, String coachId, String coachName, String coachImage, String status) {
         this.userId = userId;
         this.userName = userName;
         this.coachId = coachId;
         this.coachName = coachName;
         this.coachImage = coachImage;
-        this.userImage = userImage;
         this.status = status;
     }
 
@@ -66,14 +64,6 @@ public class Coaching {
 
     public void setCoachImage(String coachImage) {
         this.coachImage = coachImage;
-    }
-
-    public String getUserImage() {
-        return userImage;
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
     }
 
     public String getStatus() {
