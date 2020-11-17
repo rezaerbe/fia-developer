@@ -3,9 +3,11 @@ package com.erbe.fiadeveloper.ui.video;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
 
 import com.erbe.fiadeveloper.R;
@@ -93,7 +95,12 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
     @SuppressLint("SetJavaScriptEnabled")
     private void onVideoLoaded(Video video) {
 
-        webView.loadUrl(video.getLink());
+        mBinding.buttonPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webView.loadUrl(video.getLink());
+            }
+        });
     }
 
     @Override
