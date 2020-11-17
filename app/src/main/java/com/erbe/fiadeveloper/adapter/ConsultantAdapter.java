@@ -70,9 +70,21 @@ public class ConsultantAdapter extends  FirestoreAdapter<ConsultantAdapter.ViewH
                     .into(binding.consultantImage);
 
             binding.consultantName.setText(consultant.getConsultantName());
-            binding.consultantTopic.setText(consultant.getTopic());
-            binding.consultantRating.setRating((float) consultant.getAvgRating());
-            binding.consultantNumRating.setText(resources.getString(R.string.fmt_num_ratings, consultant.getNumRatings()));
+            if (consultant.getTopic() != null) {
+                binding.consultantTopic.setText(consultant.getTopic());
+            } else {
+                binding.consultantTopic.setText("Topic");
+            }
+            if (String.valueOf(consultant.getAvgRating()) != null) {
+                binding.consultantRating.setRating((float) consultant.getAvgRating());
+            } else {
+                binding.consultantRating.setRating(0);
+            }
+            if (String.valueOf(consultant.getNumRatings()) != null) {
+                binding.consultantNumRating.setText(resources.getString(R.string.fmt_num_ratings, consultant.getNumRatings()));
+            } else {
+                binding.consultantNumRating.setText("(0)");
+            }
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

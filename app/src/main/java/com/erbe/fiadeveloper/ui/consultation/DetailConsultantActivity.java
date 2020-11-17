@@ -255,11 +255,23 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         consultantModel = consultant;
 
         mBinding.consultantNameDetail.setText(consultant.getConsultantName());
-        mBinding.consultantTopicDetail.setText(consultant.getTopic());
         mBinding.consultantDescription.setText(consultant.getDescription());
 
-        mBinding.consultantRatingDetail.setRating((float) consultant.getAvgRating());
-        mBinding.consultantNumRatingDetail.setText(getString(R.string.fmt_num_ratings, consultant.getNumRatings()));
+        if (consultant.getTopic() != null) {
+            mBinding.consultantTopicDetail.setText(consultant.getTopic());
+        } else {
+            mBinding.consultantTopicDetail.setText("Topic");
+        }
+        if (String.valueOf(consultant.getAvgRating()) != null) {
+            mBinding.consultantRatingDetail.setRating((float) consultant.getAvgRating());
+        } else {
+            mBinding.consultantRatingDetail.setRating(0);
+        }
+        if (String.valueOf(consultant.getNumRatings()) != null) {
+            mBinding.consultantNumRatingDetail.setText(getString(R.string.fmt_num_ratings, consultant.getNumRatings()));
+        } else {
+            mBinding.consultantNumRatingDetail.setText("(0)");
+        }
 
         // Background image
         Glide.with(mBinding.consultantImageDetail.getContext())

@@ -257,11 +257,23 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         coachModel = coach;
 
         mBinding.coachNameDetail.setText(coach.getCoachName());
-        mBinding.coachTopicDetail.setText(coach.getTopic());
         mBinding.coachDescription.setText(coach.getDescription());
 
-        mBinding.coachRatingDetail.setRating((float) coach.getAvgRating());
-        mBinding.coachNumRatingDetail.setText(getString(R.string.fmt_num_ratings, coach.getNumRatings()));
+        if (coach.getTopic() != null) {
+            mBinding.coachTopicDetail.setText(coach.getTopic());
+        } else {
+            mBinding.coachTopicDetail.setText("Topic");
+        }
+        if (String.valueOf(coach.getAvgRating()) != null) {
+            mBinding.coachRatingDetail.setRating((float) coach.getAvgRating());
+        } else {
+            mBinding.coachRatingDetail.setRating(0);
+        }
+        if (String.valueOf(coach.getNumRatings()) != null) {
+            mBinding.coachNumRatingDetail.setText(getString(R.string.fmt_num_ratings, coach.getNumRatings()));
+        } else {
+            mBinding.coachNumRatingDetail.setText("(0)");
+        }
 
         // Background image
         Glide.with(mBinding.coachImageDetail.getContext())

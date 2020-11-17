@@ -70,9 +70,21 @@ public class CoachAdapter extends  FirestoreAdapter<CoachAdapter.ViewHolder> {
                     .into(binding.coachImage);
 
             binding.coachName.setText(coach.getCoachName());
-            binding.coachTopic.setText(coach.getTopic());
-            binding.coachRating.setRating((float) coach.getAvgRating());
-            binding.coachNumRating.setText(resources.getString(R.string.fmt_num_ratings, coach.getNumRatings()));
+            if (coach.getTopic() != null) {
+                binding.coachTopic.setText(coach.getTopic());
+            } else {
+                binding.coachTopic.setText("Topic");
+            }
+            if (String.valueOf(coach.getAvgRating()) != null) {
+                binding.coachRating.setRating((float) coach.getAvgRating());
+            } else {
+                binding.coachRating.setRating(0);
+            }
+            if (String.valueOf(coach.getNumRatings()) != null) {
+                binding.coachNumRating.setText(resources.getString(R.string.fmt_num_ratings, coach.getNumRatings()));
+            } else {
+                binding.coachNumRating.setText("(0)");
+            }
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
