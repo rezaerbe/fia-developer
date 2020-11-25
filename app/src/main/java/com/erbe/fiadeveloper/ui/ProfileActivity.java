@@ -155,7 +155,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 //                userNew.put("topic", topic);
 //                userNew.put("description", description);
 //
-                // Todo: Coach and Consultant Change
+//                // Todo: Coach and Consultant Change
 //                db.collection("user").document(user.getUid())
 //                        .set(userNew, SetOptions.merge());
 //            }
