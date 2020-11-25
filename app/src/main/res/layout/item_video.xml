@@ -5,17 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:padding="10dp">
+    android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/videoImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        android:layout_margin="2dp"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:id="@+id/videoImage"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/empty"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/videoTitle"
@@ -29,7 +38,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/videoImage"
+        app:layout_constraintStart_toEndOf="@+id/cardVideo"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
 
@@ -38,11 +47,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="?attr/textAppearanceOverline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/videoImage"
+        app:layout_constraintStart_toEndOf="@+id/cardVideo"
         app:layout_constraintTop_toBottomOf="@+id/videoTitle"
         tools:text="Source" />
 

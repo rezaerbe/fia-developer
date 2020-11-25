@@ -59,12 +59,15 @@ public class AvailableAdapter extends  FirestoreAdapter<AvailableAdapter.ViewHol
         public void bind(final DocumentSnapshot snapshot,
                          final OnAvailableSelectedListener listener) {
 
-            final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+            final SimpleDateFormat DATE  = new SimpleDateFormat(
                     "MM/dd/yyyy", Locale.US);
+
+            final SimpleDateFormat TIME  = new SimpleDateFormat(
+                    "HH:mm", Locale.US);
 
             Available available = snapshot.toObject(Available.class);
 
-            binding.dateAvailable.setText(FORMAT.format(available.getAvailable()));
+            binding.dateAvailable.setText(String.valueOf(TIME.format(available.getFrom()) + " - " + TIME.format(available.getTo()) + " " + DATE.format(available.getFrom())));
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

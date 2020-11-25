@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ItemOriginalBinding;
 import com.erbe.fiadeveloper.model.Original;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
-
-
 
 public class OriginalAdapter extends  FirestoreAdapter<OriginalAdapter.ViewHolder> {
 
@@ -63,6 +62,7 @@ public class OriginalAdapter extends  FirestoreAdapter<OriginalAdapter.ViewHolde
             Glide.with(binding.originalImage.getContext())
                     .load(original.getImage())
                     .centerCrop()
+                    .placeholder(R.drawable.empty)
                     .into(binding.originalImage);
 
             binding.originalTitle.setText(original.getTitle());

@@ -11,8 +11,6 @@ import com.erbe.fiadeveloper.model.Category;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalAdapter.ViewHolder> {
 
     public interface OnCategoryOriginalSelectedListener {

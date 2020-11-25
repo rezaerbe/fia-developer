@@ -53,6 +53,8 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
     private DocumentReference mConsultantRef;
     private ListenerRegistration mConsultantRegistration;
 
+    FirebaseUser user;
+
     private RatingAdapter mRatingAdapter;
     private AvailableAdapter mAvailableAdapter;
 
@@ -64,7 +66,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
 
     private Date current;
 
-    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("HH:mm MM/dd/yyyy", Locale.US);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,21 +94,21 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         // Get reference to the consultant
         mConsultantRef = mFirestore.collection("consultant").document(consultantId);
 
         // Get ratings
         Query ratingsQuery = mConsultantRef
                 .collection("ratings")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(50);
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // Get available
         Query availableQuery = mConsultantRef
                 .collection("available")
-                .orderBy("available", Query.Direction.DESCENDING)
-                .whereGreaterThan("available", current)
-                .limit(50);
+                .orderBy("from", Query.Direction.DESCENDING)
+                .whereGreaterThan("from", current);
 
         // RecyclerView
         mAvailableAdapter = new AvailableAdapter(availableQuery, this) {
@@ -115,12 +117,14 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mBinding.recyclerAvailable.setVisibility(View.GONE);
+                    mBinding.available.setText("Not Available");
                 } else {
                     mBinding.recyclerAvailable.setVisibility(View.VISIBLE);
+                    mBinding.available.setText("Available");
                 }
             }
         };
-        mBinding.recyclerAvailable.setLayoutManager(new GridLayoutManager(this, 3));
+        mBinding.recyclerAvailable.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerAvailable.setAdapter(mAvailableAdapter);
 
         // RecyclerView
@@ -129,8 +133,10 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
             protected void onDataChanged() {
                 if (getItemCount() == 0) {
                     mBinding.recyclerRatings.setVisibility(View.GONE);
+                    mBinding.emptyReview.setVisibility(View.VISIBLE);
                 } else {
                     mBinding.recyclerRatings.setVisibility(View.VISIBLE);
+                    mBinding.emptyReview.setVisibility(View.GONE);
                 }
             }
         };
@@ -183,8 +189,6 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
     @Override
     public void onAvailableSelected(DocumentSnapshot available, Available model) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         DocumentReference docRef = mFirestore.collection("consultant").document(consultantId).collection("available").document(available.getId()).collection("user").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -195,24 +199,24 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
                         Toast.makeText(DetailConsultantActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getAvailable())) < 0) {
+                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getFrom())) + 1 < 0) {
                             Map<String, Object> userId = new HashMap<>();
                             userId.put("userId", user.getUid());
 
-                            mFirestore.collection("consultant").document(consultantId).collection("available").document(available.getId()).collection("user").document(user.getUid())
-                                    .set(userId)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-//                                        Toast.makeText(DetailConsultantActivity.this, "This request is already sent", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error writing document", e);
-                                        }
-                                    });
+                            docRef
+                                .set(userId)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(DetailConsultantActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error writing document", e);
+                                    }
+                                });
 
                             Map<String, Object> consultation = new HashMap<>();
                             consultation.put("consultantId", consultantModel.getConsultantId());
@@ -220,8 +224,10 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
                             consultation.put("userId", user.getUid());
                             consultation.put("userName", user.getDisplayName());
                             consultation.put("consultantImage", consultantModel.getPhoto());
+                            consultation.put("userImage", user.getPhotoUrl().toString());
                             consultation.put("status", "accepted");
-                            consultation.put("timestamp", model.getAvailable());
+                            consultation.put("from", model.getFrom());
+                            consultation.put("to", model.getTo());
 
                             mFirestore.collection("consultation")
                                     .add(consultation)
@@ -290,7 +296,8 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
 //
 //        CollectionReference docRef = mFirestore.collection("consultant").document(consultantId).collection("available");
 //        Map<String, Object> data = new HashMap<>();
-//        data.put("available", available.getAvailable());
+//        data.put("from", available.getFrom());
+//        data.put("to", available.getTo());
 //
 //        docRef
 //                .add(data)

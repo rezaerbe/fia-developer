@@ -11,18 +11,21 @@ public class Consultation {
     private String consultantId;
     private String consultantName;
     private String consultantImage;
+    private String userImage;
     private String status;
-    private Date timestamp;
+    private Date from;
+    private Date to;
 
     public Consultation() {
     }
 
-    public Consultation(String userId, String userName, String consultantId, String consultantName, String consultantImage, String status) {
+    public Consultation(String userId, String userName, String consultantId, String consultantName, String consultantImage, String userImage, String status) {
         this.userId = userId;
         this.userName = userName;
         this.consultantId = consultantId;
         this.consultantName = consultantName;
         this.consultantImage = consultantImage;
+        this.userImage = userImage;
         this.status = status;
     }
 
@@ -66,6 +69,14 @@ public class Consultation {
         this.consultantImage = consultantImage;
     }
 
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -74,11 +85,19 @@ public class Consultation {
         this.status = status;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getFrom() {
+        return from;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setFrom(Date from) {
+        this.from = from;
+    }
+
+    public Date getTo() {
+        return to;
+    }
+
+    public void setTo(Date to) {
+        this.to = to;
     }
 }

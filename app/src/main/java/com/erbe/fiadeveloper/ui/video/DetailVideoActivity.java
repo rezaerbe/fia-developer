@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityDetailVideoBinding;
 import com.erbe.fiadeveloper.model.Video;
@@ -39,6 +40,8 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
         super.onCreate(savedInstanceState);
         mBinding = ActivityDetailVideoBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        mBinding.progressLoading.setVisibility(View.VISIBLE);
 
         webView = findViewById(R.id.videoWeb);
 
@@ -92,12 +95,24 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
         onVideoLoaded(snapshot.toObject(Video.class));
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     private void onVideoLoaded(Video video) {
+
+        mBinding.videoTitleDetail.setText(video.getTitle());
+        mBinding.videoSourceDetail.setText(video.getSource());
+
+        // Background image
+        Glide.with(mBinding.videoImageDetail.getContext())
+                .load(video.getImage())
+                .centerCrop()
+                .placeholder(R.drawable.empty)
+                .into(mBinding.videoImageDetail);
+
+        mBinding.progressLoading.setVisibility(View.GONE);
 
         mBinding.buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                webView.setVisibility(View.VISIBLE);
                 webView.loadUrl(video.getLink());
             }
         });

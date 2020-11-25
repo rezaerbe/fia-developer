@@ -65,17 +65,22 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
 
             Consultation consultation = snapshot.toObject(Consultation.class);
 
-            final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+            final SimpleDateFormat FORMAT  = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
+
+            final SimpleDateFormat DATE  = new SimpleDateFormat(
                     "MM/dd/yyyy", Locale.US);
+
+            final SimpleDateFormat TIME  = new SimpleDateFormat(
+                    "HH:mm", Locale.US);
 
             Date current = Calendar.getInstance().getTime();
 
             if (consultation.getStatus().equals("accepted")) {
-                if (FORMAT.format(current).equals(FORMAT.format(consultation.getTimestamp()))) {
+                if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getFrom())) >= 0 && FORMAT.format(current).compareTo(FORMAT.format(consultation.getTo())) <= 0) {
                     consultation.setStatus("chat");
-                } else if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getTimestamp())) < 0) {
+                } else if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getFrom())) < 0) {
                     consultation.setStatus("pending");
-                } else if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getTimestamp())) > 0) {
+                } else if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getTo())) > 0) {
                     consultation.setStatus("rate");
                 }
             } else {
@@ -85,7 +90,8 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
             binding.consultationName.setText(consultation.getConsultantName());
             binding.userName.setText(consultation.getUserName());
             binding.consultationStatus.setText(consultation.getStatus());
-            binding.consultationDate.setText(FORMAT.format(consultation.getTimestamp()));
+            binding.consultationDate.setText(String.valueOf(TIME.format(consultation.getFrom()) + " - " + TIME.format(consultation.getTo()) + " " + DATE.format(consultation.getFrom())));
+
 
             // Load image
             Glide.with(binding.userImage.getContext())

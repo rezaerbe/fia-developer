@@ -55,6 +55,8 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
     private DocumentReference mCoachRef;
     private ListenerRegistration mCoachRegistration;
 
+    FirebaseUser user;
+
     private RatingAdapter mRatingAdapter;
     private AvailableAdapter mAvailableAdapter;
 
@@ -66,7 +68,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
 
     private Date current;
 
-    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,21 +96,21 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         // Get reference to the coach
         mCoachRef = mFirestore.collection("coach").document(coachId);
 
         // Get ratings
         Query ratingsQuery = mCoachRef
                 .collection("ratings")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(50);
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // Get available
         Query availableQuery = mCoachRef
                 .collection("available")
-                .orderBy("available", Query.Direction.DESCENDING)
-                .whereGreaterThan("available", current)
-                .limit(50);
+                .orderBy("from", Query.Direction.DESCENDING)
+                .whereGreaterThan("from", current);
 
         // RecyclerView
         mAvailableAdapter = new AvailableAdapter(availableQuery, this) {
@@ -117,12 +119,14 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mBinding.recyclerAvailable.setVisibility(View.GONE);
+                    mBinding.available.setText("Not Available");
                 } else {
                     mBinding.recyclerAvailable.setVisibility(View.VISIBLE);
+                    mBinding.available.setText("Available");
                 }
             }
         };
-        mBinding.recyclerAvailable.setLayoutManager(new GridLayoutManager(this, 3));
+        mBinding.recyclerAvailable.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerAvailable.setAdapter(mAvailableAdapter);
 
         // RecyclerView
@@ -131,8 +135,10 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
             protected void onDataChanged() {
                 if (getItemCount() == 0) {
                     mBinding.recyclerRatings.setVisibility(View.GONE);
+                    mBinding.emptyReview.setVisibility(View.VISIBLE);
                 } else {
                     mBinding.recyclerRatings.setVisibility(View.VISIBLE);
+                    mBinding.emptyReview.setVisibility(View.GONE);
                 }
             }
         };
@@ -185,8 +191,6 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
     @Override
     public void onAvailableSelected(DocumentSnapshot available, Available model) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         DocumentReference docRef = mFirestore.collection("coach").document(coachId).collection("available").document(available.getId()).collection("user").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -197,24 +201,25 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
                         Toast.makeText(DetailCoachActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getAvailable())) < 0) {
+                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getFrom())) + 1 < 0) {
+
                             Map<String, Object> userId = new HashMap<>();
                             userId.put("userId", user.getUid());
 
-                            mFirestore.collection("coach").document(coachId).collection("available").document(available.getId()).collection("user").document(user.getUid())
-                                    .set(userId)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-//                                        Toast.makeText(DetailCoachActivity.this, "This request is already sent", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error writing document", e);
-                                        }
-                                    });
+                            docRef
+                                .set(userId)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(DetailCoachActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error writing document", e);
+                                    }
+                                });
 
                             Map<String, Object> coaching = new HashMap<>();
                             coaching.put("coachId", coachModel.getCoachId());
@@ -222,8 +227,10 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
                             coaching.put("userId", user.getUid());
                             coaching.put("userName", user.getDisplayName());
                             coaching.put("coachImage", coachModel.getPhoto());
+                            coaching.put("userImage", user.getPhotoUrl().toString());
                             coaching.put("status", "accepted");
-                            coaching.put("timestamp", model.getAvailable());
+                            coaching.put("from", model.getFrom());
+                            coaching.put("to", model.getTo());
 
                             mFirestore.collection("coaching")
                                     .add(coaching)
@@ -292,7 +299,8 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
 //
 //        CollectionReference docRef = mFirestore.collection("coach").document(coachId).collection("available");
 //        Map<String, Object> data = new HashMap<>();
-//        data.put("available", available.getAvailable());
+//        data.put("from", available.getFrom());
+//        data.put("to", available.getTo());
 //
 //        docRef
 //            .add(data)

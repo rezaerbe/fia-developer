@@ -1,6 +1,9 @@
 package com.erbe.fiadeveloper.model;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
 
 public class Report {
 
@@ -10,6 +13,7 @@ public class Report {
     private String type;
     private String phone;
     private String chronology;
+    private @ServerTimestamp Date timestamp;
 
     public Report() {
     }
@@ -69,5 +73,13 @@ public class Report {
 
     public void setChronology(String chronology) {
         this.chronology = chronology;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -21,12 +21,14 @@ import com.erbe.fiadeveloper.databinding.ActivityProfileBinding;
 import com.erbe.fiadeveloper.ui.coaching.DetailCoachActivity;
 import com.erbe.fiadeveloper.ui.consultation.DetailConsultantActivity;
 import com.erbe.fiadeveloper.util.GlideApp;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -86,33 +88,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-
-            DocumentReference docRef = db.collection("user").document(user.getUid());
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.getString("photo") != null) {
-                            GlideApp.with(ProfileActivity.this)
-                                    .load(document.getString("photo"))
-                                    .centerCrop()
-                                    .placeholder(R.drawable.empty)
-                                    .into(cek);
-                        }
-//                        if (document.getString("topic") != null) {
-//                            mBinding.topic.setText(document.getString("topic"));
-//                        }
-//                        if (document.getString("description") != null) {
-//                            mBinding.description.setText(document.getString("description"));
-//                        }
-                        mBinding.progressLoading.setVisibility(View.GONE);
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                        mBinding.progressLoading.setVisibility(View.GONE);
-                    }
-                }
-            });
+            retrievePhoto();
         }
     }
 
@@ -160,51 +136,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
         bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
         byte[] data = baos.toByteArray();
 
-        mImageRef = FirebaseStorage.getInstance().getReference(user.getUid());
-        mImageRef.putBytes(data)
-                .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        if (BuildConfig.DEBUG) {
-//                            Log.d(TAG, "uploadPhoto:onSuccess:" +
-//                                    taskSnapshot.getMetadata().getReference().getPath());
-//                        }
-                        Toast.makeText(ProfileActivity.this, "Image uploaded",
-                                Toast.LENGTH_SHORT).show();
-
-                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Uri> task) {
-
-                                imageUri = task.getResult().toString();
-
-                                Map<String, Object> profile = new HashMap<>();
-                                profile.put("photo", imageUri);
-
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user != null) {
-
-                                    db.collection("user").document(user.getUid())
-                                            .set(profile, SetOptions.merge());
-                                }
-
-                                GlideApp.with(ProfileActivity.this)
-                                        .load(imageUri)
-                                        .centerCrop()
-                                        .placeholder(R.drawable.empty)
-                                        .into(cek);
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "uploadPhoto:onError", e);
-                        Toast.makeText(ProfileActivity.this, "Upload failed",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+        uploadFirebaseStorage(data);
     }
 
 //    private void setProfile() {
@@ -229,21 +161,103 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 //
 //                db.collection("user").document(user.getUid())
 //                        .set(userNew, SetOptions.merge())
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Log.d(TAG, "DocumentSnapshot successfully written!");
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Log.w(TAG, "Error writing document", e);
-//                            }
-//                        });
 //            }
 //        }
 //    }
+
+    private void retrievePhoto() {
+
+        DocumentReference docRef = db.collection("user").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.getString("photo") != null) {
+                        GlideApp.with(ProfileActivity.this)
+                                .load(document.getString("photo"))
+                                .centerCrop()
+                                .placeholder(R.drawable.empty)
+                                .into(cek);
+
+//                        if (document.getString("topic") != null) {
+//                            mBinding.topic.setText(document.getString("topic"));
+//                        }
+//                        if (document.getString("description") != null) {
+//                            mBinding.description.setText(document.getString("description"));
+//                        }
+                        mBinding.progressLoading.setVisibility(View.GONE);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                    mBinding.progressLoading.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    private void uploadFirebaseStorage(byte[] data) {
+
+        mImageRef = FirebaseStorage.getInstance().getReference(user.getUid());
+
+        mImageRef.putBytes(data)
+                .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        Toast.makeText(ProfileActivity.this, "Image uploaded",
+                                Toast.LENGTH_SHORT).show();
+
+                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+
+                                imageUri = task.getResult().toString();
+
+                                Map<String, Object> profile = new HashMap<>();
+                                profile.put("photo", imageUri);
+
+                                if (user != null) {
+                                    db.collection("user").document(user.getUid())
+                                            .set(profile, SetOptions.merge());
+                                }
+
+
+                                GlideApp.with(ProfileActivity.this)
+                                        .load(imageUri)
+                                        .centerCrop()
+                                        .placeholder(R.drawable.empty)
+                                        .into(cek);
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(Uri.parse(imageUri))
+                                        .build();
+
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "User profile updated.");
+                                                }
+                                            }
+                                        });
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "uploadPhoto:onError", e);
+                        Toast.makeText(ProfileActivity.this, "Upload failed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

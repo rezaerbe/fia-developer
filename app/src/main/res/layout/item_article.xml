@@ -3,20 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
+    android:padding="8dp"
     android:background="?attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/articleImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        android:layout_margin="2dp"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:id="@+id/articleImage"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/empty"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/articleTitle"
@@ -31,7 +40,7 @@
         android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/articleImage"
+        app:layout_constraintStart_toEndOf="@+id/cardArticle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -40,11 +49,11 @@
         android:layout_height="wrap_content"
         tools:text="Source"
         android:textAppearance="?attr/textAppearanceOverline"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/articleImage"
+        app:layout_constraintStart_toEndOf="@+id/cardArticle"
         app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

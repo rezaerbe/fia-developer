@@ -53,7 +53,6 @@ public class ListCoachActivity extends AppCompatActivity implements CoachAdapter
                     mBinding.recyclerCoach.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -61,7 +60,6 @@ public class ListCoachActivity extends AppCompatActivity implements CoachAdapter
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -90,7 +88,7 @@ public class ListCoachActivity extends AppCompatActivity implements CoachAdapter
 
     @Override
     public void onCoachSelected(DocumentSnapshot coach) {
-        // Go to the details page for the selected restaurant
+        // Go to the details page for the selected coach
         Intent intent = new Intent(this, DetailCoachActivity.class);
         intent.putExtra(DetailCoachActivity.KEY_COACH_ID, coach.getId());
 

@@ -24,6 +24,7 @@
         android:layout_above="@+id/footer"
         android:clipToPadding="false"
         android:padding="16dp"
+        android:background="#FCD9DD"
         tools:listitem="@layout/message" />
 
     <LinearLayout

@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,6 +56,8 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
 
     private DocumentReference mCoachRef, mCoachingRef;
 
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +69,10 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         // Get coaching
-        mQuery = mFirestore.collection("coaching").whereEqualTo("status", "accepted");
+        mQuery = mFirestore.collection("coaching").whereEqualTo("status", "accepted").whereEqualTo("userId", user.getUid());
 
         // RecyclerView
         mAdapter = new CoachingAdapter(mQuery, this) {
@@ -80,7 +86,6 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
                     mBinding.recyclerCoaching.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -88,7 +93,6 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -120,24 +124,19 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
     @Override
     public void onCoachingSelected(DocumentSnapshot coaching, Coaching model) {
 
-        final SimpleDateFormat FORMAT = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.US);
+        if (model.getStatus().equals("chat")) {
 
-        Date current = Calendar.getInstance().getTime();
-
-        if (FORMAT.format(current).equals(FORMAT.format(model.getTimestamp()))) {
-
-            // Go to the details page for the selected restaurant
+            // Go to the details page for the selected coaching
             Intent intent = new Intent(ListCoachingActivity.this, CoachingActivity.class);
             intent.putExtra(CoachingActivity.KEY_COACHING_ID, coaching.getId());
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
 
-        } else if (FORMAT.format(current).compareTo(FORMAT.format(model.getTimestamp())) < 0) {
+        } else if (model.getStatus().equals("pending")) {
             Toast.makeText(ListCoachingActivity.this, "Chat is not available yet", Toast.LENGTH_SHORT).show();
 
-        } else if (FORMAT.format(current).compareTo(FORMAT.format(model.getTimestamp())) > 0 && model.getStatus().equals("rate")) {
+        } else if (model.getStatus().equals("rate")) {
             coachId = model.getCoachId();
 
             // Get reference to the restaurant

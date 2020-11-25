@@ -23,6 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_above="@+id/footer"
         android:clipToPadding="false"
+        android:background="#FCD9DD"
         android:padding="16dp"
         tools:listitem="@layout/message" />
 

@@ -3,9 +3,11 @@ package com.erbe.fiadeveloper.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -75,8 +77,10 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                 mBinding.userFormRating.getRating(),
                 mBinding.userFormText.getText().toString());
 
-        if (mRatingListener != null) {
+        if (mRatingListener != null && mBinding.userFormRating != null && !TextUtils.isEmpty(mBinding.userFormText.getText().toString())) {
             mRatingListener.onRating(rating);
+        } else {
+            Toast.makeText(getContext(), "Please enter your review...", Toast.LENGTH_SHORT).show();
         }
 
         dismiss();

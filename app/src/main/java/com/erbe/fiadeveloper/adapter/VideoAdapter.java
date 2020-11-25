@@ -13,8 +13,6 @@ import com.erbe.fiadeveloper.model.Video;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 public class VideoAdapter extends  FirestoreAdapter<VideoAdapter.ViewHolder> {
 
     public interface OnVideoSelectedListener {

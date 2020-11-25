@@ -2,6 +2,7 @@ package com.erbe.fiadeveloper.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -20,6 +22,7 @@ import com.erbe.fiadeveloper.databinding.DialogAvailableBinding;
 import com.erbe.fiadeveloper.model.Available;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +37,8 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
     public static final String TAG = "AvailableDialog";
 
     private DialogAvailableBinding mBinding;
+
+    private String dateFrom, dateTo;
 
     public interface AvailableListener {
 
@@ -83,13 +88,14 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
 
     private void onSubmitClicked(View view) {
 
-        String date = mBinding.userFormText.getText().toString();
-        SimpleDateFormat firstFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-        Date d;
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm MM/dd/yyyy", Locale.US);
+        Date from;
+        Date to;
 
         try {
-            d = firstFormatter.parse(date);
-            Available available = new Available(d);
+            from = formatter.parse(dateFrom);
+            to = formatter.parse(dateTo);
+            Available available = new Available(from, to);
 
             if (mAvailableListener != null) {
                 mAvailableListener.onAvailable(available);
@@ -97,7 +103,6 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
         dismiss();
     }
@@ -107,12 +112,39 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
         // date picker dialog
         DatePickerDialog picker = new DatePickerDialog(getContext(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mBinding.userFormText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+
+                        TimePickerDialog from = new TimePickerDialog(getContext(),
+                                new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker view, int hour1, int minute1) {
+
+                                        TimePickerDialog to = new TimePickerDialog(getContext(),
+                                                new TimePickerDialog.OnTimeSetListener() {
+                                                    @Override
+                                                    public void onTimeSet(TimePicker view, int hour2, int minute2) {
+
+                                                        dateFrom = hour1 + ":" + minute1 + " " + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+                                                        dateTo = hour2 + ":" + minute2 + " " + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+                                                        String dateFinal = hour1 + ":" + minute1 + " - " + hour2 + ":" + minute2 + " " + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+
+                                                        mBinding.userFormText.setText(dateFinal);
+
+                                                    }
+                                                }, hour, minute, true);
+                                        to.show();
+
+                                    }
+                                }, hour, minute, true);
+                        from.show();
+
                     }
                 }, year, month, day);
         picker.show();

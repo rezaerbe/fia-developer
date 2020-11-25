@@ -1,11 +1,16 @@
 package com.erbe.fiadeveloper.model;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Article {
 
     private String title;
     private String source;
     private String image;
     private String link;
+    private @ServerTimestamp Date timestamp;
 
     public Article() {
     }
@@ -47,5 +52,13 @@ public class Article {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }

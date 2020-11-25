@@ -14,8 +14,6 @@ import com.erbe.fiadeveloper.model.Consultant;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 public class ConsultantAdapter extends  FirestoreAdapter<ConsultantAdapter.ViewHolder> {
 
     public interface OnConsultantSelectedListener {

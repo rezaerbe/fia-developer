@@ -66,7 +66,6 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
                     mBinding.recyclerArticle.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -74,7 +73,6 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -103,7 +101,7 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
 
     @Override
     public void onArticleSelected(DocumentSnapshot article) {
-        // Go to the details page for the selected restaurant
+        // Go to the details page for the selected article
         Intent intent = new Intent(this, DetailArticleActivity.class);
         intent.putExtra(DetailArticleActivity.KEY_ARTICLE_ID, article.getId());
         intent.putExtra(DetailArticleActivity.ARTICLE_CATEGORY_ID, categoryId);

@@ -53,7 +53,6 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
                     mBinding.recyclerCategoryArticle.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -61,7 +60,6 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -90,7 +88,7 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
 
     @Override
     public void onCategoryArticleSelected(DocumentSnapshot categoryarticle) {
-        // Go to the details page for the selected restaurant
+        // Go to the details page for the selected article
         Intent intent = new Intent(this, ListArticleActivity.class);
         intent.putExtra(ListArticleActivity.ARTICLE_CATEGORY_ID, categoryarticle.getId());
 

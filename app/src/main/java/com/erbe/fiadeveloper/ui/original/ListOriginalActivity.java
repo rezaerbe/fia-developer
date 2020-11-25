@@ -66,7 +66,6 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
                     mBinding.recyclerOriginal.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -74,7 +73,6 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -103,7 +101,7 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
 
     @Override
     public void onOriginalSelected(DocumentSnapshot original) {
-        // Go to the details page for the selected restaurant
+        // Go to the details page for the selected original
         Intent intent = new Intent(this, DetailOriginalActivity.class);
         intent.putExtra(DetailOriginalActivity.KEY_ORIGINAL_ID, original.getId());
         intent.putExtra(DetailOriginalActivity.ORIGINAL_CATEGORY_ID, categoryId);

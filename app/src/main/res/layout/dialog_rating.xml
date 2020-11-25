@@ -29,6 +29,7 @@
         android:background="@drawable/round_rect"
         android:padding="12dp"
         android:inputType="textMultiLine"
+        android:textSize="16sp"
         android:maxLines="5"
         android:scrollbars="vertical"
         android:layout_gravity="center_horizontal"

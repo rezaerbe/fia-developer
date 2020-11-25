@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,6 +56,8 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
 
     private DocumentReference mConsultantRef, mConsultationRef;
 
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +69,10 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         // Get consultation
-        mQuery = mFirestore.collection("consultation").whereEqualTo("status", "accepted");
+        mQuery = mFirestore.collection("consultation").whereEqualTo("status", "accepted").whereEqualTo("userId", user.getUid());
 
         // RecyclerView
         mAdapter = new ConsultationAdapter(mQuery, this) {
@@ -80,7 +86,6 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                     mBinding.recyclerConsultation.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -88,7 +93,6 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -120,24 +124,19 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
     @Override
     public void onConsultationSelected(DocumentSnapshot consultation, Consultation model) {
 
-        final SimpleDateFormat FORMAT = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.US);
+        if (model.getStatus().equals("chat")) {
 
-        Date current = Calendar.getInstance().getTime();
-
-        if (FORMAT.format(current).equals(FORMAT.format(model.getTimestamp()))) {
-
-            // Go to the details page for the selected restaurant
+            // Go to the details page for the selected consultation
             Intent intent = new Intent(ListConsultationActivity.this, ConsultationActivity.class);
             intent.putExtra(ConsultationActivity.KEY_CONSULTATION_ID, consultation.getId());
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
 
-        } else if (FORMAT.format(current).compareTo(FORMAT.format(model.getTimestamp())) < 0) {
+        } else if (model.getStatus().equals("pending")) {
             Toast.makeText(ListConsultationActivity.this, "Chat is not available yet", Toast.LENGTH_SHORT).show();
 
-        } else if (FORMAT.format(current).compareTo(FORMAT.format(model.getTimestamp())) > 0 && model.getStatus().equals("rate")) {
+        } else if (model.getStatus().equals("rate")) {
             consultantId = model.getConsultantId();
 
             // Get reference to the restaurant

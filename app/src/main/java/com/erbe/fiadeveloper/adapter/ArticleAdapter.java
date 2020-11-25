@@ -13,8 +13,6 @@ import com.erbe.fiadeveloper.model.Article;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder> {
 
     public interface OnArticleSelectedListener {

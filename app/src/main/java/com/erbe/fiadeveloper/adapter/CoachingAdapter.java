@@ -65,17 +65,22 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
 
             Coaching coaching = snapshot.toObject(Coaching.class);
 
-            final SimpleDateFormat FORMAT  = new SimpleDateFormat(
+            final SimpleDateFormat FORMAT  = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
+
+            final SimpleDateFormat DATE  = new SimpleDateFormat(
                     "MM/dd/yyyy", Locale.US);
+
+            final SimpleDateFormat TIME  = new SimpleDateFormat(
+                    "HH:mm", Locale.US);
 
             Date current = Calendar.getInstance().getTime();
 
             if (coaching.getStatus().equals("accepted")) {
-                if (FORMAT.format(current).equals(FORMAT.format(coaching.getTimestamp()))) {
+                if (FORMAT.format(current).compareTo(FORMAT.format(coaching.getFrom())) >= 0 && FORMAT.format(current).compareTo(FORMAT.format(coaching.getTo())) <= 0) {
                     coaching.setStatus("chat");
-                } else if (FORMAT.format(current).compareTo(FORMAT.format(coaching.getTimestamp())) < 0) {
+                } else if (FORMAT.format(current).compareTo(FORMAT.format(coaching.getFrom())) < 0) {
                     coaching.setStatus("pending");
-                } else if (FORMAT.format(current).compareTo(FORMAT.format(coaching.getTimestamp())) > 0) {
+                } else if (FORMAT.format(current).compareTo(FORMAT.format(coaching.getTo())) > 0) {
                     coaching.setStatus("rate");
                 }
             } else {
@@ -85,7 +90,8 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
             binding.coachingName.setText(coaching.getCoachName());
             binding.userName.setText(coaching.getUserName());
             binding.coachingStatus.setText(coaching.getStatus());
-            binding.coachingDate.setText(FORMAT.format(coaching.getTimestamp()));
+            binding.coachingDate.setText(String.valueOf(TIME.format(coaching.getFrom()) + " - " + TIME.format(coaching.getTo()) + " " + DATE.format(coaching.getFrom())));
+
 
             // Load image
             Glide.with(binding.userImage.getContext())

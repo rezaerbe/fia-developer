@@ -6,20 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".ui.video.DetailVideoActivity">
 
-    <Button
-        android:id="@+id/buttonPlay"
+    <ImageView
+        android:id="@+id/videoImageDetail"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/videoTitleDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Title"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/videoImageDetail" />
+
+    <TextView
+        android:id="@+id/videoSourceDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Source"
+        android:textAppearance="?attr/textAppearanceOverline"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/videoTitleDetail" />
+
+    <ProgressBar
+        android:id="@+id/progressLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/play_video"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play_video"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoSourceDetail" />
+
     <WebView
         android:id="@+id/videoWeb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

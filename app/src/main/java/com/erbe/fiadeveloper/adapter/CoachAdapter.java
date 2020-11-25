@@ -14,8 +14,6 @@ import com.erbe.fiadeveloper.model.Coach;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 public class CoachAdapter extends  FirestoreAdapter<CoachAdapter.ViewHolder> {
 
     public interface OnCoachSelectedListener {

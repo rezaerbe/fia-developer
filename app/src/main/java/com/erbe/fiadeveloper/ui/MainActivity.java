@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseFirestore db;
 
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Firestore
         db = FirebaseFirestore.getInstance();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             mBinding.user.setText(user.getDisplayName());
         }
@@ -116,26 +118,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             IdpResponse response = IdpResponse.fromResultIntent(data);
             mViewModel.setIsSigningIn(false);
 
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 Map<String, Object> userNew = new HashMap<>();
                 userNew.put("userId", user.getUid());
                 userNew.put("userName", user.getDisplayName());
 
                 db.collection("user").document(user.getUid())
-                        .set(userNew, SetOptions.merge())
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
+                        .set(userNew, SetOptions.merge());
             }
 
             startActivity(new Intent(MainActivity.this, ProfileActivity.class));

@@ -54,7 +54,6 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
                     mBinding.recyclerVideo.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
 
             @Override
@@ -62,7 +61,6 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
                 // Show a snackbar on errors
                 Snackbar.make(mBinding.getRoot(),
                         "Error: maaf terjadi kesalahan.", Snackbar.LENGTH_LONG).show();
-                mBinding.progressLoading.setVisibility(View.GONE);
             }
         };
 
@@ -91,7 +89,7 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
 
     @Override
     public void onVideoSelected(DocumentSnapshot video) {
-        // Go to the details page for the selected restaurant
+        // Go to the details page for the selected video
         Intent intent = new Intent(this, DetailVideoActivity.class);
         intent.putExtra(DetailVideoActivity.KEY_VIDEO_ID, video.getId());
 
