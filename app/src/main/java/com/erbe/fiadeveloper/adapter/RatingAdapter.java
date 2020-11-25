@@ -9,8 +9,6 @@ import com.erbe.fiadeveloper.databinding.ItemRatingBinding;
 import com.erbe.fiadeveloper.model.Rating;
 import com.google.firebase.firestore.Query;
 
-
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 

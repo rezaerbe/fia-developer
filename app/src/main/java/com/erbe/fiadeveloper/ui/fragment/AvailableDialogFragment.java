@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -20,9 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.DialogAvailableBinding;
 import com.erbe.fiadeveloper.model.Available;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,10 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityProfileBinding;
-import com.erbe.fiadeveloper.ui.coaching.DetailCoachActivity;
-import com.erbe.fiadeveloper.ui.consultation.DetailConsultantActivity;
 import com.erbe.fiadeveloper.util.GlideApp;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +39,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -84,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
         mBinding.profileImage.setOnClickListener(this);
         mBinding.finish.setOnClickListener(this);
+        // Todo: Coach and Consultant Uncomment
 //        mBinding.detail.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -139,6 +135,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
         uploadFirebaseStorage(data);
     }
 
+    // Todo: Coach and Consultant Uncomment
 //    private void setProfile() {
 //
 //        String topic = mBinding.topic.getText().toString();
@@ -153,12 +150,12 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 //            Toast.makeText(ProfileActivity.this, "Please enter description...", Toast.LENGTH_SHORT).show();
 //        }
 //        else {
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //            if (user != null) {
 //                Map<String, Object> userNew = new HashMap<>();
 //                userNew.put("topic", topic);
 //                userNew.put("description", description);
 //
+                // Todo: Coach and Consultant Change
 //                db.collection("user").document(user.getUid())
 //                        .set(userNew, SetOptions.merge())
 //            }
@@ -167,6 +164,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
     private void retrievePhoto() {
 
+        // Todo: Coach and Consultant Change
         DocumentReference docRef = db.collection("user").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -180,6 +178,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 .placeholder(R.drawable.empty)
                                 .into(cek);
 
+                        // Todo: Coach and Consultant Uncomment
 //                        if (document.getString("topic") != null) {
 //                            mBinding.topic.setText(document.getString("topic"));
 //                        }
@@ -201,7 +200,8 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
     private void uploadFirebaseStorage(byte[] data) {
 
-        mImageRef = FirebaseStorage.getInstance().getReference(user.getUid());
+        // Todo: Coach and Consultant Change
+        mImageRef = FirebaseStorage.getInstance().getReference(user.getUid()).child("user");
 
         mImageRef.putBytes(data)
                 .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -221,6 +221,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 profile.put("photo", imageUri);
 
                                 if (user != null) {
+                                    // Todo: Coach and Consultant Change
                                     db.collection("user").document(user.getUid())
                                             .set(profile, SetOptions.merge());
                                 }
@@ -288,11 +289,13 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 choosePhoto();
                 break;
             case R.id.finish:
+                // Todo: Coach and Consultant Uncomment
 //                setProfile();
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
+            // Todo: Coach and Consultant Uncomment
 //            case R.id.detail:
 //                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
 //                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());

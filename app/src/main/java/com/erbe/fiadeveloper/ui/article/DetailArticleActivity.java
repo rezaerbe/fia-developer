@@ -1,7 +1,5 @@
 package com.erbe.fiadeveloper.ui.article;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityDetailArticleBinding;

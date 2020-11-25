@@ -1,9 +1,5 @@
 package com.erbe.fiadeveloper.ui.consultation;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.ConsultationAdapter;
@@ -32,13 +32,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
-
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 public class ListConsultationActivity extends AppCompatActivity implements ConsultationAdapter.OnConsultationSelectedListener, RatingDialogFragment.RatingListener {
 
     private static final String TAG = "ListConsultation";
@@ -50,6 +43,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
 
     private ConsultationAdapter mAdapter;
 
+    // Todo: Consultant Comment
     private RatingDialogFragment mRatingDialog;
 
     private String consultantId;
@@ -100,6 +94,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         mBinding.recyclerConsultation.setAdapter(mAdapter);
         mBinding.progressLoading.setVisibility(View.GONE);
 
+        // Todo: Consultant Comment
         mRatingDialog = new RatingDialogFragment();
     }
 
@@ -137,6 +132,8 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
             Toast.makeText(ListConsultationActivity.this, "Chat is not available yet", Toast.LENGTH_SHORT).show();
 
         } else if (model.getStatus().equals("rate")) {
+
+            // Todo: Consultant Comment
             consultantId = model.getConsultantId();
 
             // Get reference to the restaurant
@@ -152,6 +149,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
 
     }
 
+    // Todo: Consultant Comment
     @Override
     public void onRating(Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
@@ -192,6 +190,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                 });
     }
 
+    // Todo: Consultant Comment
     private Task<Void> addRating(final DocumentReference consultantRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
         final DocumentReference ratingRef = consultantRef.collection("ratings").document();
@@ -222,6 +221,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         });
     }
 
+    // Todo: Consultant Comment
     private void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {

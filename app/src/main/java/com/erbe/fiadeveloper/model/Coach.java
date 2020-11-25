@@ -1,7 +1,5 @@
 package com.erbe.fiadeveloper.model;
 
-import java.util.Date;
-
 public class Coach {
 
     private String coachId;

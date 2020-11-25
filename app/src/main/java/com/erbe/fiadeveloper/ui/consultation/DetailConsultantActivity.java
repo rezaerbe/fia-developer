@@ -1,14 +1,13 @@
 package com.erbe.fiadeveloper.ui.consultation;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.erbe.fiadeveloper.R;
@@ -17,14 +16,12 @@ import com.erbe.fiadeveloper.adapter.RatingAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityDetailConsultantBinding;
 import com.erbe.fiadeveloper.model.Available;
 import com.erbe.fiadeveloper.model.Consultant;
-import com.erbe.fiadeveloper.ui.fragment.AvailableDialogFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -58,7 +55,8 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
     private RatingAdapter mRatingAdapter;
     private AvailableAdapter mAvailableAdapter;
 
-    private AvailableDialogFragment mAvailableDialog;
+    // Todo: Consultant Uncomment
+//    private AvailableDialogFragment mAvailableDialog;
 
     String consultantId;
 
@@ -82,6 +80,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
             throw new IllegalArgumentException("Must pass extra " + KEY_CONSULTANT_ID);
         }
 
+        // Todo: Consultant Uncomment
 //        mBinding.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -143,6 +142,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         mBinding.recyclerRatings.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerRatings.setAdapter(mRatingAdapter);
 
+        // Todo: Consultant Uncomment
 //        mAvailableDialog = new AvailableDialogFragment();
     }
 
@@ -189,6 +189,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
     @Override
     public void onAvailableSelected(DocumentSnapshot available, Available model) {
 
+        // Todo: Consultant Comment
         DocumentReference docRef = mFirestore.collection("consultant").document(consultantId).collection("available").document(available.getId()).collection("user").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -289,6 +290,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
         mBinding.progressLoading.setVisibility(View.GONE);
     }
 
+    // Todo: Consultant Uncomment
 //    @Override
 //    public void onAvailable(Available available) {
 //

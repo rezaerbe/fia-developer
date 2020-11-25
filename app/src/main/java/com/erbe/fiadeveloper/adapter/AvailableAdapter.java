@@ -11,8 +11,6 @@ import com.erbe.fiadeveloper.model.Available;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 

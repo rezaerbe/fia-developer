@@ -1,7 +1,5 @@
 package com.erbe.fiadeveloper.model;
 
-import com.google.firebase.firestore.ServerTimestamp;
-
 import java.util.Date;
 
 public class Consultation {

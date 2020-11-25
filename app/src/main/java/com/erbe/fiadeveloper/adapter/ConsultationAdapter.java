@@ -13,8 +13,6 @@ import com.erbe.fiadeveloper.model.Consultation;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;

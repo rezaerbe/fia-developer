@@ -1,12 +1,9 @@
 package com.erbe.fiadeveloper.adapter;
 
-import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RotateDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,10 +17,6 @@ import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.model.Chat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ChatHolder extends RecyclerView.ViewHolder {
 
