@@ -154,7 +154,7 @@ public class ArticleContentActivity extends AppCompatActivity implements EasyPer
 
             String uuid = UUID.randomUUID().toString();
 
-            mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+            mImageRef = FirebaseStorage.getInstance().getReference("article").child(uuid);
             mImageRef.putBytes(data)
                     .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

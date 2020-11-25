@@ -154,7 +154,7 @@ public class OriginalContentActivity extends AppCompatActivity implements EasyPe
 
             String uuid = UUID.randomUUID().toString();
 
-            mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+            mImageRef = FirebaseStorage.getInstance().getReference("original").child(uuid);
             mImageRef.putBytes(data)
                     .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

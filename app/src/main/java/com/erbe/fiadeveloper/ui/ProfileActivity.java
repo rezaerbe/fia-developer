@@ -157,7 +157,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 //
                 // Todo: Coach and Consultant Change
 //                db.collection("user").document(user.getUid())
-//                        .set(userNew, SetOptions.merge())
+//                        .set(userNew, SetOptions.merge());
 //            }
 //        }
 //    }
@@ -188,9 +188,12 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                         mBinding.progressLoading.setVisibility(View.GONE);
                     } else {
                         Log.d(TAG, "No such document");
+                        Toast.makeText(ProfileActivity.this, "Set your profile picture...", Toast.LENGTH_SHORT).show();
+                        mBinding.progressLoading.setVisibility(View.GONE);
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
+                    Toast.makeText(ProfileActivity.this, "Set your profile picture...", Toast.LENGTH_SHORT).show();
                     mBinding.progressLoading.setVisibility(View.GONE);
                 }
             }
@@ -201,7 +204,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
     private void uploadFirebaseStorage(byte[] data) {
 
         // Todo: Coach and Consultant Change
-        mImageRef = FirebaseStorage.getInstance().getReference(user.getUid()).child("user");
+        mImageRef = FirebaseStorage.getInstance().getReference("user").child(user.getUid());
 
         mImageRef.putBytes(data)
                 .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {

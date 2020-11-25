@@ -144,7 +144,7 @@ public class VideoContentActivity extends AppCompatActivity implements EasyPermi
 
             String uuid = UUID.randomUUID().toString();
 
-            mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+            mImageRef = FirebaseStorage.getInstance().getReference("video").child(uuid);
             mImageRef.putBytes(data)
                     .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
