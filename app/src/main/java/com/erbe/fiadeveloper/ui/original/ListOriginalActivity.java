@@ -47,6 +47,17 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
             throw new IllegalArgumentException("Must pass extra " + ORIGINAL_CATEGORY_ID);
         }
 
+        // Todo: Writer Uncomment
+//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(ListOriginalActivity.this, OriginalContentActivity.class);
+//                intent.putExtra(OriginalContentActivity.ORIGINAL_CATEGORY_ID, categoryId);
+//
+//                startActivity(intent);
+//            }
+//        });
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 

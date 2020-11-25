@@ -4,83 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".ui.report.ReportActivity">
+    tools:context=".ui.content.OriginalContentActivity">
 
-    <EditText
-        android:id="@+id/status"
+    <ImageView
+        android:id="@+id/originalImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/status_pernikahan"
-        android:maxLines="1"
-        android:background="@drawable/round_rect"
-        android:padding="12dp"
-        android:inputType="text"
-        android:textSize="16sp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/type"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/jenis_kasus"
-        android:maxLines="1"
-        android:layout_marginTop="20dp"
         android:background="@drawable/round_rect"
-        android:padding="12dp"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status" />
-
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/no_hp"
-        android:maxLines="1"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/round_rect"
-        android:padding="12dp"
-        android:inputType="phone"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type" />
-
-    <EditText
-        android:id="@+id/chronology"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:gravity="top|left"
-        android:hint="@string/kronologi"
-        android:lines="10"
+        android:hint="@string/title"
         android:inputType="textMultiLine"
-        android:scrollbars="vertical"
-        android:background="@drawable/round_rect"
         android:padding="12dp"
         android:textSize="16sp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/source"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone"
+        app:layout_constraintTop_toBottomOf="@+id/originalImage"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/source"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:gravity="top|left"
+        android:hint="@string/source"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        android:scrollbars="vertical"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect"
+        android:gravity="top|left"
+        android:hint="@string/description"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:padding="12dp"
+        android:scrollbars="vertical"
+        android:textSize="16sp"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source"
         tools:ignore="RtlHardcoded" />
 
     <Button
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
+        android:id="@+id/finish"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chronology"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintVertical_bias="0.8"/>
 
     <ProgressBar
         android:id="@+id/progressLoading"

@@ -27,6 +27,9 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
 
     private CategoryArticleAdapter mAdapter;
 
+    // Todo: Writer Uncomment
+//    private CategoryDialogFragment mCategoryDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,9 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
         mBinding.recyclerCategoryArticle.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerCategoryArticle.setAdapter(mAdapter);
         mBinding.progressLoading.setVisibility(View.GONE);
+
+        // Todo: Writer Uncomment
+//        mCategoryDialog = new CategoryDialogFragment();
     }
 
     @Override
@@ -95,4 +101,39 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
+
+    // Todo: Writer Uncomment
+//    @Override
+//    public void onCategory(Category category) {
+//
+//        CollectionReference docRef = mFirestore.collection("article");
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("catName", category.getCatName());
+//
+//        docRef
+//                .add(data)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+//                        hideKeyboard();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                        hideKeyboard();
+//                    }
+//                });
+//    }
+
+    // Todo: Writer Uncomment
+//    private void hideKeyboard() {
+//        View view = getCurrentFocus();
+//        if (view != null) {
+//            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+//                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
 }

@@ -47,6 +47,17 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
             throw new IllegalArgumentException("Must pass extra " + ARTICLE_CATEGORY_ID);
         }
 
+        // Todo: Writer Uncomment
+//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(ListArticleActivity.this, ArticleContentActivity.class);
+//                intent.putExtra(ArticleContentActivity.ARTICLE_CATEGORY_ID, categoryId);
+//
+//                startActivity(intent);
+//            }
+//        });
+
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 

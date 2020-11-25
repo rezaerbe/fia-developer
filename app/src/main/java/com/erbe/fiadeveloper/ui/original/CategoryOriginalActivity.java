@@ -26,6 +26,9 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
 
     private CategoryOriginalAdapter mAdapter;
 
+    // Todo: Writer Uncomment
+//    private CategoryDialogFragment mCategoryDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,15 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
 
         // Get original
         mQuery = mFirestore.collection("original");
+
+        // Todo: Writer Uncomment
+//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                mCategoryDialog.show(getSupportFragmentManager(), CategoryDialogFragment.TAG);
+//            }
+//        });
 
         // RecyclerView
         mAdapter = new CategoryOriginalAdapter(mQuery, this) {
@@ -65,6 +77,9 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
         mBinding.recyclerCategoryOriginal.setLayoutManager(new LinearLayoutManager(this));
         mBinding.recyclerCategoryOriginal.setAdapter(mAdapter);
         mBinding.progressLoading.setVisibility(View.GONE);
+
+        // Todo: Writer UnComment
+//        mCategoryDialog = new CategoryDialogFragment();
     }
 
     @Override
@@ -94,4 +109,39 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
+
+    // Todo: Writer Uncomment
+//    @Override
+//    public void onCategory(Category category) {
+//
+//        CollectionReference docRef = mFirestore.collection("original");
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("catName", category.getCatName());
+//
+//        docRef
+//                .add(data)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+//                        hideKeyboard();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                        hideKeyboard();
+//                    }
+//                });
+//    }
+
+    // Todo: Writer Uncomment
+//    private void hideKeyboard() {
+//        View view = getCurrentFocus();
+//        if (view != null) {
+//            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+//                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
 }

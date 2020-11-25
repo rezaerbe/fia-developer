@@ -1,37 +1,37 @@
-package com.erbe.fiadeveloper.ui.video;
+package com.erbe.fiadeveloper.ui.report;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.erbe.fiadeveloper.R;
-import com.erbe.fiadeveloper.adapter.VideoAdapter;
-import com.erbe.fiadeveloper.databinding.ActivityListVideoBinding;
+import com.erbe.fiadeveloper.adapter.ReportAdapter;
+import com.erbe.fiadeveloper.databinding.ActivityListReportBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
-public class ListVideoActivity extends AppCompatActivity implements VideoAdapter.OnVideoSelectedListener {
+public class ListReportActivity extends AppCompatActivity implements ReportAdapter.OnReportSelectedListener {
 
-    private static final String TAG = "ListVideoActivity";
+    private static final String TAG = "ListReportActivity";
 
-    private ActivityListVideoBinding mBinding;
+    private ActivityListReportBinding mBinding;
 
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
-    private VideoAdapter mAdapter;
+    private ReportAdapter mAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = ActivityListVideoBinding.inflate(getLayoutInflater());
+        mBinding = ActivityListReportBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
         mBinding.progressLoading.setVisibility(View.VISIBLE);
@@ -39,28 +39,19 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Todo: Writer Uncomment
-//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ListVideoActivity.this, VideoContentActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-        // Get video
-        mQuery = mFirestore.collection("video");
+        // Get report
+        mQuery = mFirestore.collection("report");
 
         // RecyclerView
-        mAdapter = new VideoAdapter(mQuery, this) {
+        mAdapter = new ReportAdapter(mQuery, this) {
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
-                    mBinding.recyclerVideo.setVisibility(View.GONE);
+                    mBinding.recyclerReport.setVisibility(View.GONE);
                     mBinding.viewEmpty.setVisibility(View.VISIBLE);
                 } else {
-                    mBinding.recyclerVideo.setVisibility(View.VISIBLE);
+                    mBinding.recyclerReport.setVisibility(View.VISIBLE);
                     mBinding.viewEmpty.setVisibility(View.GONE);
                 }
             }
@@ -73,8 +64,8 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
             }
         };
 
-        mBinding.recyclerVideo.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.recyclerVideo.setAdapter(mAdapter);
+        mBinding.recyclerReport.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerReport.setAdapter(mAdapter);
         mBinding.progressLoading.setVisibility(View.GONE);
     }
 
@@ -97,10 +88,10 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
     }
 
     @Override
-    public void onVideoSelected(DocumentSnapshot video) {
-        // Go to the details page for the selected video
-        Intent intent = new Intent(this, DetailVideoActivity.class);
-        intent.putExtra(DetailVideoActivity.KEY_VIDEO_ID, video.getId());
+    public void onReportSelected(DocumentSnapshot report) {
+        // Go to the details page for the selected restaurant
+        Intent intent = new Intent(this, DetailReportActivity.class);
+        intent.putExtra(DetailReportActivity.KEY_REPORT_ID, report.getId());
 
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);

@@ -40,4 +40,9 @@
     <string name="update">Update</string>
     <string name="no_hp">No HP</string>
     <string name="play_video">Play Video</string>
+    <string name="title">Title</string>
+    <string name="source">Source</string>
+    <string name="link">Link</string>
+    <string name="category">Category</string>
+    <string name="save_contact">Save Contact</string>
 </resources>
