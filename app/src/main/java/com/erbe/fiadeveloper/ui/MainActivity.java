@@ -21,6 +21,7 @@ import com.erbe.fiadeveloper.ui.coaching.ListCoachingActivity;
 import com.erbe.fiadeveloper.ui.consultation.ListConsultantActivity;
 import com.erbe.fiadeveloper.ui.consultation.ListConsultationActivity;
 import com.erbe.fiadeveloper.ui.original.CategoryOriginalActivity;
+import com.erbe.fiadeveloper.ui.report.ListReportActivity;
 import com.erbe.fiadeveloper.ui.report.ReportActivity;
 import com.erbe.fiadeveloper.ui.video.ListVideoActivity;
 import com.erbe.fiadeveloper.viewmodel.MainActivityViewModel;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBinding.article.setOnClickListener(this);
         mBinding.video.setOnClickListener(this);
         mBinding.original.setOnClickListener(this);
-//        mBinding.listReport.setOnClickListener(this);
+        mBinding.listReport.setOnClickListener(this);
 
     }
 
@@ -209,9 +210,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.consultation:
                 startActivity(new Intent(MainActivity.this, ListConsultationActivity.class));
                 break;
-//            case R.id.listReport:
-//                startActivity(new Intent(MainActivity.this, ListReportActivity.class));
-//                break;
+            case R.id.listReport:
+                startActivity(new Intent(MainActivity.this, ListReportActivity.class));
+                break;
         }
     }
 }
