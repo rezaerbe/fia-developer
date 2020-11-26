@@ -44,6 +44,15 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
         // Get article
         mQuery = mFirestore.collection("article");
 
+        // Todo: Writer Uncomment
+//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                mCategoryDialog.show(getSupportFragmentManager(), CategoryDialogFragment.TAG);
+//            }
+//        });
+
         // RecyclerView
         mAdapter = new CategoryArticleAdapter(mQuery, this) {
             @Override
@@ -115,7 +124,7 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
 //                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                    @Override
 //                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+//                        Toast.makeText(CategoryArticleActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
 //                        hideKeyboard();
 //                    }
 //                })

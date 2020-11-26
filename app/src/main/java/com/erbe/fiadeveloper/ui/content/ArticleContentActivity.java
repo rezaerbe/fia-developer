@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityArticleContentBinding;
+import com.erbe.fiadeveloper.model.Article;
 import com.erbe.fiadeveloper.util.GlideApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -169,14 +170,10 @@ public class ArticleContentActivity extends AppCompatActivity implements EasyPer
 
                                     imageUri = task.getResult().toString();
 
-                                    Map<String, Object> data = new HashMap<>();
-                                    data.put("title", title);
-                                    data.put("source", source);
-                                    data.put("link", link);
-                                    data.put("image", imageUri);
+                                    Article article = new Article(title, source, imageUri, link);
 
                                     db.collection("article").document(categoryId).collection("listarticle")
-                                            .add(data)
+                                            .add(article)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {

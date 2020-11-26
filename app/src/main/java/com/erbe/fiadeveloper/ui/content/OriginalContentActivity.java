@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityOriginalContentBinding;
+import com.erbe.fiadeveloper.model.Original;
 import com.erbe.fiadeveloper.util.GlideApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -169,14 +170,10 @@ public class OriginalContentActivity extends AppCompatActivity implements EasyPe
 
                                     imageUri = task.getResult().toString();
 
-                                    Map<String, Object> data = new HashMap<>();
-                                    data.put("title", title);
-                                    data.put("source", source);
-                                    data.put("description", description);
-                                    data.put("image", imageUri);
+                                    Original original = new Original(title, source, description, imageUri);
 
                                     db.collection("original").document(categoryId).collection("listoriginal")
-                                            .add(data)
+                                            .add(original)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {

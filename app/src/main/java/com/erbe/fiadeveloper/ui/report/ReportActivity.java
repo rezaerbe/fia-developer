@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.databinding.ActivityReportBinding;
+import com.erbe.fiadeveloper.model.Report;
 import com.erbe.fiadeveloper.ui.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -83,16 +84,11 @@ public class ReportActivity extends AppCompatActivity {
         }
         else {
             if (user != null) {
-                Map<String, Object> report = new HashMap<>();
-                report.put("userId", user.getUid());
-                report.put("userName", user.getDisplayName());
-                report.put("status", status);
-                report.put("type", type);
-                report.put("phone", phone);
-                report.put("chronology", chronology);
+
+                Report reportNew = new Report(user.getUid(), user.getDisplayName(), status, type, phone, chronology);
 
                 db.collection("report")
-                        .add(report)
+                        .add(reportNew)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {

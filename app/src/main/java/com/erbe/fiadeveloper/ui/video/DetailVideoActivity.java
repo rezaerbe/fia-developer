@@ -110,7 +110,6 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
         mBinding.buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                webView.setVisibility(View.VISIBLE);
                 webView.loadUrl(video.getLink());
             }
         });

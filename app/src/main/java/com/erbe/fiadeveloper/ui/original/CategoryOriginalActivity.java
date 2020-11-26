@@ -123,7 +123,7 @@ public class CategoryOriginalActivity extends AppCompatActivity implements Categ
 //                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                    @Override
 //                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+//                        Toast.makeText(CategoryOriginalActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
 //                        hideKeyboard();
 //                    }
 //                })

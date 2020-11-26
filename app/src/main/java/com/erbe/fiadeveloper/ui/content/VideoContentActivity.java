@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityVideoContentBinding;
+import com.erbe.fiadeveloper.model.Video;
 import com.erbe.fiadeveloper.util.GlideApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -159,14 +160,10 @@ public class VideoContentActivity extends AppCompatActivity implements EasyPermi
 
                                     imageUri = task.getResult().toString();
 
-                                    Map<String, Object> data = new HashMap<>();
-                                    data.put("title", title);
-                                    data.put("source", source);
-                                    data.put("link", link);
-                                    data.put("image", imageUri);
+                                    Video video = new Video(title, source, imageUri, link);
 
                                     db.collection("video")
-                                            .add(data)
+                                            .add(video)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {

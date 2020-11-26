@@ -29,6 +29,13 @@
         <activity android:name=".ui.article.DetailArticleActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
+        <activity android:name=".ui.content.ArticleContentActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.content.OriginalContentActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.content.VideoContentActivity"
+            android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".ui.coaching.ListCoachingActivity" />
         <activity android:name=".ui.coaching.CoachingActivity" />
 
