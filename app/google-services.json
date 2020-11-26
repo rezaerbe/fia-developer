@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:136036120231:android:c12507521f45d13570cd82",
         "android_client_info": {
-          "package_name": "com.erbe.fiadeveloper"
+          "package_name": "com.fia.femaleinaction"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "136036120231-878sl84pklh9ilep6aqunt5r1e7kqjfi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.erbe.fiadeveloper",
+            "package_name": "com.fia.femaleinaction",
             "certificate_hash": "6a0ae460ac96c7cb41458a47c7a99296fcd196fb"
           }
         },

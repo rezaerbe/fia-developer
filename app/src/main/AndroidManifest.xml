@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.erbe.fiadeveloper">
+    package="com.fia.femaleinaction">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,51 +15,51 @@
         android:theme="@style/Theme.FIADeveloper" >
 
 
-        <activity android:name=".ui.original.CategoryOriginalActivity" />
-        <activity android:name=".ui.original.ListOriginalActivity" />
-        <activity android:name=".ui.original.DetailOriginalActivity"
+        <activity android:name="com.fia.femaleinaction.ui.original.CategoryOriginalActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.original.ListOriginalActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.original.DetailOriginalActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
-        <activity android:name=".ui.video.ListVideoActivity" />
-        <activity android:name=".ui.video.DetailVideoActivity"
+        <activity android:name="com.fia.femaleinaction.ui.video.ListVideoActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.video.DetailVideoActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
-        <activity android:name=".ui.article.CategoryArticleActivity" />
-        <activity android:name=".ui.article.ListArticleActivity" />
-        <activity android:name=".ui.article.DetailArticleActivity"
+        <activity android:name="com.fia.femaleinaction.ui.article.CategoryArticleActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.article.ListArticleActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.article.DetailArticleActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
-        <activity android:name=".ui.content.ArticleContentActivity"
+        <activity android:name="com.fia.femaleinaction.ui.content.ArticleContentActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.content.OriginalContentActivity"
+        <activity android:name="com.fia.femaleinaction.ui.content.OriginalContentActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.content.VideoContentActivity"
+        <activity android:name="com.fia.femaleinaction.ui.content.VideoContentActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.coaching.ListCoachingActivity" />
-        <activity android:name=".ui.coaching.CoachingActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.coaching.ListCoachingActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.coaching.CoachingActivity" />
 
-        <activity android:name=".ui.coaching.ListCoachActivity" />
-        <activity android:name=".ui.coaching.DetailCoachActivity"
+        <activity android:name="com.fia.femaleinaction.ui.coaching.ListCoachActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.coaching.DetailCoachActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
-        <activity android:name=".ui.consultation.ListConsultationActivity" />
-        <activity android:name=".ui.consultation.ConsultationActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.consultation.ListConsultationActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.consultation.ConsultationActivity" />
 
-        <activity android:name=".ui.consultation.ListConsultantActivity" />
-        <activity android:name=".ui.consultation.DetailConsultantActivity"
+        <activity android:name="com.fia.femaleinaction.ui.consultation.ListConsultantActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.consultation.DetailConsultantActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"/>
 
-        <activity android:name=".ui.ProfileActivity"
+        <activity android:name="com.fia.femaleinaction.ui.ProfileActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"
             android:windowSoftInputMode="adjustPan"/>
 
-        <activity android:name=".ui.report.ReportActivity"
+        <activity android:name="com.fia.femaleinaction.ui.report.ReportActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.report.ListReportActivity" />
-        <activity android:name=".ui.report.DetailReportActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.report.ListReportActivity" />
+        <activity android:name="com.fia.femaleinaction.ui.report.DetailReportActivity" />
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name="com.fia.femaleinaction.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
