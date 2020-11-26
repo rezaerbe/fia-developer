@@ -206,7 +206,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
 //                        Toast.makeText(DetailConsultantActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
 //                    } else {
 //
-//                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getFrom())) < 0 && TIME.format(current).compareTo(TIME.format(model.getFrom())) + 1 < 0) {
+//                        if (FORMAT.format(current).compareTo(FORMAT.format(model.getFrom())) <= 0 && (model.getFrom().getTime() - current.getTime()) / 3600 >= 1000) {
 //                            Map<String, Object> userId = new HashMap<>();
 //                            userId.put("userId", user.getUid());
 //
