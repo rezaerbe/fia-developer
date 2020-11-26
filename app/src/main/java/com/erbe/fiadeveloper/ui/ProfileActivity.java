@@ -298,7 +298,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 startActivity(intent);
                 finish();
                 break;
-            // Todo: Coach and Consultant Uncomment
+            // Todo: Coach and Consultant Uncomment and Change
 //            case R.id.detail:
 //                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
 //                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());

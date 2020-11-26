@@ -73,6 +73,7 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
 
             Date current = Calendar.getInstance().getTime();
 
+            assert consultation != null;
             if (consultation.getStatus().equals("accepted")) {
                 if (FORMAT.format(current).compareTo(FORMAT.format(consultation.getFrom())) >= 0 && FORMAT.format(current).compareTo(FORMAT.format(consultation.getTo())) <= 0) {
                     consultation.setStatus("chat");

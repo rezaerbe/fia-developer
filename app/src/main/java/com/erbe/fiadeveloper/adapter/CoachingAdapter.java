@@ -73,6 +73,7 @@ public class CoachingAdapter extends FirestoreAdapter<CoachingAdapter.ViewHolder
 
             Date current = Calendar.getInstance().getTime();
 
+            assert coaching != null;
             if (coaching.getStatus().equals("accepted")) {
                 if (FORMAT.format(current).compareTo(FORMAT.format(coaching.getFrom())) >= 0 && FORMAT.format(current).compareTo(FORMAT.format(coaching.getTo())) <= 0) {
                     coaching.setStatus("chat");
