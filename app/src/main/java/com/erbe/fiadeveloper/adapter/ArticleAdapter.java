@@ -59,6 +59,7 @@ public class ArticleAdapter extends  FirestoreAdapter<ArticleAdapter.ViewHolder>
             Article article = snapshot.toObject(Article.class);
 
             // Load image
+            assert article != null;
             Glide.with(binding.articleImage.getContext())
                     .load(article.getImage())
                     .centerCrop()

@@ -49,7 +49,9 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
 //        });
 
         // Get video
-        mQuery = mFirestore.collection("video");
+        mQuery = mFirestore
+                .collection("video")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // RecyclerView
         mAdapter = new VideoAdapter(mQuery, this) {

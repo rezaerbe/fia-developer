@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -92,10 +93,15 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
         try {
             from = formatter.parse(dateFrom);
             to = formatter.parse(dateTo);
-            Available available = new Available(from, to);
 
-            if (mAvailableListener != null) {
-                mAvailableListener.onAvailable(available);
+            if (from != null && to != null) {
+                Available available = new Available(from, to);
+
+                if (mAvailableListener != null) {
+                    mAvailableListener.onAvailable(available);
+                }
+            } else {
+                Toast.makeText(getContext(), "Please enter your availability...", Toast.LENGTH_SHORT).show();
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -130,7 +136,7 @@ public class AvailableDialogFragment extends DialogFragment implements View.OnCl
 
                                                         dateFrom = hour1 + ":" + minute1 + " " + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
                                                         dateTo = hour2 + ":" + minute2 + " " + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
-                                                        String dateFinal = hour1 + ":" + minute1 + " - " + hour2 + ":" + minute2 + " " + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+                                                        String dateFinal = hour1 + ":" + minute1 + " - " + hour2 + ":" + minute2 + " " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
 
                                                         mBinding.userFormText.setText(dateFinal);
 

@@ -33,9 +33,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -79,6 +78,7 @@ public class VideoContentActivity extends AppCompatActivity implements EasyPermi
 
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == RESULT_OK) {
+                assert data != null;
                 selectedImage = data.getData();
                 GlideApp.with(VideoContentActivity.this)
                         .load(selectedImage)
@@ -140,6 +140,7 @@ public class VideoContentActivity extends AppCompatActivity implements EasyPermi
             }
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            assert bmp != null;
             bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
             byte[] data = baos.toByteArray();
 
@@ -158,7 +159,7 @@ public class VideoContentActivity extends AppCompatActivity implements EasyPermi
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
 
-                                    imageUri = task.getResult().toString();
+                                    imageUri = Objects.requireNonNull(task.getResult()).toString();
 
                                     Video video = new Video(title, source, imageUri, link);
 

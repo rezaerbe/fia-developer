@@ -3,6 +3,7 @@ package com.erbe.fiadeveloper.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class CategoryDialogFragment extends DialogFragment implements View.OnCli
     private void onSubmitClicked(View view) {
         Category category = new Category(mBinding.userFormText.getText().toString());
 
-        if (mCategoryListener != null) {
+        if (mCategoryListener != null && !TextUtils.isEmpty(mBinding.userFormText.getText().toString())) {
             mCategoryListener.onCategory(category);
         }
 

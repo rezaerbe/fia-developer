@@ -61,6 +61,7 @@ public class CoachAdapter extends  FirestoreAdapter<CoachAdapter.ViewHolder> {
             Resources resources = itemView.getResources();
 
             // Load image
+            assert coach != null;
             Glide.with(binding.coachImage.getContext())
                     .load(coach.getPhoto())
                     .centerCrop()

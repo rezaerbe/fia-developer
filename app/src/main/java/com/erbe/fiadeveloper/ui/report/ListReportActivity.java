@@ -40,7 +40,9 @@ public class ListReportActivity extends AppCompatActivity implements ReportAdapt
         mFirestore = FirebaseFirestore.getInstance();
 
         // Get report
-        mQuery = mFirestore.collection("report");
+        mQuery = mFirestore
+                .collection("report")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // RecyclerView
         mAdapter = new ReportAdapter(mQuery, this) {

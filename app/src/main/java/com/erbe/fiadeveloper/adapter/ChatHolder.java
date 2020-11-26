@@ -59,7 +59,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 //    private void setDate(Date date) {
 //
 //        final SimpleDateFormat FORMAT  = new SimpleDateFormat(
-//                "HH:mm  |  MM/dd/yyyy", Locale.US);
+//                "HH:mm  |  dd/MM/yyyy", Locale.US);
 //
 //        mDateField.setText(FORMAT.format(date));
 //    }

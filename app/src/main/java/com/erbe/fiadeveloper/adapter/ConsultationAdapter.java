@@ -66,7 +66,7 @@ public class ConsultationAdapter extends FirestoreAdapter<ConsultationAdapter.Vi
             final SimpleDateFormat FORMAT  = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
 
             final SimpleDateFormat DATE  = new SimpleDateFormat(
-                    "MM/dd/yyyy", Locale.US);
+                    "dd/MM/yyyy", Locale.US);
 
             final SimpleDateFormat TIME  = new SimpleDateFormat(
                     "HH:mm", Locale.US);

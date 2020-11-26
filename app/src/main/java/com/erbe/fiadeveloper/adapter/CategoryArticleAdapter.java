@@ -56,6 +56,7 @@ public class CategoryArticleAdapter extends  FirestoreAdapter<CategoryArticleAda
 
             Category category = snapshot.toObject(Category.class);
 
+            assert category != null;
             binding.categoryArticle.setText(category.getCatName());
 
             // Click listener

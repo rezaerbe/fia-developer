@@ -63,7 +63,9 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
 
         mArticleRef = mFirestore.collection("article").document(categoryId);
 
-        Query listArticleQuery = mArticleRef.collection("listarticle");
+        Query listArticleQuery = mArticleRef
+                .collection("listarticle")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // RecyclerView
         mAdapter = new ArticleAdapter(listArticleQuery, this) {

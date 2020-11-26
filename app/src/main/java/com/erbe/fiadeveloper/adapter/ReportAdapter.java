@@ -56,6 +56,7 @@ public class ReportAdapter extends  FirestoreAdapter<ReportAdapter.ViewHolder> {
 
             Report report = snapshot.toObject(Report.class);
 
+            assert report != null;
             binding.userName.setText(report.getUserName());
             binding.type.setText(report.getType());
 

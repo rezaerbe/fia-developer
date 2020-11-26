@@ -181,13 +181,20 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone"
-                android:text="No Review Yet"
+                android:text="@string/no_review_yet"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/review"
                 tools:listitem="@layout/item_rating" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emptyReview"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class DetailCoachActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>,
         AvailableAdapter.OnAvailableSelectedListener {
@@ -185,7 +186,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
             return;
         }
 
-        onCoachLoaded(snapshot.toObject(Coach.class));
+        onCoachLoaded(Objects.requireNonNull(snapshot.toObject(Coach.class)));
     }
 
     @Override
@@ -198,6 +199,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    assert document != null;
                     if (document.exists()) {
                         Toast.makeText(DetailCoachActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
                     } else {
@@ -228,7 +230,7 @@ public class DetailCoachActivity extends AppCompatActivity implements EventListe
                             coaching.put("userId", user.getUid());
                             coaching.put("userName", user.getDisplayName());
                             coaching.put("coachImage", coachModel.getPhoto());
-                            coaching.put("userImage", user.getPhotoUrl().toString());
+                            coaching.put("userImage", Objects.requireNonNull(user.getPhotoUrl()).toString());
                             coaching.put("status", "accepted");
                             coaching.put("from", model.getFrom());
                             coaching.put("to", model.getTo());

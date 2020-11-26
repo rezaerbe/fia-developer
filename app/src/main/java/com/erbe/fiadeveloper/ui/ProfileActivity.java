@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -94,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == RESULT_OK) {
+                assert data != null;
                 Uri selectedImage = data.getData();
                 uploadPhoto(selectedImage);
             } else {
@@ -129,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        assert bmp != null;
         bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
         byte[] data = baos.toByteArray();
 
@@ -171,6 +174,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    assert document != null;
                     if (document.getString("photo") != null) {
                         GlideApp.with(ProfileActivity.this)
                                 .load(document.getString("photo"))
@@ -218,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
 
-                                imageUri = task.getResult().toString();
+                                imageUri = Objects.requireNonNull(task.getResult()).toString();
 
                                 Map<String, Object> profile = new HashMap<>();
                                 profile.put("photo", imageUri);

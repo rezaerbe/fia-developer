@@ -18,7 +18,7 @@ import com.google.firebase.firestore.Query;
 
 public class CategoryArticleActivity extends AppCompatActivity implements CategoryArticleAdapter.OnCategoryArticleSelectedListener {
 
-    private static final String TAG = "CategoryArticleActivity";
+    private static final String TAG = "CatArticleActivity";
 
     private ActivityCategoryArticleBinding mBinding;
 

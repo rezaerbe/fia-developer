@@ -58,13 +58,14 @@ public class AvailableAdapter extends  FirestoreAdapter<AvailableAdapter.ViewHol
                          final OnAvailableSelectedListener listener) {
 
             final SimpleDateFormat DATE  = new SimpleDateFormat(
-                    "MM/dd/yyyy", Locale.US);
+                    "dd/MM/yyyy", Locale.US);
 
             final SimpleDateFormat TIME  = new SimpleDateFormat(
                     "HH:mm", Locale.US);
 
             Available available = snapshot.toObject(Available.class);
 
+            assert available != null;
             binding.dateAvailable.setText(String.valueOf(TIME.format(available.getFrom()) + " - " + TIME.format(available.getTo()) + " " + DATE.format(available.getFrom())));
 
             // Click listener

@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class DetailConsultantActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>,
         AvailableAdapter.OnAvailableSelectedListener {
@@ -64,7 +65,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
 
     private Date current;
 
-    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("HH:mm MM/dd/yyyy", Locale.US);
+    private final SimpleDateFormat FORMAT  = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
 
     private final SimpleDateFormat TIME  = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
@@ -185,7 +186,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
             return;
         }
 
-        onConsultantLoaded(snapshot.toObject(Consultant.class));
+        onConsultantLoaded(Objects.requireNonNull(snapshot.toObject(Consultant.class)));
     }
 
     @Override
@@ -198,6 +199,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    assert document != null;
                     if (document.exists()) {
                         Toast.makeText(DetailConsultantActivity.this, "This request is already taken", Toast.LENGTH_SHORT).show();
                     } else {
@@ -227,7 +229,7 @@ public class DetailConsultantActivity extends AppCompatActivity implements Event
                             consultation.put("userId", user.getUid());
                             consultation.put("userName", user.getDisplayName());
                             consultation.put("consultantImage", consultantModel.getPhoto());
-                            consultation.put("userImage", user.getPhotoUrl().toString());
+                            consultation.put("userImage", Objects.requireNonNull(user.getPhotoUrl()).toString());
                             consultation.put("status", "accepted");
                             consultation.put("from", model.getFrom());
                             consultation.put("to", model.getTo());

@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.util.Objects;
+
 public class DetailArticleActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
     private static final String TAG = "DetailArticleActivity";
@@ -99,7 +101,7 @@ public class DetailArticleActivity extends AppCompatActivity implements EventLis
             return;
         }
 
-        onArticleLoaded(snapshot.toObject(Article.class));
+        onArticleLoaded(Objects.requireNonNull(snapshot.toObject(Article.class)));
     }
 
     @SuppressLint("SetJavaScriptEnabled")

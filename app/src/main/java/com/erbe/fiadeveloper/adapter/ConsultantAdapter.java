@@ -61,6 +61,7 @@ public class ConsultantAdapter extends  FirestoreAdapter<ConsultantAdapter.ViewH
             Resources resources = itemView.getResources();
 
             // Load image
+            assert consultant != null;
             Glide.with(binding.consultantImage.getContext())
                     .load(consultant.getPhoto())
                     .centerCrop()

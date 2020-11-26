@@ -59,6 +59,7 @@ public class OriginalAdapter extends  FirestoreAdapter<OriginalAdapter.ViewHolde
             Original original = snapshot.toObject(Original.class);
 
             // Load image
+            assert original != null;
             Glide.with(binding.originalImage.getContext())
                     .load(original.getImage())
                     .centerCrop()

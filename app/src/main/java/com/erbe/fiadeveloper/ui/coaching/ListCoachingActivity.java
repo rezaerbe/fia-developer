@@ -132,7 +132,8 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
         } else if (model.getStatus().equals("pending")) {
             Toast.makeText(ListCoachingActivity.this, "Chat is not available yet", Toast.LENGTH_SHORT).show();
 
-        } else if (model.getStatus().equals("rate")) {
+        }
+        else if (model.getStatus().equals("rate")) {
 
             // Todo: Coach Comment
             coachId = model.getCoachId();
@@ -144,7 +145,8 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
 
             mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
 
-        } else {
+        }
+        else {
             Toast.makeText(this, "This coaching is alredy finished", Toast.LENGTH_SHORT).show();
         }
 
@@ -204,6 +206,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
                 Coach coach = transaction.get(coachRef).toObject(Coach.class);
 
                 // Compute new number of ratings
+                assert coach != null;
                 int newNumRatings = coach.getNumRatings() + 1;
 
                 // Compute new average rating

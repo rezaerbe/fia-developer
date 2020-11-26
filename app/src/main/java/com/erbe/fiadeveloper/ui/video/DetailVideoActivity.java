@@ -19,6 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.util.Objects;
+
 public class DetailVideoActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
     private static final String TAG = "DetailVideo";
@@ -90,7 +92,7 @@ public class DetailVideoActivity extends AppCompatActivity implements EventListe
             return;
         }
 
-        onVideoLoaded(snapshot.toObject(Video.class));
+        onVideoLoaded(Objects.requireNonNull(snapshot.toObject(Video.class)));
     }
 
     private void onVideoLoaded(Video video) {

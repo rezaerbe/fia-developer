@@ -33,9 +33,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -89,6 +88,7 @@ public class ArticleContentActivity extends AppCompatActivity implements EasyPer
 
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == RESULT_OK) {
+                assert data != null;
                 selectedImage = data.getData();
                 GlideApp.with(ArticleContentActivity.this)
                         .load(selectedImage)
@@ -150,6 +150,7 @@ public class ArticleContentActivity extends AppCompatActivity implements EasyPer
             }
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            assert bmp != null;
             bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
             byte[] data = baos.toByteArray();
 
@@ -168,7 +169,7 @@ public class ArticleContentActivity extends AppCompatActivity implements EasyPer
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
 
-                                    imageUri = task.getResult().toString();
+                                    imageUri = Objects.requireNonNull(task.getResult()).toString();
 
                                     Article article = new Article(title, source, imageUri, link);
 

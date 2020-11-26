@@ -56,6 +56,7 @@ public class CategoryOriginalAdapter extends  FirestoreAdapter<CategoryOriginalA
 
             Category category = snapshot.toObject(Category.class);
 
+            assert category != null;
             binding.categoryOriginal.setText(category.getCatName());
 
             // Click listener

@@ -63,7 +63,9 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
 
         mOriginalRef = mFirestore.collection("original").document(categoryId);
 
-        Query listOriginalQuery = mOriginalRef.collection("listoriginal");
+        Query listOriginalQuery = mOriginalRef
+                .collection("listoriginal")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // RecyclerView
         mAdapter = new OriginalAdapter(listOriginalQuery, this) {

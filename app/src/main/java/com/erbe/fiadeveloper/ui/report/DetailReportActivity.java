@@ -1,6 +1,5 @@
 package com.erbe.fiadeveloper.ui.report;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -18,6 +17,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+
+import java.util.Objects;
 
 public class DetailReportActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
@@ -87,10 +88,9 @@ public class DetailReportActivity extends AppCompatActivity implements EventList
             return;
         }
 
-        onReportLoaded(snapshot.toObject(Report.class));
+        onReportLoaded(Objects.requireNonNull(snapshot.toObject(Report.class)));
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     private void onReportLoaded(Report report) {
 
         mBinding.status.setText(report.getStatus());

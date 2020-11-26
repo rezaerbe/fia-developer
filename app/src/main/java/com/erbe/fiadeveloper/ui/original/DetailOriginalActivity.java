@@ -17,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.util.Objects;
+
 public class DetailOriginalActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
     private static final String TAG = "DetailOriginal";
@@ -92,7 +94,7 @@ public class DetailOriginalActivity extends AppCompatActivity implements EventLi
             return;
         }
 
-        onOriginalLoaded(snapshot.toObject(Original.class));
+        onOriginalLoaded(Objects.requireNonNull(snapshot.toObject(Original.class)));
     }
 
     private void onOriginalLoaded(Original original) {

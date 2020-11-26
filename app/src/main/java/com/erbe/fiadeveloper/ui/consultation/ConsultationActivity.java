@@ -27,6 +27,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Objects;
+
 /**
  * Class demonstrating how to setup a {@link RecyclerView} with an adapter while taking sign-in
  * states into consideration. Also demonstrates adding data to a ref and then reading it back using
@@ -151,7 +153,7 @@ public class ConsultationActivity extends AppCompatActivity
     }
 
     public void onSendClick() {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         String message = mBinding.messageEdit.getText().toString();
 

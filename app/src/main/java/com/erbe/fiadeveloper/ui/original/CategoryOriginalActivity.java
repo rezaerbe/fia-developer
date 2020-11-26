@@ -17,7 +17,7 @@ import com.google.firebase.firestore.Query;
 
 public class CategoryOriginalActivity extends AppCompatActivity implements CategoryOriginalAdapter.OnCategoryOriginalSelectedListener {
 
-    private static final String TAG = "CategoryOriginalActivity";
+    private static final String TAG = "CatOriginalActivity";
 
     private com.erbe.fiadeveloper.databinding.ActivityCategoryOriginalBinding mBinding;
 

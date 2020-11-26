@@ -18,7 +18,6 @@ import com.erbe.fiadeveloper.databinding.ActivityListConsultationBinding;
 import com.erbe.fiadeveloper.model.Consultant;
 import com.erbe.fiadeveloper.model.Consultation;
 import com.erbe.fiadeveloper.model.Rating;
-import com.erbe.fiadeveloper.ui.coaching.ListCoachingActivity;
 import com.erbe.fiadeveloper.ui.fragment.RatingDialogFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -205,6 +204,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                 Consultant consultant = transaction.get(consultantRef).toObject(Consultant.class);
 
                 // Compute new number of ratings
+                assert consultant != null;
                 int newNumRatings = consultant.getNumRatings() + 1;
 
                 // Compute new average rating

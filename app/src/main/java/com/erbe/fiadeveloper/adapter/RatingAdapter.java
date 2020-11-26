@@ -11,6 +11,7 @@ import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * RecyclerView adapter for a list of {@link Rating}.
@@ -30,13 +31,13 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(getSnapshot(position).toObject(Rating.class));
+        holder.bind(Objects.requireNonNull(getSnapshot(position).toObject(Rating.class)));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private static final SimpleDateFormat FORMAT  = new SimpleDateFormat(
-                "MM/dd/yyyy", Locale.US);
+                "dd/MM/yyyy", Locale.US);
 
         private final ItemRatingBinding binding;
 

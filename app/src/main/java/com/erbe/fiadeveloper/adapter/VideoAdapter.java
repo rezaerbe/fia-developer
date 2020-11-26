@@ -59,6 +59,7 @@ public class VideoAdapter extends  FirestoreAdapter<VideoAdapter.ViewHolder> {
             Video video = snapshot.toObject(Video.class);
 
             // Load image
+            assert video != null;
             Glide.with(binding.videoImage.getContext())
                     .load(video.getImage())
                     .centerCrop()
