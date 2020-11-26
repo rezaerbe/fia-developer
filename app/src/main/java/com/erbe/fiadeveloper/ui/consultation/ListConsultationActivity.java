@@ -66,6 +66,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         // Get consultation
+        // Todo: Coach and Consultant Change
         mQuery = mFirestore.collection("consultation").whereEqualTo("status", "accepted").whereEqualTo("userId", user.getUid());
 
         // RecyclerView

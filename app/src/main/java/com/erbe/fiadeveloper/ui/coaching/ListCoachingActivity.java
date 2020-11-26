@@ -66,6 +66,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         // Get coaching
+        // Todo: Coach and Consultant Change
         mQuery = mFirestore.collection("coaching").whereEqualTo("status", "accepted").whereEqualTo("userId", user.getUid());
 
         // RecyclerView

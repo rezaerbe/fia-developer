@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
             if (users != null) {
+                // Todo: Coach and Consultant Change
                 Map<String, Object> userNew = new HashMap<>();
                 userNew.put("userId", users.getUid());
                 userNew.put("userName", users.getDisplayName());
