@@ -53,8 +53,12 @@
         <activity android:name=".ui.ProfileActivity"
             android:theme="@style/Theme.FIADeveloper.NoActionBar"
             android:windowSoftInputMode="adjustPan"/>
+
         <activity android:name=".ui.report.ReportActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.report.ListReportActivity" />
+        <activity android:name=".ui.report.DetailReportActivity" />
+
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
