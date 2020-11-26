@@ -32,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
-public class ListConsultationActivity extends AppCompatActivity implements ConsultationAdapter.OnConsultationSelectedListener, RatingDialogFragment.RatingListener {
+public class ListConsultationActivity extends AppCompatActivity implements ConsultationAdapter.OnConsultationSelectedListener {
 
     private static final String TAG = "ListConsultation";
 
@@ -44,7 +44,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
     private ConsultationAdapter mAdapter;
 
     // Todo: Consultant Comment
-    private RatingDialogFragment mRatingDialog;
+//    private RatingDialogFragment mRatingDialog;
 
     private String consultantId;
 
@@ -67,7 +67,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
 
         // Get consultation
         // Todo: Coach and Consultant Change
-        mQuery = mFirestore.collection("consultation").whereEqualTo("status", "accepted").whereEqualTo("userId", user.getUid());
+        mQuery = mFirestore.collection("consultation").whereEqualTo("status", "accepted").whereEqualTo("consultantId", user.getUid());
 
         // RecyclerView
         mAdapter = new ConsultationAdapter(mQuery, this) {
@@ -96,7 +96,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         mBinding.progressLoading.setVisibility(View.GONE);
 
         // Todo: Consultant Comment
-        mRatingDialog = new RatingDialogFragment();
+//        mRatingDialog = new RatingDialogFragment();
     }
 
     @Override
@@ -132,104 +132,106 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
         } else if (model.getStatus().equals("pending")) {
             Toast.makeText(ListConsultationActivity.this, "Chat is not available yet", Toast.LENGTH_SHORT).show();
 
-        } else if (model.getStatus().equals("rate")) {
-
-            // Todo: Consultant Comment
-            consultantId = model.getConsultantId();
-
-            // Get reference to the restaurant
-            mConsultantRef = mFirestore.collection("consultant").document(consultantId);
-
-            mConsultationRef = mFirestore.collection("consultation").document(consultation.getId());
-
-            mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
-
-        } else {
+        }
+//        else if (model.getStatus().equals("rate")) {
+//
+//            // Todo: Consultant Comment
+//            consultantId = model.getConsultantId();
+//
+//            // Get reference to the restaurant
+//            mConsultantRef = mFirestore.collection("consultant").document(consultantId);
+//
+//            mConsultationRef = mFirestore.collection("consultation").document(consultation.getId());
+//
+//            mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+//
+//        }
+        else {
             Toast.makeText(this, "This consultation is alredy finished", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     // Todo: Consultant Comment
-    @Override
-    public void onRating(Rating rating) {
-        // In a transaction, add the new rating and update the aggregate totals
-        addRating(mConsultantRef, rating)
-                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Rating added");
-
-                        mConsultationRef
-                                .update("status", "finished")
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error updating document", e);
-                                    }
-                                });
-                        Toast.makeText(ListConsultationActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
-                        // Hide keyboard and scroll to top
-                        hideKeyboard();
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Add rating failed", e);
-
-                        // Show failure message and hide keyboard
-                        hideKeyboard();
-                        Snackbar.make(mBinding.getRoot(), "Failed to add rating",
-                                Snackbar.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    // Todo: Consultant Comment
-    private Task<Void> addRating(final DocumentReference consultantRef, final Rating rating) {
-        // Create reference for new rating, for use inside the transaction
-        final DocumentReference ratingRef = consultantRef.collection("ratings").document();
-
-        // In a transaction, add the new rating and update the aggregate totals
-        return mFirestore.runTransaction(new Transaction.Function<Void>() {
-            @Override
-            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                Consultant consultant = transaction.get(consultantRef).toObject(Consultant.class);
-
-                // Compute new number of ratings
-                assert consultant != null;
-                int newNumRatings = consultant.getNumRatings() + 1;
-
-                // Compute new average rating
-                double oldRatingTotal = consultant.getAvgRating() * consultant.getNumRatings();
-                double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
-
-                // Set new restaurant info
-                consultant.setNumRatings(newNumRatings);
-                consultant.setAvgRating(newAvgRating);
-
-                // Commit to Firestore
-                transaction.set(consultantRef, consultant);
-                transaction.set(ratingRef, rating);
-
-                return null;
-            }
-        });
-    }
+//    @Override
+//    public void onRating(Rating rating) {
+//        // In a transaction, add the new rating and update the aggregate totals
+//        addRating(mConsultantRef, rating)
+//                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Log.d(TAG, "Rating added");
+//
+//                        mConsultationRef
+//                                .update("status", "finished")
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+//                                    }
+//                                })
+//                                .addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Log.w(TAG, "Error updating document", e);
+//                                    }
+//                                });
+//                        Toast.makeText(ListConsultationActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
+//                        // Hide keyboard and scroll to top
+//                        hideKeyboard();
+//                    }
+//                })
+//                .addOnFailureListener(this, new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Add rating failed", e);
+//
+//                        // Show failure message and hide keyboard
+//                        hideKeyboard();
+//                        Snackbar.make(mBinding.getRoot(), "Failed to add rating",
+//                                Snackbar.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 
     // Todo: Consultant Comment
-    private void hideKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+//    private Task<Void> addRating(final DocumentReference consultantRef, final Rating rating) {
+//        // Create reference for new rating, for use inside the transaction
+//        final DocumentReference ratingRef = consultantRef.collection("ratings").document();
+//
+//        // In a transaction, add the new rating and update the aggregate totals
+//        return mFirestore.runTransaction(new Transaction.Function<Void>() {
+//            @Override
+//            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+//                Consultant consultant = transaction.get(consultantRef).toObject(Consultant.class);
+//
+//                // Compute new number of ratings
+//                assert consultant != null;
+//                int newNumRatings = consultant.getNumRatings() + 1;
+//
+//                // Compute new average rating
+//                double oldRatingTotal = consultant.getAvgRating() * consultant.getNumRatings();
+//                double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
+//
+//                // Set new restaurant info
+//                consultant.setNumRatings(newNumRatings);
+//                consultant.setAvgRating(newAvgRating);
+//
+//                // Commit to Firestore
+//                transaction.set(consultantRef, consultant);
+//                transaction.set(ratingRef, rating);
+//
+//                return null;
+//            }
+//        });
+//    }
+
+    // Todo: Consultant Comment
+//    private void hideKeyboard() {
+//        View view = getCurrentFocus();
+//        if (view != null) {
+//            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+//                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
 }

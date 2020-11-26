@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (users != null) {
                 // Todo: Coach and Consultant Change
                 Map<String, Object> userNew = new HashMap<>();
-                userNew.put("userId", users.getUid());
-                userNew.put("userName", users.getDisplayName());
+                userNew.put("consultantId", users.getUid());
+                userNew.put("consultantName", users.getDisplayName());
 
                 // Todo: Coach and Consultant Change
-                db.collection("user").document(users.getUid())
+                db.collection("consultant").document(users.getUid())
                         .set(userNew, SetOptions.merge());
             }
 

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.databinding.ActivityProfileBinding;
+import com.erbe.fiadeveloper.ui.coaching.DetailCoachActivity;
+import com.erbe.fiadeveloper.ui.consultation.DetailConsultantActivity;
 import com.erbe.fiadeveloper.util.GlideApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -81,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
         mBinding.profileImage.setOnClickListener(this);
         mBinding.finish.setOnClickListener(this);
         // Todo: Coach and Consultant Uncomment
-//        mBinding.detail.setOnClickListener(this);
+        mBinding.detail.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -139,36 +142,36 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
     }
 
     // Todo: Coach and Consultant Uncomment
-//    private void setProfile() {
-//
-//        String topic = mBinding.topic.getText().toString();
-//        String description = mBinding.description.getText().toString();
-//
-//        if (TextUtils.isEmpty(topic))
-//        {
-//            Toast.makeText(ProfileActivity.this, "Please enter topic...", Toast.LENGTH_SHORT).show();
-//        }
-//        if (TextUtils.isEmpty(description))
-//        {
-//            Toast.makeText(ProfileActivity.this, "Please enter description...", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            if (user != null) {
-//                Map<String, Object> userNew = new HashMap<>();
-//                userNew.put("topic", topic);
-//                userNew.put("description", description);
-//
-//                // Todo: Coach and Consultant Change
-//                db.collection("user").document(user.getUid())
-//                        .set(userNew, SetOptions.merge());
-//            }
-//        }
-//    }
+    private void setProfile() {
+
+        String topic = mBinding.topic.getText().toString();
+        String description = mBinding.description.getText().toString();
+
+        if (TextUtils.isEmpty(topic))
+        {
+            Toast.makeText(ProfileActivity.this, "Please enter topic...", Toast.LENGTH_SHORT).show();
+        }
+        if (TextUtils.isEmpty(description))
+        {
+            Toast.makeText(ProfileActivity.this, "Please enter description...", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (user != null) {
+                Map<String, Object> userNew = new HashMap<>();
+                userNew.put("topic", topic);
+                userNew.put("description", description);
+
+                // Todo: Coach and Consultant Change
+                db.collection("consultant").document(user.getUid())
+                        .set(userNew, SetOptions.merge());
+            }
+        }
+    }
 
     private void retrievePhoto() {
 
         // Todo: Coach and Consultant Change
-        DocumentReference docRef = db.collection("user").document(user.getUid());
+        DocumentReference docRef = db.collection("consultant").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -183,12 +186,12 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                                 .into(cek);
 
                         // Todo: Coach and Consultant Uncomment
-//                        if (document.getString("topic") != null) {
-//                            mBinding.topic.setText(document.getString("topic"));
-//                        }
-//                        if (document.getString("description") != null) {
-//                            mBinding.description.setText(document.getString("description"));
-//                        }
+                        if (document.getString("topic") != null) {
+                            mBinding.topic.setText(document.getString("topic"));
+                        }
+                        if (document.getString("description") != null) {
+                            mBinding.description.setText(document.getString("description"));
+                        }
                         mBinding.progressLoading.setVisibility(View.GONE);
                     } else {
                         Log.d(TAG, "No such document");
@@ -208,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
     private void uploadFirebaseStorage(byte[] data) {
 
         // Todo: Coach and Consultant Change
-        mImageRef = FirebaseStorage.getInstance().getReference("user").child(user.getUid());
+        mImageRef = FirebaseStorage.getInstance().getReference("consultant").child(user.getUid());
 
         mImageRef.putBytes(data)
                 .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -229,7 +232,7 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
 
                                 if (user != null) {
                                     // Todo: Coach and Consultant Change
-                                    db.collection("user").document(user.getUid())
+                                    db.collection("consultant").document(user.getUid())
                                             .set(profile, SetOptions.merge());
                                 }
 
@@ -297,19 +300,19 @@ public class ProfileActivity extends AppCompatActivity implements EasyPermission
                 break;
             case R.id.finish:
                 // Todo: Coach and Consultant Uncomment
-//                setProfile();
+                setProfile();
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             // Todo: Coach and Consultant Uncomment and Change
-//            case R.id.detail:
-//                Intent detailIntent = new Intent(ProfileActivity.this, DetailCoachActivity.class);
-//                detailIntent.putExtra(DetailCoachActivity.KEY_COACH_ID, user.getUid());
-//
-//                startActivity(detailIntent);
-//                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-//                break;
+            case R.id.detail:
+                Intent detailIntent = new Intent(ProfileActivity.this, DetailConsultantActivity.class);
+                detailIntent.putExtra(DetailConsultantActivity.KEY_CONSULTANT_ID, user.getUid());
+
+                startActivity(detailIntent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                break;
         }
     }
 }
