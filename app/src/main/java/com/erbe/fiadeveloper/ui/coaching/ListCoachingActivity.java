@@ -32,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
-public class ListCoachingActivity extends AppCompatActivity implements CoachingAdapter.OnCoachingSelectedListener, RatingDialogFragment.RatingListener {
+public class ListCoachingActivity extends AppCompatActivity implements CoachingAdapter.OnCoachingSelectedListener {
 
     private static final String TAG = "ListCoachingActivity";
 
@@ -44,7 +44,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
     private CoachingAdapter mAdapter;
 
     // Todo: Coach Comment
-    private RatingDialogFragment mRatingDialog;
+//    private RatingDialogFragment mRatingDialog;
 
     private String coachId;
 
@@ -67,7 +67,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
 
         // Get coaching
         // Todo: Coach and Consultant Change
-        mQuery = mFirestore.collection("coaching").whereEqualTo("status", "accepted").whereEqualTo("userId", user.getUid());
+        mQuery = mFirestore.collection("coaching").whereEqualTo("status", "accepted").whereEqualTo("coachId", user.getUid());
 
         // RecyclerView
         mAdapter = new CoachingAdapter(mQuery, this) {
@@ -96,7 +96,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
         mBinding.progressLoading.setVisibility(View.GONE);
 
         // Todo: Coach Comment
-        mRatingDialog = new RatingDialogFragment();
+//        mRatingDialog = new RatingDialogFragment();
     }
 
     @Override
@@ -133,19 +133,19 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
             Toast.makeText(ListCoachingActivity.this, "Chat is not available yet", Toast.LENGTH_SHORT).show();
 
         }
-        else if (model.getStatus().equals("rate")) {
-
-            // Todo: Coach Comment
-            coachId = model.getCoachId();
-
-            // Get reference to the restaurant
-            mCoachRef = mFirestore.collection("coach").document(coachId);
-
-            mCoachingRef = mFirestore.collection("coaching").document(coaching.getId());
-
-            mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
-
-        }
+//        else if (model.getStatus().equals("rate")) {
+//
+//            // Todo: Coach Comment
+//            coachId = model.getCoachId();
+//
+//            // Get reference to the restaurant
+//            mCoachRef = mFirestore.collection("coach").document(coachId);
+//
+//            mCoachingRef = mFirestore.collection("coaching").document(coaching.getId());
+//
+//            mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+//
+//        }
         else {
             Toast.makeText(this, "This coaching is alredy finished", Toast.LENGTH_SHORT).show();
         }
@@ -153,85 +153,85 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
     }
 
     // Todo: Coach Comment
-    @Override
-    public void onRating(Rating rating) {
-        // In a transaction, add the new rating and update the aggregate totals
-        addRating(mCoachRef, rating)
-                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Rating added");
-
-                        mCoachingRef
-                                .update("status", "finished")
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error updating document", e);
-                                    }
-                                });
-                        Toast.makeText(ListCoachingActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
-                        // Hide keyboard and scroll to top
-                        hideKeyboard();
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Add rating failed", e);
-
-                        // Show failure message and hide keyboard
-                        hideKeyboard();
-                        Snackbar.make(mBinding.getRoot(), "Failed to add rating",
-                                Snackbar.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    // Todo: Coach Comment
-    private Task<Void> addRating(final DocumentReference coachRef, final Rating rating) {
-        // Create reference for new rating, for use inside the transaction
-        final DocumentReference ratingRef = coachRef.collection("ratings").document();
-
-        // In a transaction, add the new rating and update the aggregate totals
-        return mFirestore.runTransaction(new Transaction.Function<Void>() {
-            @Override
-            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                Coach coach = transaction.get(coachRef).toObject(Coach.class);
-
-                // Compute new number of ratings
-                assert coach != null;
-                int newNumRatings = coach.getNumRatings() + 1;
-
-                // Compute new average rating
-                double oldRatingTotal = coach.getAvgRating() * coach.getNumRatings();
-                double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
-
-                // Set new restaurant info
-                coach.setNumRatings(newNumRatings);
-                coach.setAvgRating(newAvgRating);
-
-                // Commit to Firestore
-                transaction.set(coachRef, coach);
-                transaction.set(ratingRef, rating);
-
-                return null;
-            }
-        });
-    }
+//    @Override
+//    public void onRating(Rating rating) {
+//        // In a transaction, add the new rating and update the aggregate totals
+//        addRating(mCoachRef, rating)
+//                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Log.d(TAG, "Rating added");
+//
+//                        mCoachingRef
+//                                .update("status", "finished")
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+//                                    }
+//                                })
+//                                .addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Log.w(TAG, "Error updating document", e);
+//                                    }
+//                                });
+//                        Toast.makeText(ListCoachingActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
+//                        // Hide keyboard and scroll to top
+//                        hideKeyboard();
+//                    }
+//                })
+//                .addOnFailureListener(this, new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Add rating failed", e);
+//
+//                        // Show failure message and hide keyboard
+//                        hideKeyboard();
+//                        Snackbar.make(mBinding.getRoot(), "Failed to add rating",
+//                                Snackbar.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 
     // Todo: Coach Comment
-    private void hideKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+//    private Task<Void> addRating(final DocumentReference coachRef, final Rating rating) {
+//        // Create reference for new rating, for use inside the transaction
+//        final DocumentReference ratingRef = coachRef.collection("ratings").document();
+//
+//        // In a transaction, add the new rating and update the aggregate totals
+//        return mFirestore.runTransaction(new Transaction.Function<Void>() {
+//            @Override
+//            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+//                Coach coach = transaction.get(coachRef).toObject(Coach.class);
+//
+//                // Compute new number of ratings
+//                assert coach != null;
+//                int newNumRatings = coach.getNumRatings() + 1;
+//
+//                // Compute new average rating
+//                double oldRatingTotal = coach.getAvgRating() * coach.getNumRatings();
+//                double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
+//
+//                // Set new restaurant info
+//                coach.setNumRatings(newNumRatings);
+//                coach.setAvgRating(newAvgRating);
+//
+//                // Commit to Firestore
+//                transaction.set(coachRef, coach);
+//                transaction.set(ratingRef, rating);
+//
+//                return null;
+//            }
+//        });
+//    }
+
+    // Todo: Coach Comment
+//    private void hideKeyboard() {
+//        View view = getCurrentFocus();
+//        if (view != null) {
+//            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+//                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
 }
