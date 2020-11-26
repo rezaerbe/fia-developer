@@ -18,6 +18,7 @@ import com.erbe.fiadeveloper.databinding.ActivityListConsultationBinding;
 import com.erbe.fiadeveloper.model.Consultant;
 import com.erbe.fiadeveloper.model.Consultation;
 import com.erbe.fiadeveloper.model.Rating;
+import com.erbe.fiadeveloper.ui.coaching.ListCoachingActivity;
 import com.erbe.fiadeveloper.ui.fragment.RatingDialogFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -174,6 +175,7 @@ public class ListConsultationActivity extends AppCompatActivity implements Consu
                                         Log.w(TAG, "Error updating document", e);
                                     }
                                 });
+                        Toast.makeText(ListConsultationActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
                         // Hide keyboard and scroll to top
                         hideKeyboard();
                     }

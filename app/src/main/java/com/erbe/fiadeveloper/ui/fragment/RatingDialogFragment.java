@@ -77,7 +77,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                 mBinding.userFormRating.getRating(),
                 mBinding.userFormText.getText().toString());
 
-        if (mRatingListener != null && mBinding.userFormRating != null && !TextUtils.isEmpty(mBinding.userFormText.getText().toString())) {
+        if (mRatingListener != null && mBinding.userFormRating.getRating() != 0 && !TextUtils.isEmpty(mBinding.userFormText.getText().toString())) {
             mRatingListener.onRating(rating);
         } else {
             Toast.makeText(getContext(), "Please enter your review...", Toast.LENGTH_SHORT).show();

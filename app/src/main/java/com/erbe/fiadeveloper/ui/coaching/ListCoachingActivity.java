@@ -174,6 +174,7 @@ public class ListCoachingActivity extends AppCompatActivity implements CoachingA
                                         Log.w(TAG, "Error updating document", e);
                                     }
                                 });
+                        Toast.makeText(ListCoachingActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
                         // Hide keyboard and scroll to top
                         hideKeyboard();
                     }
