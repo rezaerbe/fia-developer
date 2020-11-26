@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.ArticleAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityListArticleBinding;
+import com.erbe.fiadeveloper.ui.content.ArticleContentActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,15 +49,15 @@ public class ListArticleActivity extends AppCompatActivity implements ArticleAda
         }
 
         // Todo: Writer Uncomment
-//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ListArticleActivity.this, ArticleContentActivity.class);
-//                intent.putExtra(ArticleContentActivity.ARTICLE_CATEGORY_ID, categoryId);
-//
-//                startActivity(intent);
-//            }
-//        });
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListArticleActivity.this, ArticleContentActivity.class);
+                intent.putExtra(ArticleContentActivity.ARTICLE_CATEGORY_ID, categoryId);
+
+                startActivity(intent);
+            }
+        });
 
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();

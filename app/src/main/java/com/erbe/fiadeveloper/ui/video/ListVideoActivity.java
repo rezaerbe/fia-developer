@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.VideoAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityListVideoBinding;
+import com.erbe.fiadeveloper.ui.content.VideoContentActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,13 +41,13 @@ public class ListVideoActivity extends AppCompatActivity implements VideoAdapter
         mFirestore = FirebaseFirestore.getInstance();
 
         // Todo: Writer Uncomment
-//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ListVideoActivity.this, VideoContentActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListVideoActivity.this, VideoContentActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Get video
         mQuery = mFirestore

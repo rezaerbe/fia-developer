@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.OriginalAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityListOriginalBinding;
+import com.erbe.fiadeveloper.ui.content.OriginalContentActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,15 +49,15 @@ public class ListOriginalActivity extends AppCompatActivity implements OriginalA
         }
 
         // Todo: Writer Uncomment
-//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ListOriginalActivity.this, OriginalContentActivity.class);
-//                intent.putExtra(OriginalContentActivity.ORIGINAL_CATEGORY_ID, categoryId);
-//
-//                startActivity(intent);
-//            }
-//        });
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListOriginalActivity.this, OriginalContentActivity.class);
+                intent.putExtra(OriginalContentActivity.ORIGINAL_CATEGORY_ID, categoryId);
+
+                startActivity(intent);
+            }
+        });
 
         // Firestore
         mFirestore = FirebaseFirestore.getInstance();

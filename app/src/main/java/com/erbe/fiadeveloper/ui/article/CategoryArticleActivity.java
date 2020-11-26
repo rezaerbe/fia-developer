@@ -1,22 +1,37 @@
 package com.erbe.fiadeveloper.ui.article;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.erbe.fiadeveloper.R;
 import com.erbe.fiadeveloper.adapter.CategoryArticleAdapter;
 import com.erbe.fiadeveloper.databinding.ActivityCategoryArticleBinding;
+import com.erbe.fiadeveloper.model.Category;
+import com.erbe.fiadeveloper.ui.fragment.CategoryDialogFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
-public class CategoryArticleActivity extends AppCompatActivity implements CategoryArticleAdapter.OnCategoryArticleSelectedListener {
+import java.util.HashMap;
+import java.util.Map;
+
+public class CategoryArticleActivity extends AppCompatActivity implements CategoryArticleAdapter.OnCategoryArticleSelectedListener
+        , CategoryDialogFragment.CategoryListener{
 
     private static final String TAG = "CatArticleActivity";
 
@@ -28,7 +43,7 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
     private CategoryArticleAdapter mAdapter;
 
     // Todo: Writer Uncomment
-//    private CategoryDialogFragment mCategoryDialog;
+    private CategoryDialogFragment mCategoryDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +60,13 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
         mQuery = mFirestore.collection("article");
 
         // Todo: Writer Uncomment
-//        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                mCategoryDialog.show(getSupportFragmentManager(), CategoryDialogFragment.TAG);
-//            }
-//        });
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mCategoryDialog.show(getSupportFragmentManager(), CategoryDialogFragment.TAG);
+            }
+        });
 
         // RecyclerView
         mAdapter = new CategoryArticleAdapter(mQuery, this) {
@@ -80,7 +95,7 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
         mBinding.progressLoading.setVisibility(View.GONE);
 
         // Todo: Writer Uncomment
-//        mCategoryDialog = new CategoryDialogFragment();
+        mCategoryDialog = new CategoryDialogFragment();
     }
 
     @Override
@@ -112,37 +127,37 @@ public class CategoryArticleActivity extends AppCompatActivity implements Catego
     }
 
     // Todo: Writer Uncomment
-//    @Override
-//    public void onCategory(Category category) {
-//
-//        CollectionReference docRef = mFirestore.collection("article");
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("catName", category.getCatName());
-//
-//        docRef
-//                .add(data)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Toast.makeText(CategoryArticleActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
-//                        hideKeyboard();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error adding document", e);
-//                        hideKeyboard();
-//                    }
-//                });
-//    }
+    @Override
+    public void onCategory(Category category) {
+
+        CollectionReference docRef = mFirestore.collection("article");
+        Map<String, Object> data = new HashMap<>();
+        data.put("catName", category.getCatName());
+
+        docRef
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(CategoryArticleActivity.this, "Submit Success", Toast.LENGTH_SHORT).show();
+                        hideKeyboard();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        hideKeyboard();
+                    }
+                });
+    }
 
     // Todo: Writer Uncomment
-//    private void hideKeyboard() {
-//        View view = getCurrentFocus();
-//        if (view != null) {
-//            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-//                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
-//        }
-//    }
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 }
